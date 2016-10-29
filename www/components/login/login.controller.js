@@ -1,18 +1,18 @@
 angular.module('login')
 
-.controller('LoginController', function($scope, LoginService) {
+.controller('LoginController', function(LoginService) {
 	var vm = this
 
 	/* Properties */
-	vm.user = {}
+	vm.user = {username: '', password: ''}
 
 	/* Methods */
-	vm.login = login;
+	vm.doLogin = doLogin;
 
 	/**********/
 
-	function login(user) {
-		LoginService.login(user)
+	function doLogin() {
+		LoginService.login(vm.user.username, vm.user.password)
 			.then(
 				function(user) {
 					alert('Login com sucesso!!!')
