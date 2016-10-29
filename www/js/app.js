@@ -36,7 +36,7 @@ angular.module('ourigol', ['ionic', 'login'])
       views: {
         'menuContent': {
           templateUrl: 'login/login.html',
-          controller: 'LoginController'
+          controller: 'LoginController as ctrl'
         }
       }
     });
