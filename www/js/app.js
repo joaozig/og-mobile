@@ -23,6 +23,8 @@ angular.module('ourigol', ['ionic', 'login'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+  var componentsFolder = 'components';
+
   $stateProvider
 
     .state('app', {
@@ -35,7 +37,7 @@ angular.module('ourigol', ['ionic', 'login'])
       url: '/login',
       views: {
         'menuContent': {
-          templateUrl: 'login/login.html',
+          templateUrl: componentsFolder + '/login/login.html',
           controller: 'LoginController as ctrl'
         }
       }
