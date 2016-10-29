@@ -39,13 +39,13 @@ describe('LoginController', function() {
 	  });
 
 	  describe('when the login is executed', function() {
-	  	it('if successful, should return the username', function() {
+	  	xit('if successful, should return the username', function() {
 	  		/* PENDING */
 	  		// deferredLogin.resolve();
 	  		// $rootScope.$digest();
 	  	});
 
-	  	it('if unsuccessful, should show a popup', function() {
+	  	xit('if unsuccessful, should show a popup', function() {
 	  		/* PENDING */
 	  		// deferredLogin.reject();
 	  		// $rootScope.$digest();
