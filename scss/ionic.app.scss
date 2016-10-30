@@ -15,7 +15,8 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
-$positive: #16A085 !default;
+$positive: 	#16A085 !default;
+$dark:			#2C3E50 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -35,6 +36,11 @@ $padding-bottom-logo: 10px;
 
 .bg-logo {
 	background-color: white;
+}
+
+.nav-bar-img-logo {
+	padding-top: 10px;
+	height: 30px;
 }
 
 .bg-login {
