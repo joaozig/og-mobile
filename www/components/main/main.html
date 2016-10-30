@@ -9,6 +9,12 @@
     </ion-nav-title>
 	</ion-nav-bar>
   <ion-content>
-    <h2>Principal</h2>
+  	<ion-list>
+  		<ion-item ng-repeat="sport in ctrl.sports" href="#/app/countries/{{sport.id}}">
+  			{{sport.name}}
+  		</ion-item>
+  	</ion-list>
+  	<ion-footer class="bar bar-footer bar-dark">
+  	</ion-footer>
   </ion-content>
 </ion-view>
