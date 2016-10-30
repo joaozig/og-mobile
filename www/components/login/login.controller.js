@@ -1,7 +1,11 @@
 angular.module('login')
 
-.controller('LoginController', function(LoginService) {
-	var vm = this
+.controller('LoginController', function($state, $ionicHistory, LoginService) {
+	var vm = this;
+
+  $ionicHistory.nextViewOptions({
+     disableBack: true
+  });
 
 	/* Properties */
 	vm.user = {username: '', password: ''}
@@ -15,7 +19,7 @@ angular.module('login')
 		LoginService.login(vm.user.username, vm.user.password)
 			.then(
 				function(user) {
-					alert('Login com sucesso!!!')
+					$state.go('app.main');
 				},
 				function(errorMessage) {
 					alert(errorMessage)
