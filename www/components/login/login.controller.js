@@ -1,6 +1,6 @@
 angular.module('login')
 
-.controller('LoginController', function($state, $ionicHistory, LoginService) {
+.controller('LoginController', function($state, $ionicHistory, $ionicPopup, LoginService) {
 	var vm = this;
 
   $ionicHistory.nextViewOptions({
@@ -22,7 +22,10 @@ angular.module('login')
 					$state.go('app.main');
 				},
 				function(errorMessage) {
-					alert(errorMessage)
+					$ionicPopup.alert({
+						title: 'Login falhou :(',
+						template: errorMessage
+					});
 				}
 			);
 	}

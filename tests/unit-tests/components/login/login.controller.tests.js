@@ -3,6 +3,9 @@ describe('LoginController', function() {
 	var controller;
 	var deferredLogin;
 	var loginServiceMock;
+	var stateMock;
+	var ionicPopupMock;
+	var ionicHistoryMock;
 	var $rootScope;
 
 	beforeEach(module('login'));
@@ -10,16 +13,33 @@ describe('LoginController', function() {
 	beforeEach(inject(function($controller, $q) {
 		deferredLogin = $q.defer();
 
+		// mock LoginService
 		loginServiceMock = {
 			login: jasmine.createSpy('login spy').and.returnValue(deferredLogin.promise)
 		};
 
-		controller = $controller('LoginController', {LoginService: loginServiceMock});
+    // mock $state
+    stateMock = jasmine.createSpyObj('$state spy', ['go']);
+    // mock $ionicPopup
+    ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['alert']);
+    // mock $ionicHistory
+    ionicHistoryMock = jasmine.createSpyObj('$ionicHistory spy', ['nextViewOptions']);
+
+		controller = $controller('LoginController', {
+			$state: stateMock,
+			$ionicPopup: ionicPopupMock,
+			$ionicHistory: ionicHistoryMock,
+			LoginService: loginServiceMock
+		});
 	}));
 
   describe('Initialization', function() {
 		it('should have an empty user', function() {
 			expect(controller.user).toEqual({username: '', password: ''});
+		});
+
+		it('should disable Back Button history navigation', function() {
+ 			expect(ionicHistoryMock.nextViewOptions).toHaveBeenCalledWith({disableBack: true});
 		});
   });
 
@@ -39,16 +59,16 @@ describe('LoginController', function() {
 	  });
 
 	  describe('when the login is executed', function() {
-	  	xit('if successful, should return the username', function() {
-	  		/* PENDING */
-	  		// deferredLogin.resolve();
-	  		// $rootScope.$digest();
+	  	it('if successful, should return the username', function() {
+	  		deferredLogin.resolve();
+	  		$rootScope.$digest();
+	  		expect(stateMock.go).toHaveBeenCalledWith('app.main');
 	  	});
 
-	  	xit('if unsuccessful, should show a popup', function() {
-	  		/* PENDING */
-	  		// deferredLogin.reject();
-	  		// $rootScope.$digest();
+	  	it('if unsuccessful, should show a popup', function() {
+	  		deferredLogin.reject();
+	  		$rootScope.$digest();
+	  		expect(ionicPopupMock.alert).toHaveBeenCalled();
 	  	});
 	  });
   });
