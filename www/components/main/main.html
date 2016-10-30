@@ -10,8 +10,12 @@
 	</ion-nav-bar>
   <ion-content>
   	<ion-list>
-  		<ion-item ng-repeat="sport in ctrl.sports" href="#/app/countries/{{sport.id}}">
-  			{{sport.name}}
+  		<ion-item ng-repeat="sport in ctrl.sports"
+                href="#/app/countries/{{sport.id}}"
+                class="item-icon-right">
+
+        {{sport.name}}
+        <i class="icon ion-chevron-right icon-accessory"></i>
   		</ion-item>
   	</ion-list>
   	<ion-footer class="bar bar-footer bar-dark">
