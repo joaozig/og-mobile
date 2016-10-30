@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('ourigol', ['ionic', 'login'])
+angular.module('ourigol', ['ionic', 'login', 'main'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -39,6 +39,16 @@ angular.module('ourigol', ['ionic', 'login'])
         'menuContent': {
           templateUrl: componentsFolder + '/login/login.html',
           controller: 'LoginController as ctrl'
+        }
+      }
+    })
+
+    .state('app.main', {
+      url: '/main',
+      views: {
+        'menuContent': {
+          templateUrl: componentsFolder + '/main/main.html',
+          controller: 'MainController as ctrl'
         }
       }
     });
