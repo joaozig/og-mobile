@@ -1,6 +1,6 @@
 angular.module('main')
 
-.controller('MainController', function(MainService) {
+.controller('MainController', function($ionicPopup, MainService) {
 	var vm = this
 
 	/* Properties */
