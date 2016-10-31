@@ -1,7 +1,7 @@
 angular.module('main')
 
 .controller('MainController', function($ionicPopup, MainService) {
-	var vm = this
+	var vm = this;
 
 	/* Properties */
 	vm.sports = [];

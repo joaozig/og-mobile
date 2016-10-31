@@ -1,5 +1,31 @@
 angular.module('countries')
 
-.controller('CountriesController', function() {
+.controller('CountriesController', function($stateParams, $ionicPopup, MainService) {
 
+	var vm = this;
+
+	/* Properties */
+	vm.sport = {};
+	vm.countries = [];
+
+	/* Public Methods */
+
+	/* Initialization */
+	init();
+
+	/**********/
+
+	function init() {
+		MainService.getSport($stateParams.sportId).then(
+			function(sport) {
+				vm.sport = sport;
+			},
+			function(errorMessage) {
+				$ionicPopup.alert({
+					title: 'Algo falhou :(',
+					template: errorMessage
+				});
+			}
+		);
+	}
 });
