@@ -35,7 +35,8 @@ angular.module('ourigol', [
     .state('app', {
       url: '/app',
       abstract: true,
-      templateUrl: 'templates/menu.html'
+      templateUrl: 'templates/menu.html',
+      controller: 'AppController as ctrl'
     })
 
     .state('app.login', {
@@ -69,6 +70,16 @@ angular.module('ourigol', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  // $urlRouterProvider.otherwise('/app/login');
-  $urlRouterProvider.otherwise('/app/main');
+  $urlRouterProvider.otherwise('/app/login');
+  // $urlRouterProvider.otherwise('/app/main');
+})
+
+.controller('AppController', function($state) {
+  var vm = this;
+
+  vm.doLogout = doLogout;
+
+  function doLogout() {
+    $state.go('app.login');
+  }
 });
