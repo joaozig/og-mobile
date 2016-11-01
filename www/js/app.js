@@ -8,7 +8,8 @@ angular.module('ourigol', [
   'ionic',
   'login',
   'main',
-  'countries'
+  'countries',
+  'championship'
 ])
 
 .run(function($ionicPlatform) {
@@ -65,6 +66,16 @@ angular.module('ourigol', [
         'menuContent': {
           templateUrl: componentsFolder + '/countries/countries.html',
           controller: 'CountriesController as ctrl'
+        }
+      }
+    })
+
+    .state('app.championships', {
+      url: '/championships/:countryId',
+      views: {
+        'menuContent': {
+          templateUrl: componentsFolder + '/championship/championship.html',
+          controller: 'ChampionshipController as ctrl'
         }
       }
     });
