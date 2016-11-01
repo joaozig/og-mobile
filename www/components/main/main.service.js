@@ -27,7 +27,6 @@ angular.module('main')
 		});
 
     if(sport) {
-    	console.log(sport)
     	deferred.resolve(sport)
     } else {
       deferred.reject('Esporte não encontrado.')
