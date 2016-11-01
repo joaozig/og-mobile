@@ -9,13 +9,13 @@ angular.module('countries')
 		{id: 1, name: 'Argentina'},
 		{id: 2, name: 'Brasil'},
 		{id: 3, name: 'Estados Unidos'},
-		{id: 4, name: 'França'}
+		{id: 4, name: 'França'},
 		{id: 5, name: 'Portugal'}
 	];
 
 	/* Methods */
 	service.getCountry = getCountry;
-	service.getContries = getCountry;
+	service.getCountries = getCountries;
 
 	/**********/
 
@@ -36,7 +36,7 @@ angular.module('countries')
 	  return deferred.promise;
 	}
 
-	function getCountries() {
+	function getCountries(sportId) {
 		var deferred = $q.defer();
 		var successfulHttpRequest = true;
 

@@ -1,6 +1,14 @@
 <ion-view>
   <ion-nav-title>{{ctrl.sport.name}}</ion-nav-title>
   <ion-content>
-    <h3>Countries</h3>
+  	<ion-list>
+  		<ion-item ng-repeat="country in ctrl.countries"
+                href="#/app/games/{{sport.id}}/{{country.id}}"
+                class="item-icon-right">
+
+        {{country.name}}
+        <i class="icon ion-chevron-right icon-accessory"></i>
+  		</ion-item>
+  	</ion-list>
   </ion-content>
 </ion-view>

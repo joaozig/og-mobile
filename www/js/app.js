@@ -70,8 +70,8 @@ angular.module('ourigol', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
-  // $urlRouterProvider.otherwise('/app/main');
+  // $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/app/main');
 })
 
 .controller('AppController', function($state) {
