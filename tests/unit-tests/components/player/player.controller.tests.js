@@ -16,11 +16,6 @@ describe('PlayerController', function() {
 		deferredBet = $q.defer();
 		$rootScope = _$rootScope_;
 
-		// mock betServiceWithBet
-		// betServiceMock = {
-		// 	getBetSuccess: jasmine.createSpy('withBet spy').and.returnValue(betMock),
-		// 	getBetFailed: jasmine.createSpy('withoutBet spy').and.returnValue(null)
-		// };
 		betServiceMock = {
 			getBet: jasmine.createSpy('withBet spy').and.returnValue(betMock),
 		};
