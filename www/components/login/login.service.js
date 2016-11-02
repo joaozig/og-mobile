@@ -2,12 +2,22 @@ angular.module('login')
 
 .service('LoginService', function($q) {
 
-	this.login = function(username, password) {
-		var deferred = $q.defer();
+	var service = this;
+	service.validUsers = [
+		{username: 'admin', password: 'admin'},
+		{username: 'marcos_ourica', password: 'marcos_ourica'},
+		{username: 'joao', password: 'joao'}
+	];
 
-    if(username == 'joao@joao.com' && password == '123') {
-			window.localStorage.setItem('user', 'joao');
-    	deferred.resolve(username)
+	service.login = function(username, password) {
+		var deferred = $q.defer();
+		var user = service.validUsers.find(function(user) {
+			return (user.username == username && user.password == password);
+		});
+
+    if(user) {
+			window.localStorage.setItem('user', user);
+    	deferred.resolve(user)
     } else {
       deferred.reject('Usuário e/ou Senha incorreto(s)')
     }
