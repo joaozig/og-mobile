@@ -1,5 +1,42 @@
-<ion-view view-title="Jogador">
+<ion-view view-title="Adicionar Aposta">
   <ion-content>
-  Jogador
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+      	<span class="input-label">Apostador</span>
+        <input type="text" placeholder="Nome do apostador" ng-model="ctrl.user.username">
+      </label>
+      <label class="item item-input item-stacked-label">
+      	<span class="input-label">Valor</span>
+        <input type="text" placeholder="Valor a ser apostado" ng-model="ctrl.user.username">
+      </label>
+    </div>
+  	<div class="row">
+  		<div class="col">
+				<button class="button button-block button-positive">Adicionar Aposta</button>
+  		</div>
+  	</div>
+
+  	<div class="card">
+  		<div class="item item-divider item-positive">
+  			Aposta Ativa
+  		</div>
+  		<div class="item text-wrap">
+  			<div>
+					<strong>Apostador:</strong> Fulano de Tal
+  			</div>
+  			<div>
+					<strong>Aposta:</strong> R$ 1.000,00
+  			</div>
+  			<div>
+					<strong>Palpites:</strong> 3
+  			</div>
+  			<div>
+					<strong>Prêmio:</strong> R$ 5.000,00
+  			</div>
+  			<div>
+  				<a href="#/app/bet" class="button button-block button-stable">Detalhar aposta</a>
+  			</div>
+  		</div>
+  	</div>
   </ion-content>
 </ion-view>
