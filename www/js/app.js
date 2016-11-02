@@ -92,8 +92,11 @@ angular.module('ourigol', [
     });
 
   // if none of the above states are matched, use this as the fallback
-  // $urlRouterProvider.otherwise('/app/login');
-  $urlRouterProvider.otherwise('/app/main');
+  if(window.localStorage.getItem('user')) {
+    $urlRouterProvider.otherwise('/app/main');
+  } else {
+    $urlRouterProvider.otherwise('/app/login');
+  }
 })
 
 .controller('AppController', function($state) {
@@ -102,6 +105,7 @@ angular.module('ourigol', [
   vm.doLogout = doLogout;
 
   function doLogout() {
+    window.localStorage.removeItem('user');
     $state.go('app.login');
   }
 });
