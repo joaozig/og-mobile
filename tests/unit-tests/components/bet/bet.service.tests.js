@@ -76,6 +76,20 @@ describe('BetService', function() {
 					$rootScope.$apply();
 	  		});
   		});
+  		describe('because the betAmount is not a valid float', function() {
+	  		it('should not set a new bet object', function() {
+					betAmount = 'string';
+					service.addBet(playerName, betAmount).then(
+						function(bet) {
+							expect(bet).toEqual(null);
+						},
+						function(errorMessage) {
+							expect(errorMessage).toEqual('Preencha o valor a ser apostado');
+						}
+					);
+					$rootScope.$apply();
+	  		});
+  		});
   		describe('because the betAmount is negative', function() {
 	  		it('should not set a new bet object', function() {
 					betAmount = '-2';
