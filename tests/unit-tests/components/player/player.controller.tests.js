@@ -3,6 +3,8 @@ describe('PlayerController', function() {
 	var controller;
 	var deferredBet;
 	var betServiceMock;
+	var stateMock;
+	var ionicPopupMock;
 	var $rootScope;
 	var betMock = {
 		playerName: 'Player Name',
@@ -16,16 +18,32 @@ describe('PlayerController', function() {
 		deferredBet = $q.defer();
 		$rootScope = _$rootScope_;
 
+		// mock BetService
 		betServiceMock = {
-			getBet: jasmine.createSpy('withBet spy').and.returnValue(betMock),
+			getBet: jasmine.createSpy('getBet spy').and.returnValue(betMock),
+			addBet: jasmine.createSpy('addBet spy').and.returnValue(deferredBet.promise)
 		};
+    // mock $state
+    stateMock = jasmine.createSpyObj('$state spy', ['go']);
+    // mock $ionicPopup
+    ionicPopupMock = jasmine.createSpyObj('$ionicPopup spy', ['alert']);
 
 		controller = $controller('PlayerController', {
+			$state: stateMock,
+			$ionicPopup: ionicPopupMock,
 			BetService: betServiceMock
 		});
 	}));
 
   describe('Initialization', function() {
+		it('should have an empty playerName', function() {
+			expect(controller.playerName).toEqual('');
+		});
+
+		it('should have an empty betAmount', function() {
+			expect(controller.betAmount).toEqual('');
+		});
+
 		it('should have a bet object from BetService', function() {
 			expect(controller.bet).toEqual(betMock);
 		});
@@ -38,5 +56,26 @@ describe('PlayerController', function() {
 		  	});
 			});
 		});
+  });
+
+  describe('#addBet', function() {
+  	beforeEach(function() {
+  		controller.addBet();
+  	});
+
+  	describe('when it successful', function() {
+  		it('should redirect to Main page', function() {
+	  		deferredBet.resolve();
+	  		$rootScope.$digest();
+	  		expect(stateMock.go).toHaveBeenCalledWith('app.main');
+  		});
+  	});
+  	describe('when it unsuccessful', function() {
+  		it('should show a popup with error message', function() {
+	  		deferredBet.reject();
+	  		$rootScope.$digest();
+	  		expect(ionicPopupMock.alert).toHaveBeenCalled();
+  		});
+  	});
   });
 });
