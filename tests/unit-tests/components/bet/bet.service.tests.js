@@ -136,4 +136,12 @@ describe('BetService', function() {
 			});
   	});
   });
+
+  describe('#removeBet', function() {
+		it('should remove the bet', function() {
+			window.localStorage.setItem(BET_CONSTANT, JSON.stringify(betMock));
+			service.removeBet();
+			expect(window.localStorage.getItem(BET_CONSTANT)).toEqual(null);
+		});
+  });
 });

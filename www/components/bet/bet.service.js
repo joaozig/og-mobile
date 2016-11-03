@@ -9,6 +9,7 @@ angular.module('bet')
 	/* Public Methods */
 	service.addBet = addBet;
 	service.getBet = getBet;
+	service.removeBet = removeBet;
 
 	/* Initialization */
 	init();
@@ -40,6 +41,11 @@ angular.module('bet')
 
 	function getBet() {
 		return JSON.parse(window.localStorage.getItem(BET));
+	}
+
+	function removeBet() {
+		window.localStorage.removeItem(BET);
+		return (service.getBet() == null);
 	}
 
 	/* Private Methods */
