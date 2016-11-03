@@ -5,12 +5,13 @@ angular.module('player')
 	var vm = this;
 
 	/* Properties */
-	vm.bet = {};
+	vm.bet = null;
 	vm.playerName = '';
 	vm.betAmount = '';
 
 	/* Public Methods */
 	vm.addBet = addBet;
+	vm.removeBet = removeBet;
 
 	/* Initialization */
 	init();
@@ -18,13 +19,12 @@ angular.module('player')
 	/********/
 	function init() {
 		vm.bet = BetService.getBet();
-		console.log(vm.bet)
 	}
 
 	function addBet() {
 		BetService.addBet(vm.playerName, vm.betAmount).then(
 			function(bet) {
-				$state.go('app.main');
+				vm.bet = bet;
 			},
 			function(errorMessage) {
 				$ionicPopup.alert({
@@ -33,5 +33,25 @@ angular.module('player')
 				});
 			}
 		);
+	}
+
+	function removeBet() {
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'Excluir Aposta',
+			template: 'Você deseja realmente excluir a aposta?'
+		});
+
+		confirmPopup.then(function(confirmed) {
+			if(confirmed) {
+				if(BetService.removeBet()) {
+					vm.bet = null;
+				} else {
+						$ionicPopup.alert({
+							title: 'Algo falhou :(',
+							template: 'Não foi possível remover a aposta'
+						});
+				}
+			}
+		});
 	}
 });

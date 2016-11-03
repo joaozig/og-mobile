@@ -65,9 +65,9 @@ describe('PlayerController', function() {
 
   	describe('when it successful', function() {
   		it('should redirect to Main page', function() {
-	  		deferredBet.resolve();
+	  		deferredBet.resolve(betMock);
 	  		$rootScope.$digest();
-	  		expect(stateMock.go).toHaveBeenCalledWith('app.main');
+	  		expect(controller.bet).toEqual(betMock);
   		});
   	});
   	describe('when it unsuccessful', function() {
