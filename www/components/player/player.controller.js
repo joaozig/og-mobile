@@ -45,6 +45,8 @@ angular.module('player')
 			if(confirmed) {
 				if(BetService.removeBet()) {
 					vm.bet = null;
+					vm.playerName = '';
+					vm.betAmount = '';
 				} else {
 						$ionicPopup.alert({
 							title: 'Algo falhou :(',
