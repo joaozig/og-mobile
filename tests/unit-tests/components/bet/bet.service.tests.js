@@ -3,10 +3,9 @@ describe('BetService', function() {
 	var service;
 	var BET_CONSTANT = 'bet';
 	var $rootScope;
-	var betMock = {
+	var betParamsMock = {
 		playerName: 'Player Name',
-		betAmount: 100.50,
-		bets: 2
+		betAmount: 100.50
 	};
 
 	beforeEach(module('bet'));
@@ -22,18 +21,18 @@ describe('BetService', function() {
   	beforeEach(function() {
 			playerName = 'New Player';
 			betAmount = 50;
-			expectedBet = {
+			var params = {
 				playerName: playerName,
-				betAmount: betAmount,
-				bets: 0
+				betAmount: betAmount
 			};
+			expectedBet = new Bet(params);
   	});
 
   	describe('when it successful', function() {
   		it('should return the new bet object', function() {
 				service.addBet(playerName, betAmount).then(
 					function(bet) {
-						expect(expectedBet).toEqual(bet);
+						expect(expectedBet.playerName).toEqual(bet.playerName);
 					},
 					function(errorMessage) {
 						expect(errorMessage).toEqual(null);
@@ -124,9 +123,12 @@ describe('BetService', function() {
   describe('#getBet', function() {
   	describe('when there is an active bet', function() {
   		it('should return the bet object', function() {
-				window.localStorage.setItem(BET_CONSTANT, JSON.stringify(betMock));
+				window.localStorage.setItem(BET_CONSTANT, JSON.stringify(betParamsMock));
 				var betReturned = service.getBet();
-				expect(betReturned).toEqual(betMock);
+				expect(betReturned.playerName).toEqual(betParamsMock.playerName);
+				expect(betReturned.betAmount).toEqual(betParamsMock.betAmount);
+				expect(betReturned.tickets).toEqual([]);
+				expect(betReturned.jackpot()).toEqual(0);
   		});
   	});
   	describe('when there is no bet', function() {
@@ -139,7 +141,7 @@ describe('BetService', function() {
 
   describe('#removeBet', function() {
 		it('should remove the bet', function() {
-			window.localStorage.setItem(BET_CONSTANT, JSON.stringify(betMock));
+			window.localStorage.setItem(BET_CONSTANT, JSON.stringify(betParamsMock));
 			service.removeBet();
 			expect(window.localStorage.getItem(BET_CONSTANT)).toEqual(null);
 		});

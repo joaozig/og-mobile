@@ -1,7 +1,6 @@
 describe('BetModel', function() {
 	var bet;
 	var options = {
-		id: 1,
 		playerName: 'Player',
 		betAmount: 100
 	};
@@ -12,9 +11,6 @@ describe('BetModel', function() {
 				bet = new Bet(options);
 			});
 
-			it('id should be the same as passed in options object', function() {
-				expect(bet.id).toEqual(options.id);
-			});
 			it('playerName should be the same as passed in options object', function() {
 				expect(bet.playerName).toEqual(options.playerName);
 			});
@@ -31,9 +27,6 @@ describe('BetModel', function() {
 				bet = new Bet();
 			});
 
-			it('id should be the same as passed in options object', function() {
-				expect(bet.id).toEqual(null);
-			});
 			it('playerName should be the same as passed in options object', function() {
 				expect(bet.playerName).toEqual('');
 			});

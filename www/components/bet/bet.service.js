@@ -24,13 +24,14 @@ angular.module('bet')
 
 		var validation = validateBet(playerName, betAmount);
 		if(validation.valid) {
-			var bet = {
+			var params = {
 				playerName: playerName,
-				betAmount: betAmount,
-				bets: 0
+				betAmount: betAmount
 			};
 
-			window.localStorage.setItem(BET, JSON.stringify(bet));
+			var bet = new Bet(params)
+
+			window.localStorage.setItem(BET, JSON.stringify(params));
 			deferred.resolve(bet);
 		} else {
 			deferred.reject(validation.message);
@@ -40,7 +41,12 @@ angular.module('bet')
 	}
 
 	function getBet() {
-		return JSON.parse(window.localStorage.getItem(BET));
+		var params = JSON.parse(window.localStorage.getItem(BET));
+		if(params != null) {
+			return new Bet(params);
+		} else {
+			return null;
+		}
 	}
 
 	function removeBet() {
