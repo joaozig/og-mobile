@@ -27,7 +27,7 @@ describe('TicketModel', function() {
 			it('id should be the same as passed in options object', function() {
 				expect(ticket.id).toEqual(null);
 			});
-			it('playerName should be the same as passed in options object', function() {
+			it('tax should be the same as passed in options object', function() {
 				expect(ticket.tax).toEqual(0);
 			});
 		});
