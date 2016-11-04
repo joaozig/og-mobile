@@ -3,6 +3,7 @@ angular.module('player')
 .controller('PlayerController', function($state, $ionicPopup, BetService) {
 
 	var vm = this;
+	vm.util = new Util();
 
 	/* Properties */
 	vm.bet = null;

@@ -28,13 +28,13 @@
   					<strong>Apostador:</strong> {{ctrl.bet.playerName}}
     			</div>
     			<div>
-  					<strong>Aposta:</strong> {{ctrl.bet.betAmount}}
+  					<strong>Aposta:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.betAmount)}}
     			</div>
     			<div>
-  					<strong>Palpites:</strong> {{ctrl.bet.bets}}
+  					<strong>Palpites:</strong> {{ctrl.bet.tickets.length}}
     			</div>
     			<div>
-  					<strong>Prêmio:</strong> R$ 5.000,00
+  					<strong>Prêmio:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.jackpot())}}
     			</div>
     			<div>
             <a href="#/app/bet" class="button button-block button-stable">Detalhar aposta</a>
