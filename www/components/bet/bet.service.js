@@ -8,6 +8,7 @@ angular.module('bet')
 
 	/* Public Methods */
 	service.addBet = addBet;
+	service.addTicket = addTicket;
 	service.getBet = getBet;
 	service.removeBet = removeBet;
 
@@ -30,14 +31,25 @@ angular.module('bet')
 			};
 
 			var bet = new Bet(params)
-
-			window.localStorage.setItem(BET, JSON.stringify(params));
+			saveBet(bet);
 			deferred.resolve(bet);
 		} else {
 			deferred.reject(validation.message);
 		}
 
 		return deferred.promise;
+	}
+
+	function addTicket(ticket) {
+		var bet = service.getBet();
+
+		if(!bet) {
+			return false;
+		}
+
+		bet.tickets.push(ticket);
+		saveBet(bet);
+		return true;
 	}
 
 	function getBet() {
@@ -55,6 +67,15 @@ angular.module('bet')
 	}
 
 	/* Private Methods */
+
+	function saveBet(bet) {
+		var params = {
+			playerName: bet.playerName,
+			betAmount: bet.betAmount,
+			tickets: bet.tickets
+		}
+		window.localStorage.setItem(BET, JSON.stringify(params));
+	}
 
 	function validateBet(playerName, betAmount) {
 		betAmount = parseFloat(betAmount);

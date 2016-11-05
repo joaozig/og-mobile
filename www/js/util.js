@@ -1,9 +1,13 @@
 function Util() {
 
 	/* Public Methods */
-	this.formattedValue = function(value) {
-		// returns the value with brazilian money format
-		return number_format(value, 2, ',', '.');
+    this.formattedValue = function(value) {
+        // returns the value with brazilian money format
+        return number_format(value, 2, ',', '.');
+    }
+
+	this.formattedTaxValue = function(value) {
+		return value.toString().replace('.', ',');
 	}
 
 	/* Private Methods */

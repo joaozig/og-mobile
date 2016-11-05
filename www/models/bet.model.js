@@ -16,7 +16,7 @@ function Bet(options) {
 	function init() {
 		model.playerName = (options && options.playerName) ? options.playerName : '';
 		model.betAmount = (options && options.betAmount) ? options.betAmount : 0;
-		model.tickets = [];
+		model.tickets = (options && options.tickets) ? options.tickets : [];
 	}
 
 	function jackpot() {

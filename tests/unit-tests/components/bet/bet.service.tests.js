@@ -5,7 +5,8 @@ describe('BetService', function() {
 	var $rootScope;
 	var betParamsMock = {
 		playerName: 'Player Name',
-		betAmount: 100.50
+		betAmount: 100.50,
+		tickets: []
 	};
 
 	beforeEach(module('bet'));
@@ -117,6 +118,28 @@ describe('BetService', function() {
 					$rootScope.$apply();
 	  		});
   		});
+  	});
+  });
+
+  describe('#addTicket', function() {
+  	describe('when there is an active bet', function() {
+  		it('should save ticket to bet and return true', function() {
+				window.localStorage.setItem(BET_CONSTANT, JSON.stringify(betParamsMock));
+				var betReturned = service.getBet();
+				var ticket = new Ticket({id: 1, name: '1 gol', tax: 2.5, ticketType: new TicketType()})
+				var addReturn = service.addTicket(ticket);
+				var betUpdated = service.getBet();
+
+				expect(addReturn).toBeTruthy();
+				expect(betUpdated.tickets.length).toEqual(1);
+				expect(betUpdated.jackpot()).toEqual(251.25)
+  		});
+  	});
+  	describe('when there is no bet', function() {
+			it('should return null', function() {
+				window.localStorage.removeItem(BET_CONSTANT);
+				expect(service.getBet()).toEqual(null);
+			});
   	});
   });
 

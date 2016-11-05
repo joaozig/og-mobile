@@ -22,4 +22,22 @@ describe('Util', function() {
 			});
 		});
 	});
+
+	describe('#formattedTaxValue', function() {
+		describe('when is a integer', function() {
+			it("should return the same toString() value", function() {
+				expect(util.formattedTaxValue(1)).toEqual('1');
+			});
+		});
+		describe('when has just 1 decimal place', function() {
+			it("should return the same toString value with '.' replaced by ','", function() {
+				expect(util.formattedTaxValue(23.4)).toEqual("23,4");
+			});
+		});
+		describe('when has 2 decimals place', function() {
+			it("should return the same toString value with '.' replaced by ','", function() {
+				expect(util.formattedTaxValue(23.45)).toEqual("23,45");
+			});
+		});
+	});
 });
