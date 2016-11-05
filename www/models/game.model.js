@@ -7,6 +7,7 @@ function Game(options) {
 	model.teamB;
 	model.date;
 	model.time;
+	model.championship;
 
 	/* Initialization */
 	init(options);
@@ -18,5 +19,6 @@ function Game(options) {
 		model.teamB = (options && options.teamB) ? options.teamB : null;
 		model.date = (options && options.date) ? options.date : null;
 		model.time = (options && options.time) ? options.time : null;
+		model.championship = (options && options.championship) ? options.championship : null;
 	}
 }
