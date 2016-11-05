@@ -22,10 +22,15 @@ describe('TicketTypeModel', function() {
 		time: '21:00',
 		championship: new Championship(championshipOptions)
 	};
+	var ticketsMock = [
+		new Ticket({id: 1, name: '1 gol', tax: 2.5, type: self}),
+		new Ticket({id: 2, name: '2 gols', tax: 4, type: self})
+	];
 	var options = {
 		id: 5,
 		name: 'Total de Gols',
-		game: new Game(gameOptions)
+		game: new Game(gameOptions),
+		tickets: ticketsMock
 	};
 
 	describe('Initialization', function() {
@@ -39,6 +44,9 @@ describe('TicketTypeModel', function() {
 			});
 			it('name should be the same as passed in options object', function() {
 				expect(type.name).toEqual(options.name);
+			});
+			it('tickets should be the same as passed in options object', function() {
+				expect(type.tickets).toEqual(options.tickets);
 			});
 			it('game should be the same as passed in options object', function() {
 				expect(type.game.id).toEqual(gameOptions.id);
@@ -68,6 +76,9 @@ describe('TicketTypeModel', function() {
 			});
 			it('game should be null', function() {
 				expect(type.game).toEqual(null);
+			});
+			it('tickets should be an empty array', function() {
+				expect(type.tickets).toEqual([]);
 			});
 		});
 	});
