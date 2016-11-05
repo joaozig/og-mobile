@@ -72,6 +72,12 @@ $height-team-img: $width-team-img;
 	height: $height-team-img;
 }
 
+.game-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .ticket-game-detail {
 	text-align: center;
 	font-size: 11px;

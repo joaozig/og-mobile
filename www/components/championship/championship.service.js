@@ -6,9 +6,9 @@ angular.module('championship')
 
 	/* Properties */
 	service.championships = [
-		{id: 1, name: 'Série A'},
-		{id: 2, name: 'Série B'},
-		{id: 3, name: 'Copa do Brasil'}
+		{id: 1, name: 'Série A', country: new Country({id: 2, name: 'Brasil', sport: new Sport({id: 1, name: 'Futebol'})})},
+		{id: 2, name: 'Série B', country: new Country({id: 2, name: 'Brasil', sport: new Sport({id: 1, name: 'Futebol'})})},
+		{id: 3, name: 'Copa do Brasil', country: new Country({id: 2, name: 'Brasil', sport: new Sport({id: 1, name: 'Futebol'})})}
 	];
 
 	/* Methods */

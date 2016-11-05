@@ -6,11 +6,11 @@ angular.module('countries')
 
 	/* Properties */
 	service.countries = [
-		{id: 1, name: 'Argentina'},
-		{id: 2, name: 'Brasil'},
-		{id: 3, name: 'Estados Unidos'},
-		{id: 4, name: 'França'},
-		{id: 5, name: 'Portugal'}
+		new Country({id: 1, name: 'Argentina', sport: new Sport({id: 1, name: 'Futebol'})}),
+		new Country({id: 2, name: 'Brasil', sport: new Sport({id: 1, name: 'Futebol'})}),
+		new Country({id: 3, name: 'Estados Unidos', sport: new Sport({id: 1, name: 'Futebol'})}),
+		new Country({id: 4, name: 'França', sport: new Sport({id: 1, name: 'Futebol'})}),
+		new Country({id: 5, name: 'Portugal', sport: new Sport({id: 1, name: 'Futebol'})})
 	];
 
 	/* Methods */

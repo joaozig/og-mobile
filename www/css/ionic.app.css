@@ -9850,6 +9850,11 @@ a.button {
   width: 30px;
   height: 30px; }
 
+.game-row {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 .ticket-game-detail {
   text-align: center;
   font-size: 11px; }

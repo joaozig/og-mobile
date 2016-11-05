@@ -6,10 +6,10 @@ angular.module('main')
 
 	/* Properties */
 	service.sports = [
-		{id: 1, name: 'Futebol Americano'},
-		{id: 2, name: 'Basquete'},
-		{id: 3, name: 'Futebol'},
-		{id: 4, name: 'Volei'}
+		new Sport({id: 1, name: 'Futebol Americano'}),
+		new Sport({id: 2, name: 'Basquete'}),
+		new Sport({id: 3, name: 'Futebol'}),
+		new Sport({id: 4, name: 'Volei'})
 	];
 
 	/* Methods */
