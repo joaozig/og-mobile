@@ -40,7 +40,7 @@ describe('CountryModel', function() {
 				expect(country.name).toEqual(null);
 			});
 			it('sport should be null', function() {
-				expect(country.name).toEqual(null);
+				expect(country.sport).toEqual(null);
 			});
 		});
 	});
