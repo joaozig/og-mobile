@@ -27,10 +27,10 @@ describe('BetModel', function() {
 				bet = new Bet();
 			});
 
-			it('playerName should be the same as passed in options object', function() {
+			it('playerName should be empty', function() {
 				expect(bet.playerName).toEqual('');
 			});
-			it('betAmount should be the same as passed in options object', function() {
+			it('betAmount should be 0', function() {
 				expect(bet.betAmount).toEqual(0);
 			});
 			it('tickets should be an empty array', function() {

@@ -24,10 +24,10 @@ describe('TicketModel', function() {
 				ticket = new Ticket();
 			});
 
-			it('id should be the same as passed in options object', function() {
+			it('id should be null', function() {
 				expect(ticket.id).toEqual(null);
 			});
-			it('tax should be the same as passed in options object', function() {
+			it('tax should be 0', function() {
 				expect(ticket.tax).toEqual(0);
 			});
 		});
