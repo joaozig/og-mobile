@@ -11,6 +11,7 @@ angular.module('ourigol', [
   'countries',
   'championship',
   'game',
+  'ticket',
   'player',
   'bet'
 ])
@@ -109,6 +110,16 @@ angular.module('ourigol', [
         'menuContent': {
           templateUrl: componentsFolder + '/game/game.html',
           controller: 'GameController as ctrl'
+        }
+      }
+    })
+
+    .state('app.tickets', {
+      url: '/tickets/:gameId',
+      views: {
+        'menuContent': {
+          templateUrl: componentsFolder + '/ticket/ticket.html',
+          controller: 'TicketController as ctrl'
         }
       }
     });
