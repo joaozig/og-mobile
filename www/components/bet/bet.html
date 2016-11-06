@@ -20,24 +20,23 @@
       <div class="item item-divider">
         Palpites: {{ctrl.bet.tickets.length}}
       </div>
-      <div class="item">
-        <div style="display:flex;justify-content:center;align-items:center;">
-          <img src="img/teams_logo/logo_gremio.png" class="left-team-img">
+      <div class="item" ng-repeat="ticket in ctrl.bet.tickets">
+        <div class="game-row">
+          <img ng-src="{{ticket.ticketType.game.teamA.img}}" class="left-team-img">
           <div>
-            Grêmio x Sport
-            <div class="ticket-game-detail">21/10 - 21:00</div>
+            {{ticket.ticketType.game.teamA.name}} x {{ticket.ticketType.game.teamB.name}}
+            <div class="ticket-game-detail">
+              {{ticket.ticketType.game.championship.name}} - {{ticket.ticketType.game.date}} - {{ticket.ticketType.game.time}}
+            </div>
           </div>
-          <img src="img/teams_logo/logo_sport.png" class="right-team-img">
+          <img ng-src="{{ticket.ticketType.game.teamB.img}}" class="right-team-img">
         </div>
-      </div>
-      <div class="item">
-        <div style="display:flex;justify-content:center;align-items:center;">
-          <img src="img/teams_logo/logo_nautico.png" class="left-team-img">
-          <div>
-            Náutico x Bahia
-            <div class="ticket-game-detail">20/10 - 16:30</div>
-          </div>
-          <img src="img/teams_logo/logo_bahia.png" class="right-team-img">
+        <div class="game-row">
+          <span class="ticket-game-detail">
+            <strong>{{ticket.ticketType.name}}:</strong>
+            <br>
+            {{ticket.name}} ({{ctrl.util.formattedTaxValue(ticket.tax)}}%)
+          </span>
         </div>
       </div>
     </div>

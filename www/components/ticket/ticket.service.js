@@ -39,9 +39,9 @@ angular.module('ticket')
 			name: 'Total de Gols no jogo',
 			game: service.games[0],
 			tickets: [
-				new Ticket({id: 1, name: '1 gol', tax: 1.34}),
-				new Ticket({id: 2, name: '2 gols', tax: 3.5}),
-				new Ticket({id: 3, name: '3 gols', tax: 4})
+				new Ticket({id: 1, name: '1 gol', tax: 1.34, ticketType: new TicketType({id: 1, name: 'Total de Gols no jogo', game: service.games[0]})}),
+				new Ticket({id: 2, name: '2 gols', tax: 3.5, ticketType: new TicketType({id: 1, name: 'Total de Gols no jogo', game: service.games[0]})}),
+				new Ticket({id: 3, name: '3 gols', tax: 4, ticketType: new TicketType({id: 1, name: 'Total de Gols no jogo', game: service.games[0]})})
 			]
 		}),
 		new TicketType({
@@ -49,10 +49,10 @@ angular.module('ticket')
 			name: 'Resultado no intervalo',
 			game: service.games[0],
 			tickets: [
-				new Ticket({id: 4, name: '0x0', tax: 1.34}),
-				new Ticket({id: 5, name: '1x1', tax: 2.13}),
-				new Ticket({id: 6, name: '2x2', tax: 3.56}),
-				new Ticket({id: 7, name: '3x3', tax: 7.56}),
+				new Ticket({id: 4, name: '0x0', tax: 1.34, ticketType: new TicketType({id: 1, name: 'Resultado no intervalo', game: service.games[0]})}),
+				new Ticket({id: 5, name: '1x1', tax: 2.13, ticketType: new TicketType({id: 1, name: 'Resultado no intervalo', game: service.games[0]})}),
+				new Ticket({id: 6, name: '2x2', tax: 3.56, ticketType: new TicketType({id: 1, name: 'Resultado no intervalo', game: service.games[0]})}),
+				new Ticket({id: 7, name: '3x3', tax: 7.56, ticketType: new TicketType({id: 1, name: 'Resultado no intervalo', game: service.games[0]})})
 			]
 		})
 	];
