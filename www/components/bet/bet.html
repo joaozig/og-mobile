@@ -16,11 +16,11 @@
   			</div>
   		</div>
   	</div>
-    <div class="list">
+    <ion-list class="list" can-swipe="true">
       <div class="item item-divider">
         Palpites: {{ctrl.bet.tickets.length}}
       </div>
-      <div class="item" ng-repeat="ticket in ctrl.bet.tickets">
+      <ion-item class="item" ng-repeat="ticket in ctrl.bet.tickets">
         <div class="game-row">
           <img ng-src="{{ticket.ticketType.game.teamA.img}}" class="left-team-img">
           <div>
@@ -38,8 +38,11 @@
             {{ticket.name}} ({{ctrl.util.formattedTaxValue(ticket.tax)}}%)
           </span>
         </div>
-      </div>
-    </div>
+        <ion-option-button class="button-info button-assertive" ng-click="ctrl.removeTicket(ticket.id)">
+          Remover
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
 
     <div class="row">
       <div class="col">
