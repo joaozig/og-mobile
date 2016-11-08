@@ -8,7 +8,7 @@ describe('BetController', function() {
 	var betMock = new Bet({
 		playerName: 'Player',
 		betAmount: 100,
-		tickets: []
+		tickets: [{id: 1, name: '1 gol', tax: 2.5, ticketType: new TicketType()}]
 	});
 
 	beforeEach(module('bet'));
@@ -39,6 +39,10 @@ describe('BetController', function() {
 			expect(controller.bet).toEqual(betMock);
 		});
 
+		it('should not show endedBet button', function() {
+			expect(controller.showEndedBetButton).toBeTruthy();
+		});
+
 		describe('when the init is executed', function() {
 			describe('at BetService#getBet', function() {
 		  	it('if there is a bet, should return the bet object', function() {
@@ -63,9 +67,11 @@ describe('BetController', function() {
 
   	describe('when it successful', function() {
   		it('should reset local bet', function() {
+				betServiceMock.getBet = jasmine.createSpy('getBet spy').and.returnValue(new Bet());
 	  		deferredConfirm.resolve(true);
 	  		$rootScope.$digest();
 	  		expect(betServiceMock.getBet).toHaveBeenCalled();
+	  		expect(controller.showEndedBetButton).toBeFalsy();
   		});
   	});
   	describe('when it unsuccessful', function() {

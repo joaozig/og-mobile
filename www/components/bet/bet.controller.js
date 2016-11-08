@@ -6,6 +6,7 @@ angular.module('bet')
 
 	/* Properties */
 	vm.bet = null;
+	vm.showEndedBetButton = false;
 
 	/* Public Methods */
 	vm.removeTicket = removeTicket;
@@ -42,5 +43,6 @@ angular.module('bet')
 
 	function _setBet() {
 		vm.bet = BetService.getBet();
+		vm.showEndedBetButton = (vm.bet.tickets.length > 0);
 	}
 });
