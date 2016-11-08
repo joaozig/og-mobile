@@ -11,6 +11,7 @@ angular.module('bet')
 	service.addTicket = addTicket;
 	service.getBet = getBet;
 	service.removeBet = removeBet;
+	service.removeTicket = removeTicket;
 
 	/* Initialization */
 	init();
@@ -64,6 +65,24 @@ angular.module('bet')
 	function removeBet() {
 		window.localStorage.removeItem(BET);
 		return (service.getBet() == null);
+	}
+
+	function removeTicket(ticketId) {
+		var bet = service.getBet();
+		var index = null;
+  	bet.tickets.forEach(function(ticket, i) {
+  		if(ticket.id == ticketId) {
+  			index = i;
+  		}
+  	});
+
+  	if(index !== null) {
+  		bet.tickets.splice(index, 1);
+  		saveBet(bet);
+  		return true;
+  	} else {
+  		return false;
+  	}
 	}
 
 	/* Private Methods */

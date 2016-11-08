@@ -169,4 +169,25 @@ describe('BetService', function() {
 			expect(window.localStorage.getItem(BET_CONSTANT)).toEqual(null);
 		});
   });
+
+  describe('#removeTicket', function() {
+  	describe('when the ticket exists in bet.tickets', function() {
+  		it('should remove ticket from bet.tickets list and return true', function() {
+				window.localStorage.setItem(BET_CONSTANT, JSON.stringify(betParamsMock));
+				var ticket = new Ticket({id: 1, name: '1 gol', tax: 2.5, ticketType: new TicketType()})
+				service.addTicket(ticket);
+				var bet = service.getBet();
+
+				expect(bet.tickets.length).toEqual(1);
+				expect(bet.jackpot()).toEqual(251.25);
+
+				var addReturn = service.removeTicket(ticket.id);
+				var betUpdated = service.getBet();
+
+				expect(addReturn).toBeTruthy();
+				expect(betUpdated.tickets.length).toEqual(0);
+				expect(betUpdated.jackpot()).toEqual(0);
+  		});
+  	});
+  });
 });
