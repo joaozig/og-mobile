@@ -121,6 +121,115 @@ describe('BetService', function() {
   	});
   });
 
+  describe('#editBet', function() {
+  	var playerName, betAmount, expectedBet;
+
+  	beforeEach(function() {
+			playerName = 'New Player';
+			betAmount = 50;
+
+			service.addBet(playerName, betAmount);
+
+			playerName = 'Edited Player';
+			betAmount = 100;
+
+			var params = {
+				playerName: playerName,
+				betAmount: betAmount
+			};
+
+			expectedBet = new Bet(params);
+  	});
+
+  	describe('when it successful', function() {
+  		it('should return the edited bet object', function() {
+				service.editBet(playerName, betAmount).then(
+					function(bet) {
+						expect(expectedBet.playerName).toEqual(bet.playerName);
+						expect(expectedBet.betAmount).toEqual(bet.betAmount);
+					},
+					function(errorMessage) {
+						expect(errorMessage).toEqual(null);
+					}
+				);
+				$rootScope.$apply();
+  		});
+  	});
+
+  	describe('when it unsuccessful', function() {
+  		describe('because the playerName is blank', function() {
+	  		it('should not set a new bet object', function() {
+					playerName = '';
+					service.editBet(playerName, betAmount).then(
+						function(bet) {
+							expect(bet).toEqual(null);
+						},
+						function(errorMessage) {
+							expect(errorMessage).toEqual('Preencha o nome do apostador');
+						}
+					);
+					$rootScope.$apply();
+	  		});
+  		});
+  		describe('because the betAmount is blank', function() {
+	  		it('should not set a new bet object', function() {
+					betAmount = '';
+					service.editBet(playerName, betAmount).then(
+						function(bet) {
+							expect(bet).toEqual(null);
+						},
+						function(errorMessage) {
+							expect(errorMessage).toEqual('Preencha o valor a ser apostado');
+						}
+					);
+					$rootScope.$apply();
+	  		});
+  		});
+  		describe('because the betAmount is not a valid float', function() {
+	  		it('should not set a new bet object', function() {
+					betAmount = 'string';
+					service.editBet(playerName, betAmount).then(
+						function(bet) {
+							expect(bet).toEqual(null);
+						},
+						function(errorMessage) {
+							expect(errorMessage).toEqual('Preencha o valor a ser apostado');
+						}
+					);
+					$rootScope.$apply();
+	  		});
+  		});
+  		describe('because the betAmount is negative', function() {
+	  		it('should not set a new bet object', function() {
+					betAmount = '-2';
+					service.editBet(playerName, betAmount).then(
+						function(bet) {
+							expect(bet).toEqual(null);
+						},
+						function(errorMessage) {
+							expect(errorMessage).toEqual('O valor a ser apostado tem que ser maior que 0');
+						}
+					);
+					$rootScope.$apply();
+	  		});
+  		});
+  		describe('because the betAmount is zero', function() {
+	  		it('should not set a new bet object', function() {
+					betAmount = '0';
+					service.editBet(playerName, betAmount).then(
+						function(bet) {
+							expect(bet).toEqual(null);
+						},
+						function(errorMessage) {
+							expect(errorMessage).toEqual('O valor a ser apostado tem que ser maior que 0');
+						}
+					);
+					$rootScope.$apply();
+	  		});
+  		});
+  	});
+  });
+
   describe('#addTicket', function() {
   	describe('when there is an active bet', function() {
   		it('should save ticket to bet and return true', function() {

@@ -8,6 +8,7 @@ angular.module('bet')
 
 	/* Public Methods */
 	service.addBet = addBet;
+	service.editBet = editBet;
 	service.addTicket = addTicket;
 	service.getBet = getBet;
 	service.removeBet = removeBet;
@@ -32,6 +33,23 @@ angular.module('bet')
 			};
 
 			var bet = new Bet(params)
+			saveBet(bet);
+			deferred.resolve(bet);
+		} else {
+			deferred.reject(validation.message);
+		}
+
+		return deferred.promise;
+	}
+
+	function editBet(playerName, betAmount) {
+		var deferred = $q.defer();
+
+		var validation = validateBet(playerName, betAmount);
+		if(validation.valid) {
+			var bet = service.getBet()
+			bet.playerName = playerName;
+			bet.betAmount = betAmount;
 			saveBet(bet);
 			deferred.resolve(bet);
 		} else {
