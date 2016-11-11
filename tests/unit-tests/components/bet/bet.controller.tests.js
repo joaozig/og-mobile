@@ -3,7 +3,10 @@ describe('BetController', function() {
 	var controller;
 	var betServiceMock;
 	var ionicPopupMock;
+	var ionicModalMock;
+	var deferredBet;
 	var deferredConfirm;
+	var deferredModal;
 	var $rootScope;
 	var betMock = new Bet({
 		playerName: 'Player',
@@ -14,14 +17,23 @@ describe('BetController', function() {
 	beforeEach(module('bet'));
 
 	beforeEach(inject(function(_$rootScope_, $controller, $q) {
+		deferredBet = $q.defer();
 		deferredConfirm = $q.defer();
+		deferredModal = $q.defer();
 		$rootScope = _$rootScope_;
 
 		// mock BetService
 		betServiceMock = {
 			getBet: jasmine.createSpy('getBet spy').and.returnValue(betMock),
+			editBet: jasmine.createSpy('editBet spy').and.returnValue(deferredBet.promise),
 			removeTicket: jasmine.createSpy('removeTicket spy').and.returnValue(true)
 		};
+    // mock $ionicModal
+    ionicModalMock = {
+    	fromTemplateUrl: jasmine.createSpy('fromTemplateUrl spy').and.returnValue(deferredModal.promise),
+    	show: jasmine.createSpy('show spy'),
+    	hide: jasmine.createSpy('hide spy').and.returnValue(deferredModal.promise)
+    }
     // mock $ionicPopup
     ionicPopupMock = {
     	alert: jasmine.createSpy('alert spy'),
@@ -29,14 +41,30 @@ describe('BetController', function() {
     }
 
 		controller = $controller('BetController', {
+			$scope: $rootScope,
+			$ionicModal: ionicModalMock,
 			$ionicPopup: ionicPopupMock,
 			BetService: betServiceMock
 		});
+		deferredModal.resolve(ionicModalMock)
+		$rootScope.$digest();
 	}));
 
   describe('Initialization', function() {
 		it('should have a bet object from BetService', function() {
 			expect(controller.bet).toEqual(betMock);
+		});
+
+		it('should have a editBetModal', function() {
+			expect(controller.editBetModal).toEqual(ionicModalMock);
+		});
+
+		it('should have a playerName equals to bet.playerName', function() {
+			expect(controller.playerName).toEqual(controller.bet.playerName);
+		});
+
+		it('should have a betAmount equals to bet.betAmount', function() {
+			expect(controller.betAmount).toEqual(controller.bet.betAmount);
 		});
 
 		it('should not show endedBet button', function() {
@@ -50,6 +78,54 @@ describe('BetController', function() {
 		  	});
 			});
 		});
+  });
+
+  describe('#openEditBetModal', function() {
+  	beforeEach(function() {
+  		controller.openEditBetModal();
+  	});
+
+  	it('should open the EditBet modal', function() {
+  		$rootScope.$digest();
+  		expect(controller.editBetModal.show).toHaveBeenCalled();
+  	});
+  });
+
+  describe('#closeEditBetModal', function() {
+  	beforeEach(function() {
+  		controller.closeEditBetModal();
+  	});
+
+  	it('should close the EditBet modal', function() {
+  		$rootScope.$digest();
+  		expect(controller.editBetModal.hide).toHaveBeenCalled();
+  	});
+  });
+
+  describe('#editBet', function() {
+  	beforeEach(function() {
+  		controller.editBet();
+  	});
+
+  	describe('when it successful', function() {
+  		it('should set bet and retrieve bet from BetService and close EditBet modal', function() {
+	  		deferredBet.resolve(betMock);
+	  		$rootScope.$digest();
+	  		expect(controller.bet).toEqual(betMock);
+	  		expect(betServiceMock.getBet).toHaveBeenCalled();
+	  		expect(controller.editBetModal.hide).toHaveBeenCalled();
+  		});
+  	});
+  	describe('when it unsuccessful', function() {
+  		it('should show a popup with error message', function() {
+	  		deferredBet.reject('error message');
+	  		$rootScope.$digest();
+	  		expect(ionicPopupMock.alert).toHaveBeenCalledWith({
+					title: 'Algo falhou :(',
+					template: 'error message'
+				});
+  		});
+  	});
   });
 
   describe('#removeTicket', function() {

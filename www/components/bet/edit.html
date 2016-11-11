@@ -1,0 +1,27 @@
+<ion-modal-view cache-view="false">
+  <ion-header-bar class="bar-dark">
+    <h1 class="title">Corrigir Aposta</h1>
+    <div class="buttons">
+      <button class="button" ng-click="ctrl.closeEditBetModal()">Cancelar</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div id="formPlayer">
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Apostador</span>
+          <input type="text" placeholder="Nome do apostador" ng-model="ctrl.playerName">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Valor</span>
+          <input type="text" placeholder="Valor a ser apostado" ng-model="ctrl.betAmount">
+        </label>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="button button-block button-positive" ng-click="ctrl.editBet()">Corrigir Aposta</button>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>
