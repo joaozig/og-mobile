@@ -10,6 +10,7 @@ angular.module('bet')
 	service.addBet = addBet;
 	service.editBet = editBet;
 	service.getBet = getBet;
+	service.getFinishedBet = getFinishedBet;
 	service.removeBet = removeBet;
 	service.finishBet = finishBet;
 	service.addTicket = addTicket;
@@ -69,6 +70,18 @@ angular.module('bet')
 		}
 	}
 
+	function getFinishedBet(betId) {
+		var finishedBets = getFinishedBets();
+		var finishedBet = null;
+		finishedBets.forEach(function(bet) {
+			if(bet.id == betId) {
+				finishedBet = new Bet(bet);
+			}
+		});
+
+		return finishedBet;
+	}
+
 	function removeBet() {
 		window.localStorage.removeItem(BET);
 		return (service.getBet() == null);
@@ -79,7 +92,16 @@ angular.module('bet')
 
 		if(bet) {
 			if(service.removeBet()) {
-				bet.id = 1;
+				var finishedBets = getFinishedBets();
+				bet.id = finishedBets.length + 1;
+				var params = {
+					id: bet.id,
+					playerName: bet.playerName,
+					betAmount: bet.betAmount,
+					tickets: bet.tickets
+				}
+				finishedBets.push(params);
+				window.localStorage.setItem('finishedBets', JSON.stringify(finishedBets));
 				return bet;
 			}
 		}
@@ -143,5 +165,16 @@ angular.module('bet')
 		}
 
 		return validation;
+	}
+
+	function getFinishedBets() {
+		var finishedBets = window.localStorage.getItem('finishedBets');
+		if(finishedBets) {
+			finishedBets = JSON.parse(finishedBets);
+		} else {
+			finishedBets = [];
+		}
+
+		return finishedBets;
 	}
 });

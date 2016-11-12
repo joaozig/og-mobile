@@ -249,6 +249,28 @@ describe('BetService', function() {
   	});
   });
 
+
+  describe('#getFinishedBet', function() {
+  	describe('when there is a finished bet', function() {
+  		it('should return the bet object', function() {
+  			betParamsMock.id = 1;
+				window.localStorage.setItem('finishedBets', JSON.stringify([betParamsMock]));
+				var betReturned = service.getFinishedBet(1);
+				expect(betReturned.id).toEqual(betParamsMock.id);
+				expect(betReturned.playerName).toEqual(betParamsMock.playerName);
+				expect(betReturned.betAmount).toEqual(betParamsMock.betAmount);
+				expect(betReturned.tickets).toEqual([]);
+				expect(betReturned.jackpot()).toEqual(0);
+  		});
+  	});
+  	describe('when there is no finished bet', function() {
+			it('should return null', function() {
+				window.localStorage.removeItem('finishedBets');
+				expect(service.getFinishedBet(1)).toEqual(null);
+			});
+  	});
+  });
+
   describe('#removeBet', function() {
 		it('should remove the bet', function() {
 			window.localStorage.setItem(BET_CONSTANT, JSON.stringify(betParamsMock));
@@ -260,9 +282,14 @@ describe('BetService', function() {
 	describe('#finishBet', function() {
 		describe('when it successful', function() {
 			beforeEach(function() {
+				window.localStorage.removeItem('finishedBets');
 				service.addBet(betParamsMock.playerName, betParamsMock.betAmount);
 				expectedBet = new Bet(betParamsMock);
 				returnedValue = service.finishBet();
+			});
+
+			it('should set finishedBets storage', function() {
+				expect(window.localStorage.getItem('finishedBets')).not.toEqual(null);
 			});
 
 			it('should return the current bet', function() {
