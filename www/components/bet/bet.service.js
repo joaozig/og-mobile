@@ -9,9 +9,10 @@ angular.module('bet')
 	/* Public Methods */
 	service.addBet = addBet;
 	service.editBet = editBet;
-	service.addTicket = addTicket;
 	service.getBet = getBet;
 	service.removeBet = removeBet;
+	service.finishBet = finishBet;
+	service.addTicket = addTicket;
 	service.removeTicket = removeTicket;
 
 	/* Initialization */
@@ -59,18 +60,6 @@ angular.module('bet')
 		return deferred.promise;
 	}
 
-	function addTicket(ticket) {
-		var bet = service.getBet();
-
-		if(!bet) {
-			return false;
-		}
-
-		bet.tickets.push(ticket);
-		saveBet(bet);
-		return true;
-	}
-
 	function getBet() {
 		var params = JSON.parse(window.localStorage.getItem(BET));
 		if(params != null) {
@@ -83,6 +72,31 @@ angular.module('bet')
 	function removeBet() {
 		window.localStorage.removeItem(BET);
 		return (service.getBet() == null);
+	}
+
+	function finishBet() {
+		var bet = service.getBet();
+
+		if(bet) {
+			if(service.removeBet()) {
+				bet.id = 1;
+				return bet;
+			}
+		}
+
+		return null;
+	}
+
+	function addTicket(ticket) {
+		var bet = service.getBet();
+
+		if(!bet) {
+			return false;
+		}
+
+		bet.tickets.push(ticket);
+		saveBet(bet);
+		return true;
 	}
 
 	function removeTicket(ticketId) {
