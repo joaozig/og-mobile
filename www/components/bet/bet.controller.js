@@ -1,6 +1,6 @@
 angular.module('bet')
 
-.controller('BetController', function($scope, $ionicPopup, $ionicModal, BetService) {
+.controller('BetController', function($scope, $state, $ionicPopup, $ionicModal, BetService) {
 	var vm = this;
 	vm.util = new Util();
 
@@ -23,6 +23,7 @@ angular.module('bet')
 	vm.openEditBetModal = openEditBetModal;
 	vm.closeEditBetModal = closeEditBetModal;
 	vm.editBet = editBet;
+	vm.finishBet = finishBet;
 	vm.removeTicket = removeTicket;
 
 	/* Initialization */
@@ -57,6 +58,27 @@ angular.module('bet')
 				});
 			}
 		);
+	}
+
+	function finishBet() {
+		var bet = null;
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'Finalizar Aposta',
+			template: 'Você deseja realmente finalizar a aposta?'
+		});
+
+		confirmPopup.then(function(confirmed) {
+			if(confirmed) {
+				if(bet = BetService.finishBet()) {
+					$state.go('app.finishedBet', {betId: bet.id});
+				} else {
+					$ionicPopup.alert({
+						title: 'Algo falhou :(',
+						template: 'Não foi possível finalizar a aposta.'
+					});
+				}
+			}
+		});
 	}
 
 	function removeTicket(ticketId) {

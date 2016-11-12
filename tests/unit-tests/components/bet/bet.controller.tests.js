@@ -4,6 +4,7 @@ describe('BetController', function() {
 	var betServiceMock;
 	var ionicPopupMock;
 	var ionicModalMock;
+	var stateMock;
 	var deferredBet;
 	var deferredConfirm;
 	var deferredModal;
@@ -26,6 +27,7 @@ describe('BetController', function() {
 		betServiceMock = {
 			getBet: jasmine.createSpy('getBet spy').and.returnValue(betMock),
 			editBet: jasmine.createSpy('editBet spy').and.returnValue(deferredBet.promise),
+			finishBet: jasmine.createSpy('finishBet spy').and.returnValue({id: 1}),
 			removeTicket: jasmine.createSpy('removeTicket spy').and.returnValue(true)
 		};
     // mock $ionicModal
@@ -39,14 +41,17 @@ describe('BetController', function() {
     	alert: jasmine.createSpy('alert spy'),
     	confirm: jasmine.createSpy('confirm spy').and.returnValue(deferredConfirm.promise)
     }
+    // mock $state
+		stateMock = jasmine.createSpyObj('$state spy', ['go']);
 
 		controller = $controller('BetController', {
 			$scope: $rootScope,
+			$state: stateMock,
 			$ionicModal: ionicModalMock,
 			$ionicPopup: ionicPopupMock,
 			BetService: betServiceMock
 		});
-		deferredModal.resolve(ionicModalMock)
+		deferredModal.resolve(ionicModalMock);
 		$rootScope.$digest();
 	}));
 
@@ -123,6 +128,44 @@ describe('BetController', function() {
 	  		expect(ionicPopupMock.alert).toHaveBeenCalledWith({
 					title: 'Algo falhou :(',
 					template: 'error message'
+				});
+  		});
+  	});
+  });
+
+  describe('#finishBet', function() {
+  	beforeEach(function() {
+  		controller.finishBet();
+			deferredConfirm.resolve(true);
+  	});
+
+  	it('should open a confirm popup', function() {
+  		expect(ionicPopupMock.confirm).toHaveBeenCalledWith({
+				title: 'Finalizar Aposta',
+				template: 'Você deseja realmente finalizar a aposta?'
+			});
+  	});
+
+  	describe('when successful', function() {
+  		beforeEach(function() {
+				$rootScope.$digest();
+  		});
+
+  		it('should redirect to FinishedBet page', function() {
+  			expect(stateMock.go).toHaveBeenCalledWith('app.finishedBet', {betId: 1});
+  		});
+  	});
+
+  	describe('when unsuccessful', function() {
+  		beforeEach(function() {
+				betServiceMock.finishBet = jasmine.createSpy('finishBet spy').and.returnValue(null);
+				$rootScope.$digest();
+  		});
+
+  		it('should show a popup with error', function() {
+	  		expect(ionicPopupMock.alert).toHaveBeenCalledWith({
+					title: 'Algo falhou :(',
+					template: 'Não foi possível finalizar a aposta.'
 				});
   		});
   	});

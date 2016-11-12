@@ -46,7 +46,9 @@
 
     <div class="row">
       <div class="col">
-        <button ng-show="ctrl.showEndedBetButton" class="button button-block button-positive">Finalizar aposta</button>
+        <button ng-show="ctrl.showEndedBetButton" class="button button-block button-positive" ng-click="ctrl.finishBet()">
+          Finalizar aposta
+        </button>
       </div>
     </div>
     <div class="row">
