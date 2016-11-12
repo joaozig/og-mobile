@@ -1,0 +1,50 @@
+<ion-view cache-view="false" view-title="Aposta Finalizada">
+  <ion-content>
+  	<div class="card">
+  		<div class="item item-divider item-dark">
+  			Aposta Finalizada
+  		</div>
+  		<div class="item text-wrap">
+        <div>
+          <strong>ID:</strong> #{{ctrl.bet.id}}
+        </div>
+  			<div>
+					<strong>Apostador:</strong> {{ctrl.bet.playerName}}
+  			</div>
+  			<div>
+					<strong>Aposta:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.betAmount)}}
+  			</div>
+  			<div>
+					<strong>Prêmio:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.jackpot())}}
+  			</div>
+  		</div>
+  	</div>
+    <ion-list class="list" can-swipe="true">
+      <div class="item item-divider">
+        Palpites: {{ctrl.bet.tickets.length}}
+      </div>
+      <ion-item class="item" ng-repeat="ticket in ctrl.bet.tickets">
+        <div class="game-row">
+          <img ng-src="{{ticket.ticketType.game.teamA.img}}" class="left-team-img">
+          <div>
+            {{ticket.ticketType.game.teamA.name}} x {{ticket.ticketType.game.teamB.name}}
+            <div class="ticket-game-detail">
+              {{ticket.ticketType.game.championship.name}} - {{ticket.ticketType.game.date}} - {{ticket.ticketType.game.time}}
+            </div>
+          </div>
+          <img ng-src="{{ticket.ticketType.game.teamB.img}}" class="right-team-img">
+        </div>
+        <div class="game-row">
+          <span class="ticket-game-detail">
+            <strong>{{ticket.ticketType.name}}:</strong>
+            <br>
+            {{ticket.name}} ({{ctrl.util.formattedTaxValue(ticket.tax)}}%)
+          </span>
+        </div>
+        <ion-option-button class="button-info button-assertive" ng-click="ctrl.removeTicket(ticket.id)">
+          Remover
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

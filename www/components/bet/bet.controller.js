@@ -16,7 +16,6 @@ angular.module('bet')
 	vm.bet = null;
 	vm.playerName = '';
 	vm.betAmount = '';
-	vm.bet = null;
 	vm.showEndedBetButton = false;
 
 	/* Public Methods */

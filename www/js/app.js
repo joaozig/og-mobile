@@ -85,6 +85,16 @@ angular.module('ourigol', [
       }
     })
 
+    .state('app.finishedBet', {
+      url: '/bet/finished/:betId',
+      views: {
+        'menuContent': {
+          templateUrl: componentsFolder + '/bet/finished.html',
+          controller: 'FinishedBetController as ctrl'
+        }
+      }
+    })
+
     .state('app.countries', {
       url: '/countries/:sportId',
       views: {

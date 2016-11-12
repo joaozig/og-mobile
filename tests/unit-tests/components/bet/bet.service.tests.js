@@ -249,7 +249,6 @@ describe('BetService', function() {
   	});
   });
 
-
   describe('#getFinishedBet', function() {
   	describe('when there is a finished bet', function() {
   		it('should return the bet object', function() {
