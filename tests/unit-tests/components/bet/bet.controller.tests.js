@@ -4,6 +4,7 @@ describe('BetController', function() {
 	var betServiceMock;
 	var ionicPopupMock;
 	var ionicModalMock;
+	var ionicHistoryMock;
 	var stateMock;
 	var deferredBet;
 	var deferredConfirm;
@@ -28,6 +29,7 @@ describe('BetController', function() {
 			getBet: jasmine.createSpy('getBet spy').and.returnValue(betMock),
 			editBet: jasmine.createSpy('editBet spy').and.returnValue(deferredBet.promise),
 			finishBet: jasmine.createSpy('finishBet spy').and.returnValue({id: 1}),
+			removeBet: jasmine.createSpy('removeBet spy').and.returnValue(true),
 			removeTicket: jasmine.createSpy('removeTicket spy').and.returnValue(true)
 		};
     // mock $ionicModal
@@ -41,12 +43,15 @@ describe('BetController', function() {
     	alert: jasmine.createSpy('alert spy'),
     	confirm: jasmine.createSpy('confirm spy').and.returnValue(deferredConfirm.promise)
     }
+    // mock $ionicHistory
+    ionicHistoryMock = jasmine.createSpyObj('$ionicHistory spy', ['goBack']);
     // mock $state
 		stateMock = jasmine.createSpyObj('$state spy', ['go']);
 
 		controller = $controller('BetController', {
 			$scope: $rootScope,
 			$state: stateMock,
+			$ionicHistory: ionicHistoryMock,
 			$ionicModal: ionicModalMock,
 			$ionicPopup: ionicPopupMock,
 			BetService: betServiceMock
@@ -107,32 +112,6 @@ describe('BetController', function() {
   	});
   });
 
-  describe('#editBet', function() {
-  	beforeEach(function() {
-  		controller.editBet();
-  	});
-
-  	describe('when it successful', function() {
-  		it('should set bet and retrieve bet from BetService and close EditBet modal', function() {
-	  		deferredBet.resolve(betMock);
-	  		$rootScope.$digest();
-	  		expect(controller.bet).toEqual(betMock);
-	  		expect(betServiceMock.getBet).toHaveBeenCalled();
-	  		expect(controller.editBetModal.hide).toHaveBeenCalled();
-  		});
-  	});
-  	describe('when it unsuccessful', function() {
-  		it('should show a popup with error message', function() {
-	  		deferredBet.reject('error message');
-	  		$rootScope.$digest();
-	  		expect(ionicPopupMock.alert).toHaveBeenCalledWith({
-					title: 'Algo falhou :(',
-					template: 'error message'
-				});
-  		});
-  	});
-  });
-
   describe('#finishBet', function() {
   	beforeEach(function() {
   		controller.finishBet();
@@ -166,6 +145,63 @@ describe('BetController', function() {
 	  		expect(ionicPopupMock.alert).toHaveBeenCalledWith({
 					title: 'Algo falhou :(',
 					template: 'Não foi possível finalizar a aposta.'
+				});
+  		});
+  	});
+  });
+
+  describe('#editBet', function() {
+  	beforeEach(function() {
+  		controller.editBet();
+  	});
+
+  	describe('when it successful', function() {
+  		it('should set bet and retrieve bet from BetService and close EditBet modal', function() {
+	  		deferredBet.resolve(betMock);
+	  		$rootScope.$digest();
+	  		expect(controller.bet).toEqual(betMock);
+	  		expect(betServiceMock.getBet).toHaveBeenCalled();
+	  		expect(controller.editBetModal.hide).toHaveBeenCalled();
+  		});
+  	});
+  	describe('when it unsuccessful', function() {
+  		it('should show a popup with error message', function() {
+	  		deferredBet.reject('error message');
+	  		$rootScope.$digest();
+	  		expect(ionicPopupMock.alert).toHaveBeenCalledWith({
+					title: 'Algo falhou :(',
+					template: 'error message'
+				});
+  		});
+  	});
+  });
+
+  describe('#removeBet', function() {
+  	beforeEach(function() {
+  		controller.removeBet();
+  	});
+
+  	it('should open a confirm popup', function() {
+  		$rootScope.$digest();
+  		expect(ionicPopupMock.confirm).toHaveBeenCalled();
+  	});
+
+  	describe('when it successful', function() {
+  		it('should reset properties', function() {
+	  		deferredConfirm.resolve(true);
+	  		$rootScope.$digest();
+	  		expect(ionicHistoryMock.goBack).toHaveBeenCalled();
+  		});
+  	});
+  	describe('when it unsuccessful', function() {
+  		it('should show a popup with error message', function() {
+				// mock BetService
+				betServiceMock.removeBet = jasmine.createSpy('removeBet spy').and.returnValue(false);
+	  		deferredConfirm.resolve(true);
+	  		$rootScope.$digest();
+	  		expect(ionicPopupMock.alert).toHaveBeenCalledWith({
+					title: 'Algo falhou :(',
+					template: 'Não foi possível excluir a aposta'
 				});
   		});
   	});

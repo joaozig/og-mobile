@@ -1,6 +1,6 @@
 angular.module('bet')
 
-.controller('BetController', function($scope, $state, $ionicPopup, $ionicModal, BetService) {
+.controller('BetController', function($scope, $state, $ionicHistory, $ionicPopup, $ionicModal, BetService) {
 	var vm = this;
 	vm.util = new Util();
 
@@ -21,8 +21,9 @@ angular.module('bet')
 	/* Public Methods */
 	vm.openEditBetModal = openEditBetModal;
 	vm.closeEditBetModal = closeEditBetModal;
-	vm.editBet = editBet;
 	vm.finishBet = finishBet;
+	vm.editBet = editBet;
+	vm.removeBet = removeBet;
 	vm.removeTicket = removeTicket;
 
 	/* Initialization */
@@ -44,21 +45,6 @@ angular.module('bet')
 		});
 	}
 
-	function editBet() {
-		BetService.editBet(vm.playerName, vm.betAmount).then(
-			function(bet) {
-				_setBet();
-				vm.closeEditBetModal();
-			},
-			function(errorMessage) {
-				$ionicPopup.alert({
-					title: 'Algo falhou :(',
-					template: errorMessage
-				});
-			}
-		);
-	}
-
 	function finishBet() {
 		var bet = null;
 		var confirmPopup = $ionicPopup.confirm({
@@ -74,6 +60,41 @@ angular.module('bet')
 					$ionicPopup.alert({
 						title: 'Algo falhou :(',
 						template: 'Não foi possível finalizar a aposta.'
+					});
+				}
+			}
+		});
+	}
+
+	function editBet() {
+		BetService.editBet(vm.playerName, vm.betAmount).then(
+			function(bet) {
+				_setBet();
+				vm.closeEditBetModal();
+			},
+			function(errorMessage) {
+				$ionicPopup.alert({
+					title: 'Algo falhou :(',
+					template: errorMessage
+				});
+			}
+		);
+	}
+
+	function removeBet() {
+		var confirmPopup = $ionicPopup.confirm({
+			title: 'Excluir Aposta',
+			template: 'Você deseja realmente excluir a aposta?'
+		});
+
+		confirmPopup.then(function(confirmed) {
+			if(confirmed) {
+				if(BetService.removeBet()) {
+					$ionicHistory.goBack();
+				} else {
+					$ionicPopup.alert({
+						title: 'Algo falhou :(',
+						template: 'Não foi possível excluir a aposta'
 					});
 				}
 			}
