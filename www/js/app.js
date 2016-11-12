@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('ourigol', [
+  'app',
   'ionic',
   'login',
   'main',
@@ -130,15 +131,25 @@ angular.module('ourigol', [
   } else {
     $urlRouterProvider.otherwise('/app/login');
   }
-})
+});
 
-.controller('AppController', function($state) {
+angular.module('app', [])
+.controller('AppController', function($state, $ionicPopup) {
   var vm = this;
 
   vm.doLogout = doLogout;
 
   function doLogout() {
-    window.localStorage.removeItem('user');
-    $state.go('app.login');
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Sair',
+      template: 'Você deseja realmente sair?'
+    });
+
+    confirmPopup.then(function(confirmed) {
+      if(confirmed) {
+        window.localStorage.removeItem('user');
+        $state.go('app.login');
+      }
+    });
   }
 });
