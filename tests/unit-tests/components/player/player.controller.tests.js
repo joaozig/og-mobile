@@ -110,7 +110,10 @@ describe('PlayerController', function() {
 				betServiceMock.removeBet = jasmine.createSpy('removeBet spy').and.returnValue(false);
 	  		deferredConfirm.resolve(true);
 	  		$rootScope.$digest();
-	  		expect(ionicPopupMock.alert).toHaveBeenCalled();
+	  		expect(ionicPopupMock.alert).toHaveBeenCalledWith({
+					title: 'Algo falhou :(',
+					template: 'Não foi possível excluir a aposta'
+				});
   		});
   	});
   });

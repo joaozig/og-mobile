@@ -51,7 +51,7 @@ angular.module('player')
 				} else {
 						$ionicPopup.alert({
 							title: 'Algo falhou :(',
-							template: 'Não foi possível remover a aposta'
+							template: 'Não foi possível excluir a aposta'
 						});
 				}
 			}
