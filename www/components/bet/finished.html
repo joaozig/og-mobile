@@ -19,7 +19,7 @@
   			</div>
   		</div>
   	</div>
-    <ion-list class="list" can-swipe="true">
+    <ion-list class="list">
       <div class="item item-divider">
         Palpites: {{ctrl.bet.tickets.length}}
       </div>
@@ -41,10 +41,12 @@
             {{ticket.name}} ({{ctrl.util.formattedTaxValue(ticket.tax)}}%)
           </span>
         </div>
-        <ion-option-button class="button-info button-assertive" ng-click="ctrl.removeTicket(ticket.id)">
-          Remover
-        </ion-option-button>
       </ion-item>
     </ion-list>
+    <div class="row">
+      <div class="col">
+        <button class="button button-block button-positive" ng-click="ctrl.newBet()">Nova Aposta</button>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

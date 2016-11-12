@@ -1,18 +1,25 @@
 angular.module('bet')
 
-.controller('FinishedBetController', function($state, $stateParams, BetService) {
+.controller('FinishedBetController', function($ionicHistory, $stateParams, BetService) {
 	var vm = this;
 	vm.util = new Util();
 
 	/* Properties */
 	vm.bet = null;
 
+	/* Public Methods */
+	vm.newBet = newBet;
+
 	/* Initialization */
 	init();
 
 	/*********/
 	function init() {
+		$ionicHistory.removeBackView();
 		vm.bet = BetService.getFinishedBet($stateParams.betId);
-		console.log(vm.bet);
+	}
+
+	function newBet() {
+		$ionicHistory.goBack();
 	}
 });
