@@ -2,6 +2,7 @@ function Bet(options) {
 	var model = this;
 
 	/* Properties */
+	model.id;
 	model.playerName;
 	model.betAmount;
 	model.tickets;
@@ -14,6 +15,7 @@ function Bet(options) {
 
 	/************/
 	function init() {
+		model.id = (options && options.id) ? options.id : null;
 		model.playerName = (options && options.playerName) ? options.playerName : '';
 		model.betAmount = (options && options.betAmount) ? options.betAmount : 0;
 		model.tickets = (options && options.tickets) ? options.tickets : [];
