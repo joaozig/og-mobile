@@ -29,6 +29,14 @@ angular.module('game')
 			date: '05/11/2016',
 			time: '16:30',
 			championship: new Championship({id: 2, name: 'Série B', country: new Country({id: 2, name: 'Brasil', sport: new Sport({id: 1, name: 'Futebol'})})})
+		}),
+		new Game({
+			id: 4,
+			teamA: {name: 'Avaí', img: 'img/teams_logo/logo_avai.png'},
+			teamB: {name: 'São Paulo', img: 'img/teams_logo/logo_sao_paulo.png'},
+			date: '12/11/2016',
+			time: '19:30',
+			championship: new Championship({id: 3, name: 'Copa do Brasil', country: new Country({id: 2, name: 'Brasil', sport: new Sport({id: 1, name: 'Futebol'})})})
 		})
 	];
 
