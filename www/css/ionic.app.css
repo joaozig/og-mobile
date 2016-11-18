@@ -9880,3 +9880,7 @@ a.button {
 .ticket-game-detail {
   text-align: center;
   font-size: 11px; }
+
+.align-bet-footer {
+  display: flex;
+  align-items: center; }
