@@ -3,7 +3,7 @@ angular.module('bet')
 .directive('betFooter', function() {
   return {
     restrict: 'E',
-    templateUrl: 'templates/betFooter.html',
+    templateUrl: 'components/bet/betFooter.html',
     controller: 'BetFooterController as bfCtrl'
   };
 })

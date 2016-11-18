@@ -115,16 +115,6 @@ angular.module('ourigol', [
       }
     })
 
-    .state('app.games', {
-      url: '/games/:championshipId',
-      views: {
-        'menuContent': {
-          templateUrl: componentsFolder + '/game/game.html',
-          controller: 'GameController as ctrl'
-        }
-      }
-    })
-
     .state('app.tickets', {
       url: '/tickets/:gameId',
       views: {

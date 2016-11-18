@@ -1,0 +1,12 @@
+  <div ng-if="!bfCtrl.bet" class="bar bar-footer bar-dark">
+		<a href="/#/app/player" class="button button-positive pull-right">Nova Aposta</a>
+	</div>
+	<div ng-if="bfCtrl.bet" class="bar bar-footer bar-dark">
+		<div style="display:flex;align-items:center;">
+		  <div>
+				Aposta: R$ {{bfCtrl.util.formattedValue(bfCtrl.bet.betAmount)}}<br>
+				Prêmio: R$ {{bfCtrl.util.formattedValue(bfCtrl.bet.jackpot())}} (Palpites: {{bfCtrl.bet.tickets.length}})
+		  </div>
+		</div>
+		<a href="/#/app/bet" style="float: right; margin: auto 0 auto auto;" class="button button-small button-positive">Ver Aposta</a>
+  </div>
