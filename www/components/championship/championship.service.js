@@ -9,7 +9,7 @@ angular.module('championship')
 		new Game({
 			id: 1,
 			teamA: {name: 'São Paulo', img: 'img/teams_logo/logo_sao_paulo.png'},
-			teamB: {name: 'Corinthians', img: 'img/teams_logo/logo_corinthians.png'},
+			teamB: {name: 'Fiorentina', img: 'img/teams_logo/logo_fiorentina.gif'},
 			date: '06/11/2016',
 			time: '16:00',
 			championship: new Championship({id: 1, name: 'Série A', country: new Country({id: 2, name: 'Brasil', sport: new Sport({id: 1, name: 'Futebol'})})})
