@@ -1,6 +1,6 @@
 angular.module('countries')
 
-.service('CountriesService', function($q) {
+.service('CountriesService', function($q, $http) {
 
 	var service = this;
 
@@ -38,13 +38,16 @@ angular.module('countries')
 
 	function getCountries(sportId) {
 		var deferred = $q.defer();
-		var successfulHttpRequest = true;
+		sportId = 50;
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.country.php?sportId=' + sportId;
 
-    if(successfulHttpRequest) {
-    	deferred.resolve(service.countries)
-    } else {
-      deferred.reject('Não foi possível recuperar os países.')
-    }
+		$http.get(url)
+	    .success(function(data, status, headers,config){
+	      deferred.resolve(data.country);
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Não foi possível recuperar os países.');
+	    })
 
 	  return deferred.promise;
 	}
