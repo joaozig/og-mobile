@@ -116,3 +116,28 @@ $game-detail-nav-title-team-img-margin-top: 15px;
 	display:flex;
 	align-items:center;
 }
+
+div.spinner {
+  margin: auto;
+  padding-top: 20px;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  text-align: center;
+}
+
+$img-border-radius: 3px;
+.custom-badge {
+	margin-left: 15px;
+	background-color: $positive;
+	color: white;
+	font-size: 10px;
+	font-weight: bold;
+	padding: 3px;
+  -webkit-border-radius: $img-border-radius;
+  -moz-border-radius: $img-border-radius;
+  border-radius: $img-border-radius;
+}
+
+.item-content {
+	padding: 16px !important;
+}

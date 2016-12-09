@@ -8,8 +8,9 @@ angular.module('main')
 	service.sports = [
 		new Sport({id: 1, name: 'Futebol Americano'}),
 		new Sport({id: 2, name: 'Basquete'}),
-		new Sport({id: 3, name: 'Futebol'}),
-		new Sport({id: 4, name: 'Volei'})
+		new Sport({id: 3, name: 'Tennis'}),
+		new Sport({id: 4, name: 'Volei'}),
+		new Sport({id: 50, name: 'Futebol'})
 	];
 
 	/* Methods */

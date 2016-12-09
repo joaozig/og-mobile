@@ -9884,3 +9884,27 @@ a.button {
 .align-bet-footer {
   display: flex;
   align-items: center; }
+
+div.spinner {
+  margin: auto;
+  padding-top: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center; }
+
+.custom-badge {
+  margin-left: 15px;
+  background-color: #16A085;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px; }
+
+.item-content {
+  padding: 16px !important; }

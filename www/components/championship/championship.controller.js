@@ -28,7 +28,7 @@ angular.module('championship')
 			}
 		);
 
-		ChampionshipService.getChampionships($stateParams.countryId).then(
+		ChampionshipService.getChampionshipsMock($stateParams.countryId).then(
 			function(championships) {
 				vm.championships = championships;
 			},

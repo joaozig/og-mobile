@@ -1,6 +1,6 @@
 angular.module('championship')
 
-.service('ChampionshipService', function($q) {
+.service('ChampionshipService', function($q, $http) {
 
 	var service = this;
 
@@ -61,6 +61,7 @@ angular.module('championship')
 	/* Methods */
 	service.getChampionship = getChampionship;
 	service.getChampionships = getChampionships;
+	service.getChampionshipsMock = getChampionshipsMock;
 
 	/**********/
 
@@ -81,7 +82,7 @@ angular.module('championship')
 	  return deferred.promise;
 	}
 
-	function getChampionships(countryId) {
+	function getChampionshipsMock(countryId) {
 		var deferred = $q.defer();
 		var successfulHttpRequest = true;
 
@@ -90,6 +91,21 @@ angular.module('championship')
     } else {
       deferred.reject('Não foi possível recuperar os campeonatos.')
     }
+
+	  return deferred.promise;
+	}
+
+	function getChampionships(sportId) {
+		var deferred = $q.defer();
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.championship.php?sportId=' + sportId;
+
+		$http.get(url)
+	    .success(function(data, status, headers,config){
+	      deferred.resolve(data.championship);
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Não foi possível recuperar os países.');
+	    })
 
 	  return deferred.promise;
 	}

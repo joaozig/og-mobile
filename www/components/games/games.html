@@ -1,0 +1,38 @@
+<ion-view>
+  <ion-nav-title>{{ctrl.sport.name}}</ion-nav-title>
+  <ion-content>
+    <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
+      <ion-spinner></ion-spinner>  
+    </div>
+    <ion-list>
+      <div ng-repeat="championship in ctrl.championships">
+        <ion-item class="item-stable"
+                  ng-click="ctrl.toggleGroup(championship)"
+                  ng-class="{active: ctrl.isGroupShown(championship)}">
+            <i class="icon" ng-class="ctrl.isGroupShown(championship) ? 'ion-minus' : 'ion-plus'"></i>
+          &nbsp;
+          {{championship.country.nome}} - {{championship.name}}
+        </ion-item>
+        <ion-item 
+                  ng-repeat="game in championship.games"
+                  ng-show="ctrl.isGroupShown(championship)"
+                  href="#/app/tickets/{{game.id}}">
+
+          <div class="game-row">
+            <img ng-src="{{game.teamA.img}}" class="left-team-img">
+            <div>
+              {{game.teamA.name}} x {{game.teamB.name}}
+              <div class="ticket-game-detail">{{game.date}} - {{game.time}}</div>
+            </div>
+            <img ng-src="{{game.teamB.img}}" class="right-team-img">
+            <div>
+              <span class="custom-badge"> mais {{game.total}}</span>
+            </div>
+          </div>
+          <!-- <i class="icon ion-chevron-right icon-accessory"></i> -->
+        </ion-item>
+      </div>
+    </ion-list>
+  </ion-content>
+  <bet-footer></bet-footer>
+</ion-view>
