@@ -1,6 +1,6 @@
 angular.module('player')
 
-.controller('PlayerController', function($state, $ionicPopup, BetService) {
+.controller('PlayerController', function($state, $ionicHistory, $ionicPopup, BetService) {
 
 	var vm = this;
 	vm.util = new Util();
@@ -26,6 +26,7 @@ angular.module('player')
 		BetService.addBet(vm.playerName, vm.betAmount).then(
 			function(bet) {
 				vm.bet = bet;
+				$ionicHistory.goBack();
 			},
 			function(errorMessage) {
 				$ionicPopup.alert({
