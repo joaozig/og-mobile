@@ -1,6 +1,6 @@
 angular.module('ticket')
 
-.controller('TicketController', function($stateParams, $ionicPopup, GameService, TicketService, BetService) {
+.controller('TicketController', function($state, $stateParams, $ionicHistory, $ionicPopup, GameService, TicketService, BetService) {
 	var vm = this;
 	vm.util = new Util();
 
@@ -42,25 +42,20 @@ angular.module('ticket')
 	}
 
 	function addTicketToBet(ticket) {
-		var confirmPopup = $ionicPopup.confirm({
-			title: 'Adicionar Palpite',
-			template: 'Você deseja realmente adicionar o palpite?'
-		});
 
-		confirmPopup.then(function(confirmed) {
-			if(confirmed) {
-				if(BetService.addTicket(ticket)) {
-					$ionicPopup.alert({
-						title: 'Sucesso! :)',
-						template: 'Palpite adicionado com sucesso!'
-					});
-				} else {
-					$ionicPopup.alert({
-						title: 'Algo falhou :(',
-						template: 'Não foi possível adicionar o palpite'
-					});
-				}
+		var currentBet = BetService.getBet();
+
+		if (!currentBet) {
+			$state.go('app.player');
+		} else {
+			if(BetService.addTicket(ticket)) {
+				$ionicHistory.goBack();
+			} else {
+				$ionicPopup.alert({
+					title: 'Algo falhou :(',
+					template: 'Não foi possível adicionar o palpite'
+				});
 			}
-		});
+		}
 	}
 });
