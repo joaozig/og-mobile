@@ -6,6 +6,7 @@ function Bet(options) {
 	model.playerName;
 	model.betAmount;
 	model.tickets;
+	model.maxJackpot = 15000;
 
 	/* Public Methods */
 	model.jackpot = jackpot;
@@ -28,9 +29,9 @@ function Bet(options) {
 			amount = (ticket.tax * amount);
 		});
 
-		// if(amount > 1000) {
-		// 	amount = 1000;
-		// }
+		if(amount > model.maxJackpot) {
+			amount = model.maxJackpot;
+		}
 
 		return amount;
 	}
