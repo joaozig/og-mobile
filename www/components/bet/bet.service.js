@@ -5,6 +5,8 @@ angular.module('bet')
 	var service = this;
 
 	/* Properties */
+	service.minBetAmount = 2;
+	service.maxBetAmount = 500;
 
 	/* Public Methods */
 	service.addBet = addBet;
@@ -157,8 +159,8 @@ angular.module('bet')
 			validation.message = 'Preencha o nome do apostador';
 		} else if(isNaN(betAmount)) {
 			validation.message = 'Preencha o valor a ser apostado';
-		} else if(betAmount <= 0) {
-			validation.message = 'O valor a ser apostado tem que ser maior que 0';
+		} else if(betAmount < service.minBetAmount || betAmount > service.maxBetAmount) {
+			validation.message = 'O valor a ser apostado tem que ser no mínimo ' + service.minBetAmount + ' e no máximo ' + service.maxBetAmount + ' reais';
 		} else {
 			validation.valid = true;
 			validation.message = 'Aposta válida';
