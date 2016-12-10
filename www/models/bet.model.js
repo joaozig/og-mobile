@@ -22,11 +22,15 @@ function Bet(options) {
 	}
 
 	function jackpot() {
-		var amount = 0;
+		var amount = model.betAmount;
 
 		model.tickets.forEach(function(ticket) {
-			amount += (ticket.tax * model.betAmount);
+			amount = (ticket.tax * amount);
 		});
+
+		// if(amount > 1000) {
+		// 	amount = 1000;
+		// }
 
 		return amount;
 	}
