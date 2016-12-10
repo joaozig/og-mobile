@@ -23,9 +23,13 @@ function Bet(options) {
 	}
 
 	function jackpot() {
-		var amount = model.betAmount;
+		var amount = 0;
 
 		model.tickets.forEach(function(ticket) {
+			if (amount == 0) {
+				amount = model.betAmount;
+			}
+
 			amount = (ticket.tax * amount);
 		});
 
