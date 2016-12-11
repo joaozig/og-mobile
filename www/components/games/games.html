@@ -16,7 +16,7 @@
         <ion-item class="item-game"
                   ng-repeat="game in championship.games"
                   ng-show="ctrl.isGroupShown(championship)"
-                  href="#/app/tickets/1">
+                  href="#/app/tickets/{{game.id}}&{{ctrl.sport.id}}&{{championship.country.id}}">
 
           <div class="game-row">
             <img ng-src="{{game.teamA.img}}" class="left-team-img">

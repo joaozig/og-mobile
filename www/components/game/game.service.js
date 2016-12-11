@@ -1,6 +1,6 @@
 angular.module('game')
 
-.service('GameService', function($q) {
+.service('GameService', function($q, $http) {
 
 	var service = this;
 
@@ -46,19 +46,18 @@ angular.module('game')
 
 	/**********/
 
-	function getGame(gameId) {
+	function getGame(gameId, sportId, countryId) {
 		var deferred = $q.defer();
-		var game = {};
 
-		game = service.games.find(function (game) {
-		    return game.id === parseInt(gameId);
-		});
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.games.php?gameId=' + gameId + '&sportId=' + sportId +'&countryId=' + countryId;
 
-    if(game) {
-    	deferred.resolve(game)
-    } else {
-      deferred.reject('Jogo não encontrado.')
-    }
+		$http.get(url)
+	    .success(function(data, status, headers,config){
+	      deferred.resolve(data.game[0]);
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Não foi possível recuperar os palpites.');
+	    })
 
 	  return deferred.promise;
 	}

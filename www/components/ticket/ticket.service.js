@@ -1,6 +1,6 @@
 angular.module('ticket')
 
-.service('TicketService', function($q) {
+.service('TicketService', function($q, $http) {
 
 	var service = this;
 
@@ -64,19 +64,16 @@ angular.module('ticket')
 
 	function getTicketTypes(gameId) {
 		var deferred = $q.defer();
-		var successfulHttpRequest = true;
 
-    if(successfulHttpRequest) {
-    	var ticketTypes = [];
-    	service.ticketTypes.forEach(function(ticketType) {
-    		if(ticketType.game.id == gameId) {
-    			ticketTypes.push(ticketType);
-    		}
-    	});
-    	deferred.resolve(ticketTypes)
-    } else {
-      deferred.reject('Não foi possível recuperar os palpites.')
-    }
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.games.php?gameId=' + gameId;
+
+		$http.get(url)
+	    .success(function(data, status, headers,config){
+	      deferred.resolve(data.game);
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Não foi possível recuperar os palpites.');
+	    })
 
 	  return deferred.promise;
 	}

@@ -127,7 +127,7 @@ angular.module('ourigol', [
     })
 
     .state('app.tickets', {
-      url: '/tickets/:gameId',
+      url: '/tickets/:gameId&:sportId&:countryId',
       views: {
         'menuContent': {
           templateUrl: componentsFolder + '/ticket/ticket.html',

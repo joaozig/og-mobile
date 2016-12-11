@@ -1,6 +1,6 @@
 angular.module('ticket')
 
-.controller('TicketController', function($state, $stateParams, $ionicHistory, $ionicPopup, GameService, TicketService, BetService) {
+.controller('TicketController', function($state, $stateParams, $ionicHistory, $ionicPopup, GameService, BetService) {
 	var vm = this;
 	vm.util = new Util();
 
@@ -16,7 +16,7 @@ angular.module('ticket')
 
 	/*********/
 	function init() {
-		GameService.getGame($stateParams.gameId).then(
+		GameService.getGame($stateParams.gameId, $stateParams.sportId, $stateParams.countryId).then(
 			function(game) {
 				vm.game = game;
 			},
@@ -27,27 +27,17 @@ angular.module('ticket')
 				});
 			}
 		);
-
-		TicketService.getTicketTypes($stateParams.gameId).then(
-			function(ticketTypes) {
-				vm.ticketTypes = ticketTypes;
-			},
-			function(errorMessage) {
-				$ionicPopup.alert({
-					title: 'Algo falhou :(',
-					template: errorMessage
-				});
-			}
-		);
 	}
 
-	function addTicketToBet(ticket) {
+	function addTicketToBet(ticket, ticketType) {
 
 		var currentBet = BetService.getBet();
 
 		if (!currentBet) {
 			$state.go('app.player');
 		} else {
+			ticket.ticketType = {name: ticketType.name};
+			ticket.ticketType.game = JSON.parse(JSON.stringify(vm.game));
 			if(BetService.addTicket(ticket)) {
 				$ionicHistory.goBack();
 			} else {
