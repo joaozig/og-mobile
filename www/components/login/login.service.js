@@ -15,7 +15,8 @@ angular.module('login')
 
 		$http.post(url, {username: username, password: password})
 	    .success(function(data, status, headers,config){
-	    	console.log(data.user);
+	    	// var data = JSON.parse(data);
+	    	console.log(data);
 	    	if(data.user) {
 					deferred.resolve(data.user);
 	    	} else {
