@@ -1,6 +1,6 @@
 angular.module('games')
 
-.controller('GamesController', function($stateParams, $ionicPopup, MainService, ChampionshipService) {
+.controller('GamesController', function($scope, $stateParams, $ionicPopup, MainService, ChampionshipService) {
 
 	var vm = this;
 
@@ -12,6 +12,7 @@ angular.module('games')
 	/* Public Methods */
   vm.toggleGroup = toogleGroup;
   vm.isGroupShown = isGroupShown;
+  vm.loadChampionships = loadChampionships;
 
 	/* Initialization */
 	init();
@@ -31,11 +32,16 @@ angular.module('games')
 			}
 		);
 
+		vm.loadChampionships();
+	}
+
+	function loadChampionships() {
 		ChampionshipService.getChampionships($stateParams.sportId).then(
 			function(championships) {
 				// vm.championships = championships.splice(0, 40);
 				vm.championships = championships;
 				vm.hideLoadingSpinner = true;
+				$scope.$broadcast('scroll.refreshComplete');
 			},
 			function(errorMessage) {
 				$ionicPopup.alert({

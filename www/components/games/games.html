@@ -4,6 +4,7 @@
     <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
       <ion-spinner></ion-spinner>  
     </div>
+    <ion-refresher on-refresh="ctrl.loadChampionships()"></ion-refresher>
     <ion-list>
       <div ng-repeat="championship in ctrl.championships">
         <ion-item class="item-stable"
