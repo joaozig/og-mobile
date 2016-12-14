@@ -1,6 +1,6 @@
 angular.module('ticket')
 
-.controller('TicketController', function($state, $stateParams, $ionicHistory, $ionicPopup, GameService, BetService) {
+.controller('TicketController', function($scope, $state, $stateParams, $ionicHistory, $ionicPopup, GameService, BetService) {
 	var vm = this;
 	vm.util = new Util();
 
@@ -13,25 +13,14 @@ angular.module('ticket')
 	vm.addTicketToBet = addTicketToBet;
 	vm.toggleGroup = toogleGroup;
   vm.isGroupShown = isGroupShown;
+  vm.loadGame = loadGame;
 
 	/* Initialization */
 	init();
 
 	/*********/
 	function init() {
-		GameService.getGame($stateParams.gameId, $stateParams.sportId, $stateParams.countryId).then(
-			function(game) {
-				vm.game = game;
-				vm.hideLoadingSpinner = true;
-				vm.toggleGroup(vm.game.ticketType[0]);
-			},
-			function(errorMessage) {
-				$ionicPopup.alert({
-					title: 'Algo falhou :(',
-					template: errorMessage
-				});
-			}
-		);
+		vm.loadGame();
 	}
 
 	function addTicketToBet(ticket, ticketType) {
@@ -65,4 +54,21 @@ angular.module('ticket')
   function isGroupShown(group) {
     return vm.shownGroup === group;
   };
+
+  function loadGame() {
+		GameService.getGame($stateParams.gameId, $stateParams.sportId, $stateParams.countryId).then(
+			function(game) {
+				vm.game = game;
+				vm.hideLoadingSpinner = true;
+				$scope.$broadcast('scroll.refreshComplete');
+				vm.toggleGroup(vm.game.ticketType[0]);
+			},
+			function(errorMessage) {
+				$ionicPopup.alert({
+					title: 'Algo falhou :(',
+					template: errorMessage
+				});
+			}
+		);
+  }
 });

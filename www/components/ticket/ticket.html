@@ -18,6 +18,7 @@
     <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
       <ion-spinner></ion-spinner>  
     </div>
+    <ion-refresher on-refresh="ctrl.loadGame()"></ion-refresher>
     <div class="list">
 
       <div ng-repeat="ticketType in ctrl.game.ticketType">
