@@ -9860,6 +9860,10 @@ a.button {
 .larger {
   font-size: larger !important; }
 
+.country-img {
+  width: 30px;
+  height: 20px; }
+
 .left-team-img {
   float: left;
   margin: auto auto auto 0;

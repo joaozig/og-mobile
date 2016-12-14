@@ -30,6 +30,9 @@ $padding-bottom-logo: 10px;
 $width-team-img: 30px;
 $height-team-img: $width-team-img;
 
+$width-country-img: 30px;
+$height-country-img: 20px;
+
 $game-detail-nav-title-team-img-size: 20px;
 $game-detail-nav-title-team-img-margin-top: 15px;
 
@@ -85,6 +88,11 @@ $game-detail-nav-title-team-img-margin-top: 15px;
 
 .larger {
 	font-size: larger !important;
+}
+
+.country-img {
+	width: $width-country-img;
+	height: $height-country-img;
 }
 
 .left-team-img {
