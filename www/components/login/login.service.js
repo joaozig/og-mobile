@@ -1,6 +1,6 @@
 angular.module('login')
 
-.service('LoginService', function($q) {
+.service('LoginService', function($q, $http) {
 
 	var service = this;
 	service.validUsers = [
@@ -11,16 +11,20 @@ angular.module('login')
 
 	service.login = function(username, password) {
 		var deferred = $q.defer();
-		var user = service.validUsers.find(function(user) {
-			return (user.username == username && user.password == password);
-		});
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.login.php';
 
-    if(user) {
-			window.localStorage.setItem('user', user);
-    	deferred.resolve(user)
-    } else {
-      deferred.reject('Usuário e/ou Senha incorreto(s)')
-    }
+		$http.post(url, {username: username, password: password})
+	    .success(function(data, status, headers,config){
+	    	console.log(data.user);
+	    	if(data.user) {
+					deferred.resolve(data.user);
+	    	} else {
+					deferred.reject('Usuário e/ou Senha incorreto(s)');
+	    	}
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Falha ao fazer login');
+	    })
 
 	  return deferred.promise;
 	}
