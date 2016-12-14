@@ -11,6 +11,8 @@ angular.module('ticket')
 
 	/* Public Methods */
 	vm.addTicketToBet = addTicketToBet;
+	vm.toggleGroup = toogleGroup;
+  vm.isGroupShown = isGroupShown;
 
 	/* Initialization */
 	init();
@@ -21,6 +23,7 @@ angular.module('ticket')
 			function(game) {
 				vm.game = game;
 				vm.hideLoadingSpinner = true;
+				vm.toggleGroup(vm.game.ticketType[0]);
 			},
 			function(errorMessage) {
 				$ionicPopup.alert({
@@ -50,4 +53,16 @@ angular.module('ticket')
 			}
 		}
 	}
+
+	function toogleGroup(group) {
+    if (vm.isGroupShown(group)) {
+      vm.shownGroup = null;
+    } else {
+      vm.shownGroup = group;
+    }
+  };
+
+  function isGroupShown(group) {
+    return vm.shownGroup === group;
+  };
 });
