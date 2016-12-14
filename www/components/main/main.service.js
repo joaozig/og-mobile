@@ -42,7 +42,6 @@ angular.module('main')
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){
-	    	console.log(data.modality)
 	      deferred.resolve(data.modality);
 	    })
 	    .error(function(data, status, headers,config){

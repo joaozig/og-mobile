@@ -1,6 +1,6 @@
 angular.module('main')
 
-.controller('MainController', function($ionicPopup, MainService) {
+.controller('MainController', function($ionicPopup, $ionicHistory, $state, MainService) {
 	var vm = this;
 
 	/* Properties */
@@ -19,6 +19,12 @@ angular.module('main')
 			function(sports) {
 				vm.sports = sports;
 				vm.hideLoadingSpinner = true;
+				if(vm.sports.length == 1) {
+					$ionicHistory.nextViewOptions({
+					  disableBack: true
+					});
+					$state.go('app.games', {sportId: vm.sports[0].id});
+				}
 			},
 			function(errorMessage) {
 				$ionicPopup.alert({
