@@ -111,16 +111,20 @@ angular.module('bet')
 		return null;
 	}
 
-	function addTicket(ticket) {
+	function addTicket(game, ticket) {
 		var bet = service.getBet();
 
 		if(!bet) {
 			return false;
 		}
 
-		bet.tickets.push(ticket);
-		saveBet(bet);
-		return true;
+		if(validateTicket(game, ticket)){
+			bet.tickets.push(ticket);
+			saveBet(bet);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	function removeTicket(ticketId) {
@@ -167,6 +171,24 @@ angular.module('bet')
 		}
 
 		return validation;
+	}
+
+	function validateTicket(game, ticket) {
+		var now = new Date();
+		var d = game.date.split("/");
+		var date = d[2]+'-'+d[1]+'-'+d[0];
+		var finalDate = new Date(date + " " + game.time);
+		var diffMs = (finalDate - now); // milliseconds between now & Christmas
+		var diffDays = Math.round(diffMs / 86400000); // days
+		var diffHrs = Math.round((diffMs % 86400000) / 3600000); // hours
+		var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+
+		// can't add new ticket when left 5 minutes to the start of the game
+		if(diffDays == 0 && diffHrs == 0 && diffMins <= 5) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	function getFinishedBets() {

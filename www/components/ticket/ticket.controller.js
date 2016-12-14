@@ -45,7 +45,7 @@ angular.module('ticket')
 			} else {
 				$ionicPopup.alert({
 					title: 'Algo falhou :(',
-					template: 'Não foi possível adicionar o palpite'
+					template: 'Tempo esgotado para apostas nesse jogo.'
 				});
 			}
 		}
