@@ -8,18 +8,27 @@ angular.module('bet')
   };
 })
 
-.controller('BetFooterController', function(BetService) {
+.controller('BetFooterController', function($scope, BetService) {
   var vm = this;
   vm.util = new Util();
+  vm.teste = 'teste';
+
+  /* States */
+  $scope.$on("$ionicView.beforeEnter", function(event, data){
+     vm.loadBet();
+  });
 
   /* Properties */
   vm.bet = null;
 
+  /* Methods */
+  vm.loadBet = loadBet;
+
   /* Initialization */
-  init();
+  vm.loadBet();
 
   /**********/
-  function init() {
+  function loadBet() {
   	vm.bet = BetService.getBet();
   }
 });
