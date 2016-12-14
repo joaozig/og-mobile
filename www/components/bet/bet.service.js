@@ -111,14 +111,14 @@ angular.module('bet')
 		return null;
 	}
 
-	function addTicket(game, ticket) {
+	function addTicket(ticket) {
 		var bet = service.getBet();
 
 		if(!bet) {
 			return false;
 		}
 
-		if(validateTicket(game, ticket)){
+		if(validateTicket(ticket)){
 			bet.tickets.push(ticket);
 			saveBet(bet);
 			return true;
@@ -173,7 +173,8 @@ angular.module('bet')
 		return validation;
 	}
 
-	function validateTicket(game, ticket) {
+	function validateTicket(ticket) {
+		var game = ticket.ticketType.game;
 		var now = new Date();
 		var d = game.date.split("/");
 		var date = d[2]+'-'+d[1]+'-'+d[0];
