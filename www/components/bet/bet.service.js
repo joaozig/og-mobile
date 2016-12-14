@@ -1,6 +1,6 @@
 angular.module('bet')
 .constant('BET', 'bet')
-.service('BetService', function(BET, $q) {
+.service('BetService', function(BET, $q, $http, LoginService) {
 
 	var service = this;
 
@@ -96,11 +96,15 @@ angular.module('bet')
 			if(service.removeBet()) {
 				var finishedBets = getFinishedBets();
 				bet.id = finishedBets.length + 1;
+				bet.seller = LoginService.getUser();
+				bet.date = new Date().toLocaleString('pt');
 				var params = {
 					id: bet.id,
 					playerName: bet.playerName,
+					seller: bet.seller,
 					betAmount: bet.betAmount,
-					tickets: bet.tickets
+					tickets: bet.tickets,
+					date: bet.date
 				}
 				finishedBets.push(params);
 				window.localStorage.setItem('finishedBets', JSON.stringify(finishedBets));

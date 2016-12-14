@@ -1,51 +1,75 @@
-<ion-view cache-view="false" view-title="Aposta Finalizada">
+<ion-view view-title="Aposta Finalizada">
   <ion-content>
-  	<div class="card">
-  		<div class="item item-divider item-dark">
-  			Aposta Finalizada
-  		</div>
-  		<div class="item text-wrap">
-        <div>
-          <strong>ID:</strong> #{{ctrl.bet.id}}
-        </div>
-  			<div>
-					<strong>Apostador:</strong> {{ctrl.bet.playerName}}
-  			</div>
-  			<div>
-					<strong>Aposta:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.betAmount)}}
-  			</div>
-  			<div>
-					<strong>Prêmio:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.jackpot())}}
-  			</div>
-  		</div>
-  	</div>
-    <ion-list class="list">
-      <div class="item item-divider">
-        Palpites: {{ctrl.bet.tickets.length}}
+    <div class="row">
+      <div class="col" align="center">
+        <img src="img/logo.png">
       </div>
-      <ion-item class="item" ng-repeat="ticket in ctrl.bet.tickets">
-        <div class="game-row">
-          <img ng-src="{{ticket.ticketType.game.teamA.img}}" class="left-team-img">
-          <div>
-            {{ticket.ticketType.game.teamA.name}} x {{ticket.ticketType.game.teamB.name}}
-            <div class="ticket-game-detail">
-              {{ticket.ticketType.game.championship.name}} - {{ticket.ticketType.game.date}} - {{ticket.ticketType.game.time}}
-            </div>
-          </div>
-          <img ng-src="{{ticket.ticketType.game.teamB.img}}" class="right-team-img">
-        </div>
-        <div class="game-row">
-          <span class="ticket-game-detail">
-            <strong>{{ticket.ticketType.name}}:</strong>
-            <br>
-            {{ticket.name}} ({{ctrl.util.formattedTaxValue(ticket.tax)}}%)
-          </span>
-        </div>
-      </ion-item>
-    </ion-list>
+    </div>
+    <div class="row">
+      <div class="col" align="center">
+        <h2>Comprovante de Aposta</h2>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
-        <button class="button button-block button-positive" ng-click="ctrl.newBet()">Nova Aposta</button>
+        =============================================
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <b>Cliente:</b> {{ctrl.bet.playerName}}<br>
+        <b>Vendedor:</b> {{ctrl.bet.seller.name}}<br>
+        <b>Data/Hora:</b> {{ctrl.bet.date}}<br>
+        <b>Código:</b> {{ctrl.bet.id}}<br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        =============================================
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" align="center">
+        <h3>Seus Palpites</h3>
+      </div>
+    </div>
+    <div class="row" ng-repeat="ticket in ctrl.bet.tickets">
+      <div class="col">
+        .................................................................................................<br><br>
+        {{ticket.ticketType.game.teamA.name}} x {{ticket.ticketType.game.teamB.name}}<br>
+        {{ticket.ticketType.game.date}} - {{ticket.ticketType.game.time}}<br>
+        Palpite: <b>{{ticket.ticketType.name.toLowerCase()}} - {{ticket.name}} - {{ctrl.util.formattedTaxValue(ticket.tax)}}%</b><br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        =============================================
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Valor da Aposta: R$ {{ctrl.util.formattedValue(ctrl.bet.betAmount)}}<br>
+        Palpites: {{ctrl.bet.tickets.length}}<br>
+        Prêmio Possível: <strong>R$ {{ctrl.util.formattedValue(ctrl.bet.jackpot())}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        =============================================
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" style="font-size: 9px">
+        * É CONSIDERADO SOMENTE O RESULTADO DOS 90 MINUTOS DE JOGO E ACRÉSCIMOS.<br>
+        * PRORROGAÇÃO E PÊNALTIS SÃO IGNORADOS.<br>
+        * PRÊMIO VÁLIDO SOMENTE COM A APRESENTAÇÃO DESTE COMPROVANTE.<br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <br>
+        <b>Assinatura do Vendedor:</b>
+        <br><br><br><br>
       </div>
     </div>
   </ion-content>

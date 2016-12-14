@@ -4,7 +4,7 @@ angular.module('login')
 
 	var service = this;
 	service.validUsers = [
-		{username: 'admin', password: 'admin'},
+		{username: 'admin', password: 'admin', name: 'Marcos Amaral'},
 		{username: 'marcos_ourica', password: 'marcos_ourica'},
 		{username: 'joao', password: 'joao'}
 	];
@@ -16,12 +16,18 @@ angular.module('login')
 		});
 
     if(user) {
-			window.localStorage.setItem('user', user);
+			window.localStorage.setItem('user', JSON.stringify(user));
     	deferred.resolve(user)
     } else {
       deferred.reject('Usuário e/ou Senha incorreto(s)')
     }
 
 	  return deferred.promise;
+	}
+
+	service.getUser = function() {
+		var user = window.localStorage.getItem('user');
+		user = JSON.parse(user);
+		return user;
 	}
 });

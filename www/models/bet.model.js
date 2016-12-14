@@ -4,8 +4,10 @@ function Bet(options) {
 	/* Properties */
 	model.id;
 	model.playerName;
+	model.seller;
 	model.betAmount;
 	model.tickets;
+	model.date;
 	model.maxJackpot = 15000;
 
 	/* Public Methods */
@@ -18,8 +20,10 @@ function Bet(options) {
 	function init() {
 		model.id = (options && options.id) ? options.id : null;
 		model.playerName = (options && options.playerName) ? options.playerName : '';
+		model.seller = (options && options.seller) ? options.seller : null;
 		model.betAmount = (options && options.betAmount) ? options.betAmount : 0;
 		model.tickets = (options && options.tickets) ? options.tickets : [];
+		model.date = (options && options.date) ? options.date : null;
 	}
 
 	function jackpot() {

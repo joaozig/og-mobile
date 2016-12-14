@@ -9912,3 +9912,7 @@ div.spinner {
 
 .item-game .item-content {
   padding: 16px !important; }
+
+@media print {
+  .no-print {
+    display: none !important; } }
