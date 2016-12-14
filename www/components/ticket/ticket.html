@@ -15,6 +15,9 @@
     </ion-nav-title>
   </ion-nav-bar>
   <ion-content>
+    <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
+      <ion-spinner></ion-spinner>  
+    </div>
     <div class="list">
 
       <div ng-repeat="ticketType in ctrl.game.ticketType">

@@ -7,6 +7,7 @@ angular.module('ticket')
 	/* Properties */
 	vm.game = {};
 	vm.ticketTypes = [];
+	vm.hideLoadingSpinner = false;
 
 	/* Public Methods */
 	vm.addTicketToBet = addTicketToBet;
@@ -19,6 +20,7 @@ angular.module('ticket')
 		GameService.getGame($stateParams.gameId, $stateParams.sportId, $stateParams.countryId).then(
 			function(game) {
 				vm.game = game;
+				vm.hideLoadingSpinner = true;
 			},
 			function(errorMessage) {
 				$ionicPopup.alert({
