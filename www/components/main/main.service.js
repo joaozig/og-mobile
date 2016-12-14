@@ -1,6 +1,6 @@
 angular.module('main')
 
-.service('MainService', function($q) {
+.service('MainService', function($q, $http) {
 
 	var service = this;
 
@@ -38,13 +38,16 @@ angular.module('main')
 
 	function getSports() {
 		var deferred = $q.defer();
-		var successfulHttpRequest = true;
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.modality.php';
 
-    if(successfulHttpRequest) {
-    	deferred.resolve(service.sports)
-    } else {
-      deferred.reject('Não foi possível recuperar os esportes.')
-    }
+		$http.get(url)
+	    .success(function(data, status, headers,config){
+	    	console.log(data.modality)
+	      deferred.resolve(data.modality);
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Não foi possível recuperar os esportes.');
+	    })
 
 	  return deferred.promise;
 	}

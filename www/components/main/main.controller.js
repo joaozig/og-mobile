@@ -5,6 +5,7 @@ angular.module('main')
 
 	/* Properties */
 	vm.sports = [];
+	vm.hideLoadingSpinner = false;
 
 	/* Public Methods */
 
@@ -17,6 +18,7 @@ angular.module('main')
 		MainService.getSports().then(
 			function(sports) {
 				vm.sports = sports;
+				vm.hideLoadingSpinner = true;
 			},
 			function(errorMessage) {
 				$ionicPopup.alert({

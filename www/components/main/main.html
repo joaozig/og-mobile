@@ -9,6 +9,9 @@
     </ion-nav-title>
 	</ion-nav-bar>
   <ion-content>
+    <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
+      <ion-spinner></ion-spinner>  
+    </div>
   	<ion-list>
   		<ion-item ng-repeat="sport in ctrl.sports"
                 href="#/app/games/{{sport.id}}"
