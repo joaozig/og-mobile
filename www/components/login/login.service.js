@@ -13,9 +13,8 @@ angular.module('login')
 		var deferred = $q.defer();
 		var url = 'http://avantitecnologia.net/jogo/includes/inc.login.php';
 
-		$http.post(url, {username: username, password: password})
+		$http({url: url, method: "POST", data: 'username='+username+'&password='+password, headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 	    .success(function(data, status, headers,config){
-	    	// var data = JSON.parse(data);
 	    	console.log(data);
 	    	if(data.user) {
 					deferred.resolve(data.user);
