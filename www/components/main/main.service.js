@@ -6,11 +6,11 @@ angular.module('main')
 
 	/* Properties */
 	service.sports = [
+		new Sport({id: 50, name: 'Futebol'}),
 		new Sport({id: 1, name: 'Futebol Americano'}),
 		new Sport({id: 2, name: 'Basquete'}),
 		new Sport({id: 3, name: 'Tennis'}),
-		new Sport({id: 4, name: 'Volei'}),
-		new Sport({id: 50, name: 'Futebol'})
+		new Sport({id: 4, name: 'Volei'})
 	];
 
 	/* Methods */
@@ -23,9 +23,7 @@ angular.module('main')
 		var deferred = $q.defer();
 		var sport = {};
 
-		sport = service.sports.find(function (sport) {
-		    return sport.id === parseInt(sportId);
-		});
+		sport = service.sports[0];
 
     if(sport) {
     	deferred.resolve(sport)
