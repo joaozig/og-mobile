@@ -16,7 +16,9 @@ angular.module('login')
 		$http({url: url, method: "POST", data: 'username='+username+'&password='+password, headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 	    .success(function(data, status, headers,config){
 	    	if(data.user) {
-					deferred.resolve(data.user[0]);
+	    		var user = data.user[0];
+					window.localStorage.setItem('user', JSON.stringify(user));
+					deferred.resolve(user);
 	    	} else {
 					deferred.reject('Usuário e/ou Senha incorreto(s)');
 	    	}

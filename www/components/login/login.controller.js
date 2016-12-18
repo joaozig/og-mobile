@@ -1,6 +1,6 @@
 angular.module('login')
 
-.controller('LoginController', function($state, $ionicHistory, $ionicPopup, LoginService) {
+.controller('LoginController', function($state, $ionicHistory, $ionicPopup, $ionicLoading, LoginService) {
 	var vm = this;
 
   $ionicHistory.nextViewOptions({
@@ -12,16 +12,21 @@ angular.module('login')
 
 	/* Methods */
 	vm.doLogin = doLogin;
+	vm.showLoading = showLoading;
+	vm.hideLoading = hideLoading;
 
 	/**********/
 
 	function doLogin() {
+		vm.showLoading();
 		LoginService.login(vm.user.username, vm.user.password)
 			.then(
 				function(user) {
+					vm.hideLoading();
 					$state.go('app.main');
 				},
 				function(errorMessage) {
+					vm.hideLoading();
 					$ionicPopup.alert({
 						title: 'Login falhou :(',
 						template: errorMessage
@@ -29,4 +34,14 @@ angular.module('login')
 				}
 			);
 	}
+
+  function showLoading() {
+    $ionicLoading.show({
+      template: 'Entrando...'
+    });
+  };
+
+  function hideLoading(){
+    $ionicLoading.hide();
+  };
 });
