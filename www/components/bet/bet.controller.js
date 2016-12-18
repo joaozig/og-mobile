@@ -17,6 +17,7 @@ angular.module('bet')
 	vm.playerName = '';
 	vm.betAmount = '';
 	vm.showEndedBetButton = false;
+	vm.minTicketsAllowed = 2;
 
 	/* Public Methods */
 	vm.openEditBetModal = openEditBetModal;
@@ -125,7 +126,7 @@ angular.module('bet')
 
 	function _setBet() {
 		vm.bet = BetService.getBet();
-		vm.showEndedBetButton = (vm.bet.tickets.length > 0);
+		vm.showEndedBetButton = (vm.bet.tickets.length >= vm.minTicketsAllowed);
 	}
 
 	function _setEditBetFields() {
