@@ -6,7 +6,7 @@ angular.module('bet')
 
 	/* Properties */
 	service.minBetAmount = 2;
-	service.maxBetAmount = 500;
+	service.maxBetAmount = 150;
 
 	/* Public Methods */
 	service.addBet = addBet;
