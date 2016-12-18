@@ -116,19 +116,24 @@ angular.module('bet')
 	}
 
 	function addTicket(ticket) {
+		var deferred = $q.defer();
 		var bet = service.getBet();
 
 		if(!bet) {
-			return false;
+			deferred.reject('Aposta não encontrada.');
 		}
 
-		if(validateTicket(ticket)){
+		if(!validateTicketDate(ticket)){
+			deferred.reject('Tempo esgotado para apostas nesse jogo.');
+		} else if(!validateUniqueTicket(bet, ticket)) {
+			deferred.reject('Você já escolheu um palpite para esse jogo.');
+		} else {
 			bet.tickets.push(ticket);
 			saveBet(bet);
-			return true;
-		} else {
-			return false;
+			deferred.resolve();
 		}
+
+		return deferred.promise;
 	}
 
 	function removeTicket(ticketId) {
@@ -177,7 +182,7 @@ angular.module('bet')
 		return validation;
 	}
 
-	function validateTicket(ticket) {
+	function validateTicketDate(ticket) {
 		var game = ticket.ticketType.game;
 		var now = new Date();
 		var d = game.date.split("/");
@@ -194,6 +199,18 @@ angular.module('bet')
 		} else {
 			return true;
 		}
+	}
+
+	function validateUniqueTicket(bet, ticket) {
+		var validate = true;
+
+		bet.tickets.forEach(function(currentTicket) {
+			if(currentTicket.ticketType.game.id == ticket.ticketType.game.id) {
+				validate = false;
+			}
+		});
+
+		return validate;
 	}
 
 	function getFinishedBets() {

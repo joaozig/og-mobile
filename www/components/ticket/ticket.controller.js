@@ -32,14 +32,17 @@ angular.module('ticket')
 		} else {
 			ticket.ticketType = {name: ticketType.name};
 			ticket.ticketType.game = JSON.parse(JSON.stringify(vm.game));
-			if(BetService.addTicket(ticket)) {
-				$ionicHistory.goBack();
-			} else {
-				$ionicPopup.alert({
-					title: 'Algo falhou :(',
-					template: 'Tempo esgotado para apostas nesse jogo.'
+
+			BetService.addTicket(ticket).then(
+				function() {
+					$ionicHistory.goBack();
+				},
+				function(errorMessage) {
+					$ionicPopup.alert({
+						title: 'Algo falhou :(',
+						template: errorMessage
+					});
 				});
-			}
 		}
 	}
 
