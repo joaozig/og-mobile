@@ -41,6 +41,7 @@ angular.module('games')
 				// vm.championships = championships.splice(0, 40);
 				vm.championships = championships;
 				vm.hideLoadingSpinner = true;
+				vm.toggleGroup(vm.championships[0]);
 				$scope.$broadcast('scroll.refreshComplete');
 			},
 			function(errorMessage) {

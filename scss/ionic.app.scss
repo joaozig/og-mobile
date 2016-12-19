@@ -36,6 +36,9 @@ $height-country-img: 20px;
 $game-detail-nav-title-team-img-size: 20px;
 $game-detail-nav-title-team-img-margin-top: 15px;
 
+$font-weight-team-name: bold;
+$font-size-team-name: 12px;
+
 .logo {
 	padding-top: $padding-top-logo;
 	padding-bottom: $padding-bottom-logo;
@@ -107,6 +110,27 @@ $game-detail-nav-title-team-img-margin-top: 15px;
 	margin: auto 0 auto auto;
 	width: $width-team-img;
 	height: $height-team-img;
+}
+
+.left-team-name {
+	float: left;
+	margin: auto auto auto 0;
+	font-weight: $font-weight-team-name;
+	font-size: $font-size-team-name;
+}
+
+.right-team-name {
+	float: right;
+	margin: auto 0 auto auto;
+	font-weight: $font-weight-team-name;
+	font-size: $font-size-team-name;
+}
+
+.game-info {
+	font-size: $font-size-team-name;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .game-row {

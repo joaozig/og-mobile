@@ -9876,6 +9876,24 @@ a.button {
   width: 30px;
   height: 30px; }
 
+.left-team-name {
+  float: left;
+  margin: auto auto auto 0;
+  font-weight: bold;
+  font-size: 12px; }
+
+.right-team-name {
+  float: right;
+  margin: auto 0 auto auto;
+  font-weight: bold;
+  font-size: 12px; }
+
+.game-info {
+  font-size: 12px;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0); }
+
 .game-row {
   display: flex;
   justify-content: center;
