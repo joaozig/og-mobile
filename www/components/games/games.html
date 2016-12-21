@@ -16,8 +16,7 @@
         </ion-item>
         <ion-item class="item-game"
                   ng-repeat="game in championship.games"
-                  ng-show="ctrl.isGroupShown(championship)"
-                  href="#/app/tickets/{{game.id}}&{{ctrl.sport.id}}&{{championship.country.id}}">
+                  ng-show="ctrl.isGroupShown(championship)">
 
           <div>
             <div class="game-row">
@@ -28,24 +27,19 @@
             <div class="game-row">
               <img ng-src="{{game.teamA.img}}" class="left-team-img">
               <button style="margin-right: 8px" ng-repeat="ticket in game.ticketType[0].tickets" 
-                      class="button button-outline button-small button-positive">{{ctrl.util.formattedTaxValue(ticket.tax)}}%</button>
-              <button class="button button-outline button-small button-dark">mais {{game.total}} opções</button>&nbsp;
+                      class="button button-outline button-small button-positive"
+                      ng-click="ctrl.addTicketToBet(ticket, game, championship)">
+
+                {{ctrl.util.formattedTaxValue(ticket.tax)}}%
+              </button>
+              <button class="button button-outline button-small button-dark"
+                      ng-click="ctrl.seeMoreTickets(game, championship)">
+                mais {{game.total}} opções
+              </button>
               <img ng-src="{{game.teamB.img}}" class="right-team-img">
             </div>
           </div>
 
-<!--           <div class="game-row">
-            <img ng-src="{{game.teamA.img}}" class="left-team-img">
-            <div>
-              {{game.teamA.name}} x {{game.teamB.name}}
-              <div class="ticket-game-detail">{{game.date}} - {{game.time}}</div>
-            </div>
-            <img ng-src="{{game.teamB.img}}" class="right-team-img">
-            <div>
-              <span class="custom-badge"> mais {{game.total}}</span>
-            </div>
-          </div> -->
-          <!-- <i class="icon ion-chevron-right icon-accessory"></i> -->
         </ion-item>
       </div>
     </ion-list>
