@@ -3,6 +3,7 @@ angular.module('games')
 .controller('GamesController', function($scope, $stateParams, $ionicPopup, MainService, ChampionshipService) {
 
 	var vm = this;
+	vm.util = new Util();
 
 	/* Properties */
 	vm.sport = {};

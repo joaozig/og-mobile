@@ -27,10 +27,9 @@
             </div>
             <div class="game-row">
               <img ng-src="{{game.teamA.img}}" class="left-team-img">
-              <button class="button button-outline button-small button-positive">2,34%</button>&nbsp;
-              <button class="button button-outline button-small button-positive">2,34%</button>&nbsp;
-              <button class="button button-outline button-small button-positive">2,34%</button>&nbsp;
-              <button class="button button-outline button-small button-dark">mais 164 opções</button>&nbsp;
+              <button style="margin-right: 8px" ng-repeat="ticket in game.ticketType[0].tickets" 
+                      class="button button-outline button-small button-positive">{{ctrl.util.formattedTaxValue(ticket.tax)}}%</button>
+              <button class="button button-outline button-small button-dark">mais {{game.total}} opções</button>&nbsp;
               <img ng-src="{{game.teamB.img}}" class="right-team-img">
             </div>
           </div>
