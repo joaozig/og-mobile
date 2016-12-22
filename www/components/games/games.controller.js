@@ -59,9 +59,9 @@ angular.module('games')
 			ticket.ticketType.game = JSON.parse(JSON.stringify(game));
 			BetService.addTicket(ticket).then(
 				function() {
-					vm.championships[championshipIndex].games[gameIndex].alreadyAdded = true;
-					vm.championships[championshipIndex].games[gameIndex].currentTicket = ticket;
-					// $state.go('app.bet');
+					// vm.championships[championshipIndex].games[gameIndex].alreadyAdded = true;
+					// vm.championships[championshipIndex].games[gameIndex].currentTicket = ticket;
+					$state.go('app.bet');
 				},
 				function(errorMessage) {
 					$ionicPopup.alert({
