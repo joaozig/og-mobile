@@ -55,14 +55,16 @@ angular.module('bet')
 
 		confirmPopup.then(function(confirmed) {
 			if(confirmed) {
-				if(bet = BetService.finishBet()) {
-					$state.go('app.finishedBet', {betId: bet.id});
-				} else {
-					$ionicPopup.alert({
-						title: 'Algo falhou :(',
-						template: 'Não foi possível finalizar a aposta.'
-					});
-				}
+				BetService.finishBet().then(
+					function(bet) {
+						$state.go('app.finishedBet', {betId: bet.id});
+					},
+					function(errorMessage) {
+						$ionicPopup.alert({
+							title: 'Algo falhou :(',
+							template: 'Não foi possível finalizar a aposta.'
+						});
+					})
 			}
 		});
 	}
