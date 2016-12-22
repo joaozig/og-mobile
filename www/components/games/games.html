@@ -6,7 +6,7 @@
     </div>
     <ion-refresher on-refresh="ctrl.loadChampionships()"></ion-refresher>
     <ion-list>
-      <div ng-repeat="championship in ctrl.championships">
+      <div ng-repeat="championship in ctrl.championships" ng-init="championshipIndex = $index">
         <ion-item class="item-stable"
                   ng-click="ctrl.toggleGroup(championship)"
                   ng-class="{active: ctrl.isGroupShown(championship)}">
@@ -16,6 +16,7 @@
         </ion-item>
         <ion-item class="item-game"
                   ng-repeat="game in championship.games"
+                  ng-init="gameIndex = $index"
                   ng-show="ctrl.isGroupShown(championship)">
 
           <div>
@@ -26,13 +27,18 @@
             </div>
             <div class="game-row">
               <img ng-src="{{game.teamA.img}}" class="left-team-img">
-              <button style="margin-right: 8px" ng-repeat="ticket in game.ticketType[0].tickets" 
-                      class="button button-outline button-small button-positive"
-                      ng-click="ctrl.addTicketToBet(ticket, game, championship)">
+              <button ng-if="game.alreadyAdded" class="no-animate button button-small button-positive">
+                {{game.currentTicket.ticketType.name.toLowerCase()}}:<br> {{game.currentTicket.name}} ({{ctrl.util.formattedTaxValue(game.currentTicket.tax)}}%)
+              </button>
+              <button ng-if="!game.alreadyAdded" 
+                      style="margin-right: 8px"
+                      ng-repeat="ticket in game.ticketType[0].tickets" 
+                      class="no-animate button button-outline button-small button-positive"
+                      ng-click="ctrl.addTicketToBet(ticket, game, championship, gameIndex, championshipIndex)">
 
                 {{ctrl.util.formattedTaxValue(ticket.tax)}}%
               </button>
-              <button class="button button-outline button-small button-dark"
+              <button ng-if="!game.alreadyAdded" class="no-animate button button-outline button-small button-dark"
                       ng-click="ctrl.seeMoreTickets(game, championship)">
                 mais {{game.total}} opções
               </button>

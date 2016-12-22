@@ -179,3 +179,10 @@ $img-border-radius: 3px;
     display: none !important;
   }
 }
+
+.ng-animate.no-animate {
+    transition: 0s none;
+    -webkit-transition: 0s none;
+    animation: 0s none;
+    -webkit-animation: 0s none;
+}

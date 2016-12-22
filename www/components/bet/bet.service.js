@@ -12,6 +12,7 @@ angular.module('bet')
 	service.addBet = addBet;
 	service.editBet = editBet;
 	service.getBet = getBet;
+	service.getTicketByGameFromBet = getTicketByGameFromBet;
 	service.getFinishedBet = getFinishedBet;
 	service.removeBet = removeBet;
 	service.finishBet = finishBet;
@@ -70,6 +71,22 @@ angular.module('bet')
 		} else {
 			return null;
 		}
+	}
+
+	function getTicketByGameFromBet(game) {
+		var bet = service.getBet();
+		var ticket = null;
+
+		if (bet) {
+			var ticket = null;
+			bet.tickets.forEach(function(t) {
+				if (t.ticketType.game.id == game.id) {
+					ticket = t;
+				}
+			});
+		}
+
+		return ticket;
 	}
 
 	function getFinishedBet(betId) {

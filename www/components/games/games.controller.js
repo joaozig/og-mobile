@@ -5,10 +5,17 @@ angular.module('games')
 	var vm = this;
 	vm.util = new Util();
 
+  /* States */
+  $scope.$on("$ionicView.beforeEnter", function(event, data){
+     vm.updatePageData();
+  });
+
 	/* Properties */
 	vm.sport = {};
 	vm.championships = [];
 	vm.hideLoadingSpinner = false;
+	vm.selectedChampionshipIndex = null;
+	vm.selectedGameIndex = null;
 
 	/* Public Methods */
 	vm.addTicketToBet = addTicketToBet;
@@ -16,6 +23,7 @@ angular.module('games')
   vm.toggleGroup = toogleGroup;
   vm.isGroupShown = isGroupShown;
   vm.loadChampionships = loadChampionships;
+  vm.updatePageData = updatePageData;
 
 	/* Initialization */
 	init();
@@ -38,8 +46,9 @@ angular.module('games')
 		vm.loadChampionships();
 	}
 
-	function addTicketToBet(ticket, game, championship) {
-
+	function addTicketToBet(ticket, game, championship, gameIndex, championshipIndex) {
+		console.log(championshipIndex)
+		console.log(gameIndex)
 		var currentBet = BetService.getBet();
 
 		if (!currentBet) {
@@ -48,10 +57,11 @@ angular.module('games')
 			game.championship = JSON.parse(JSON.stringify(championship));
 			ticket.ticketType = {name: game.ticketType[0].name};
 			ticket.ticketType.game = JSON.parse(JSON.stringify(game));
-
 			BetService.addTicket(ticket).then(
 				function() {
-					$state.go('app.bet');
+					vm.championships[championshipIndex].games[gameIndex].alreadyAdded = true;
+					vm.championships[championshipIndex].games[gameIndex].currentTicket = ticket;
+					// $state.go('app.bet');
 				},
 				function(errorMessage) {
 					$ionicPopup.alert({
@@ -69,8 +79,8 @@ angular.module('games')
 	function loadChampionships() {
 		ChampionshipService.getChampionships($stateParams.sportId).then(
 			function(championships) {
-				// vm.championships = championships.splice(0, 40);
 				vm.championships = championships;
+				vm.updatePageData();
 				vm.hideLoadingSpinner = true;
 				vm.toggleGroup(vm.championships[0]);
 				$scope.$broadcast('scroll.refreshComplete');
@@ -82,6 +92,24 @@ angular.module('games')
 				});
 			}
 		);
+	}
+
+	function updatePageData() {
+		var championships = vm.championships;
+		championships.forEach(function(championship, index) {
+			championship.games = championship.games.map(function(game){
+				var ticket = BetService.getTicketByGameFromBet(game);
+				if (ticket) {
+					game.currentTicket = ticket;
+					game.alreadyAdded = true;
+				} else {
+					game.alreadyAdded = false;
+				}
+
+				return game;
+			});
+			vm.championships[index] = championship;
+		});
 	}
 
 	function toogleGroup(group) {
