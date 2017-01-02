@@ -1,0 +1,21 @@
+<ion-view>
+  <ion-nav-title>Financeiro</ion-nav-title>
+  <ion-content>
+  	<ion-list>
+			<div ng-repeat="type in ctrl.types" ng-init="typeIndex = $index">
+        <ion-item ng-click="ctrl.toggleGroup(typeIndex)"
+                  class="ng-class: ctrl.typeClass(type)">
+            <i class="icon" ng-class="ctrl.shownGroup[typeIndex] ? 'ion-arrow-down-c' : 'ion-arrow-right-c'"></i>
+          &nbsp;
+          {{type.type}} [{{type.bets.length}}]
+        </ion-item>
+        <ion-item class="item-game"
+                  ng-repeat="bet in type.bets"
+                  ng-show="ctrl.shownGroup[typeIndex]">
+
+					{{bet.name}}
+        </ion-item>
+      </div>
+  	</ion-list>
+  </ion-content>
+</ion-view>
