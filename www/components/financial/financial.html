@@ -7,13 +7,24 @@
                   class="ng-class: ctrl.typeClass(type)">
             <i class="icon" ng-class="ctrl.shownGroup[typeIndex] ? 'ion-arrow-down-c' : 'ion-arrow-right-c'"></i>
           &nbsp;
-          {{type.type}} [{{type.bets.length}}]
+          <b>{{type.type}}</b>
+          <span style="float: right;">
+      			{{type.bets.length}}
+    			</span>
         </ion-item>
         <ion-item class="item-game"
                   ng-repeat="bet in type.bets"
                   ng-show="ctrl.shownGroup[typeIndex]">
 
-					{{bet.name}}
+					<div style="float: left">
+						<span><b>{{bet.name}}</b></span><br>
+						<span style="font-size: 12px">{{bet.date}}, {{bet.hour}}</span><br>
+						<span style="font-size: 11px">{{bet.hash}}</span>
+					</div>
+					<div style="float: right; text-align: right;">
+						<span style="font-size: 12px">R$ {{bet.betAmount}} | <b>R$ {{bet.jackpot}}</b></span><br>
+						<span style="font-size: 12px">Jogos: {{bet.quantityBets}} | Acertos: {{bet.hits}}</span>
+					</div>
         </ion-item>
       </div>
   	</ion-list>
