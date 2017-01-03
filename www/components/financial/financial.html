@@ -1,6 +1,14 @@
-<ion-view>
-  <ion-nav-title>Financeiro</ion-nav-title>
+<ion-view view-title="Financeiro">
   <ion-content>
+  	<div class="bar bar-header bar-calm item-input-inset" style="display:flex;justify-content:center;align-items:center;">
+  		<b>01/Ago/16 - 12/Dez/16</b>
+  	</div>
+		<div class="bar bar-header bar-stable item-input-inset">
+		  <label class="item-input-wrapper">
+		    <i class="icon ion-search placeholder-icon"></i>
+		    <input type="text" placeholder="Pesquisar" ng-model="pesquisar">
+		  </label>
+    </div>
   	<ion-list>
 			<div ng-repeat="type in ctrl.types" ng-init="typeIndex = $index">
         <ion-item ng-click="ctrl.toggleGroup(typeIndex)"
@@ -13,7 +21,7 @@
     			</span>
         </ion-item>
         <ion-item class="item-game"
-                  ng-repeat="bet in type.bets"
+                  ng-repeat="bet in type.bets | filter: pesquisar"
                   ng-show="ctrl.shownGroup[typeIndex]">
 
 					<div style="float: left">
