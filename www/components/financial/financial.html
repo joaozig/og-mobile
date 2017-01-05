@@ -44,4 +44,21 @@
       </div>
   	</div>
   </ion-content>
+	<div 	class="bar bar-footer bar-dark"
+				ng-hide="!ctrl.hideLoadingSpinner"
+				style="display:flex;justify-content:center;align-items:center;height: 100px">
+
+		<div style="float: left;margin: auto auto auto 5px;">
+			Apostas: <br> <b>{{ctrl.resume.bets}}</b><br>
+			Acertos/Erros: <br> <b>{{ctrl.resume.hits}}/{{ctrl.resume.misses}}</b>
+		</div>
+		<div>
+			Comissão: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.commission)}}</b><br>
+			Prêmios: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.prizes)}}</b>
+		</div>
+		<div style="float: right;margin: auto 5px auto auto;">
+			Bruto: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.grossValue)}}</b><br>
+			Líquido: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.netValue)}}</b>
+		</div>
+  </div>
 </ion-view>
