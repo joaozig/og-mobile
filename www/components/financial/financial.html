@@ -1,7 +1,11 @@
 <ion-view view-title="Financeiro">
   <ion-content>
   	<div class="bar bar-header bar-calm item-input-inset" style="display:flex;justify-content:center;align-items:center;">
-  		<b>01/Ago/16 - 12/Dez/16</b>
+  		<button class="button icon-left ion-arrow-left-a" ng-click="ctrl.prevDate()"></button>
+  		&nbsp;&nbsp;&nbsp;&nbsp;
+  		<b>{{ctrl.formatDate(ctrl.initialDate)}} - {{ctrl.formatDate(ctrl.finalDate)}}</b>
+  		&nbsp;&nbsp;&nbsp;&nbsp;
+  		<button class="button icon-left ion-arrow-right-a" ng-click="ctrl.nextDate()"></button>
   	</div>
 		<div class="bar bar-header bar-stable item-input-inset">
 		  <label class="item-input-wrapper">
@@ -12,7 +16,7 @@
   	<ion-list>
 			<div ng-repeat="type in ctrl.types" ng-init="typeIndex = $index">
         <ion-item ng-click="ctrl.toggleGroup(typeIndex)"
-                  class="ng-class: ctrl.typeClass(type)">
+                  class="ng-class: ctrl.typeClass(typeIndex)">
             <i class="icon" ng-class="ctrl.shownGroup[typeIndex] ? 'ion-arrow-down-c' : 'ion-arrow-right-c'"></i>
           &nbsp;
           <b>{{type.type}}</b>
