@@ -17,6 +17,7 @@ angular.module('financial')
 	vm.finalDate;
 
 	/* Public Methods */
+  vm.loadTypes = loadTypes;
   vm.toggleGroup = toggleGroup;
   vm.typeClass = typeClass;
   vm.getMonday = getMonday;
@@ -31,11 +32,17 @@ angular.module('financial')
 	/**********/
 
 	function init() {
-
 		var date = new Date();
 		setDates(date);
+	}
 
-		FinancialService.getBets().then(
+	function loadTypes() {
+		vm.hideLoadingSpinner = false;
+
+		var initialDate = formatFilterDate(vm.initialDate);
+		var finalDate = formatFilterDate(vm.finalDate);
+
+		FinancialService.getBets(initialDate, finalDate).then(
 			function(data) {
 				var types = [data[0], data[1], data[2]];
 				var resume = data[3];
@@ -54,6 +61,7 @@ angular.module('financial')
 	function setDates(date) {
 		vm.initialDate = vm.getMonday(date);
 		vm.finalDate = vm.getSunday(date);
+		vm.loadTypes();
 	}
 
 	function toggleGroup(index) {
@@ -71,12 +79,10 @@ angular.module('financial')
   }
 
   function prevDate() {
-  	vm.hideLoadingSpinner = false;
   	setDates(vm.initialDate.setDate(vm.initialDate.getDate() - 2));
   }
 
   function nextDate() {
-  	vm.hideLoadingSpinner = false;
 		setDates(vm.finalDate.setDate(vm.finalDate.getDate() + 2));
   }
 
@@ -104,5 +110,21 @@ angular.module('financial')
 		var year = date.getFullYear();
 
 		return day + '/' + monthNames[monthIndex] + '/' + year;
+	}
+
+	function formatFilterDate(date) {
+		var day = date.getDate();
+		if(day <= 9) {
+			day = '0' + day;
+		}
+
+		var month = date.getMonth() + 1;
+		if(month <= 9) {
+			month = '0' + month;
+		}
+
+		var year = date.getFullYear();
+
+		return year+'-'+month+'-'+day
 	}
 });
