@@ -10,9 +10,12 @@
         <ion-item class="item-stable"
                   ng-click="ctrl.toggleGroup(championship)"
                   ng-class="{active: ctrl.isGroupShown(championship)}">
+
             <i class="icon" ng-class="ctrl.isGroupShown(championship) ? 'ion-minus' : 'ion-plus'"></i>
           &nbsp;
-          {{championship.country.name}} <img ng-src="{{championship.country.img}}" class="country-img"> - {{championship.name}}
+            <img style="vertical-align: middle;" ng-src="{{championship.country.img}}" class="country-img">&nbsp;
+            <span style="vertical-align: middle;">{{championship.country.name}} - {{championship.name}}</span>
+
         </ion-item>
         <ion-item class="item-game"
                   ng-repeat="game in championship.games"
