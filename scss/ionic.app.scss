@@ -61,20 +61,17 @@ $font-size-team-name: 12px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	vertical-align: middle;
 }
 
 .game-detail-nav-title-left-team-img {
-	float: left;
 	width: $game-detail-nav-title-team-img-size;
 	height: $game-detail-nav-title-team-img-size;
-	margin-top: $game-detail-nav-title-team-img-margin-top;
 }
 
 .game-detail-nav-title-right-team-img {
-	float: right;
 	width: $game-detail-nav-title-team-img-size;
 	height: $game-detail-nav-title-team-img-size;
-	margin-top: $game-detail-nav-title-team-img-margin-top;
 }
 
 .game-detail-nav-title-text {

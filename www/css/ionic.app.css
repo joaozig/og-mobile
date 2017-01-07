@@ -9832,19 +9832,16 @@ a.button {
 .game-detail-nav-title {
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  vertical-align: middle; }
 
 .game-detail-nav-title-left-team-img {
-  float: left;
   width: 20px;
-  height: 20px;
-  margin-top: 15px; }
+  height: 20px; }
 
 .game-detail-nav-title-right-team-img {
-  float: right;
   width: 20px;
-  height: 20px;
-  margin-top: 15px; }
+  height: 20px; }
 
 .game-detail-nav-title-text {
   margin-right: 10px;
