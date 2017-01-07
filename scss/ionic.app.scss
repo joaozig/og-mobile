@@ -179,6 +179,16 @@ $img-border-radius: 3px;
   border-radius: $img-border-radius;
 }
 
+.financial-value {
+	float: right;
+	font-weight: bold;
+}
+
+.negative-value {
+	color: $assertive;
+	font-weight: bold;
+}
+
 .item-game .item-content {
 	padding: 16px !important;
 }

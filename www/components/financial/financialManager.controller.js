@@ -1,25 +1,23 @@
 angular.module('financial')
 
-.controller('FinancialController', function($state, $ionicPopup, FinancialService) {
+.controller('FinancialManagerController', function($stateParams, $ionicPopup, FinancialService) {
 
 	var vm = this;
 	vm.util = new Util();
 
 	/* Properties */
-	vm.types;
 	vm.resume;
-	vm.shownGroup = [true, true, true];
+	vm.commissions;
+	vm.prizes;
+	vm.netValues;
 	vm.hideLoadingSpinner = false;
 	vm.initialDate;
 	vm.finalDate;
 
 	/* Public Methods */
-  vm.loadTypes = loadTypes;
-  vm.toggleGroup = toggleGroup;
-  vm.typeClass = typeClass;
+  vm.loadData = loadData;
   vm.prevDate = prevDate;
   vm.nextDate = nextDate;
-  vm.financialManager = financialManager;
 
 	/* Initialization */
 	init();
@@ -27,28 +25,34 @@ angular.module('financial')
 	/**********/
 
 	function init() {
-		var date = new Date();
+		var date = $stateParams.initialDate;
+
+		if(!date){
+			date = new Date();
+		}
+
 		setDates(date);
 	}
 
 	function setDates(date) {
 		vm.initialDate = vm.util.getMonday(date);
 		vm.finalDate = vm.util.getSunday(date);
-		vm.loadTypes();
+
+		vm.loadData();
 	}
 
-	function loadTypes() {
+	function loadData() {
 		vm.hideLoadingSpinner = false;
 
 		var initialDate = vm.util.formatFilterDate(vm.initialDate);
 		var finalDate = vm.util.formatFilterDate(vm.finalDate);
 
-		FinancialService.getBets(initialDate, finalDate).then(
+		FinancialService.getResume(initialDate, finalDate).then(
 			function(data) {
-				var types = [data[0], data[1], data[2]];
-				var resume = data[3];
-				vm.types = types;
-				vm.resume = resume.resume[0];
+				vm.resume = data.resume;
+				vm.commissions = data.comission;
+				vm.prizes = data.jackpot;
+				vm.netValues = data.netvalue;
 				vm.hideLoadingSpinner = true;
 			},
 			function(errorMessage) {
@@ -59,24 +63,6 @@ angular.module('financial')
 			}
 		);
 	}
-
-	function financialManager() {
-		$state.go('app.financialManager', {initialDate: vm.initialDate});
-	}
-
-	function toggleGroup(index) {
-    vm.shownGroup[index] = !vm.shownGroup[index];
-  };
-
-  function typeClass(typeIndex) {
-  	if(typeIndex == 0) {
-  		return 'item-dark';
-  	} else if(typeIndex == 1) {
-  		return 'item-positive';
-  	} else if(typeIndex == 2) {
-  		return 'item-assertive';
-  	}
-  }
 
   function prevDate() {
   	setDates(vm.initialDate.setDate(vm.initialDate.getDate() - 2));

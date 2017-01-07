@@ -10,6 +10,48 @@ function Util() {
 		return value.toString().replace('.', ',');
 	}
 
+    this.formatDate = function(date) {
+        var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+        var day = date.getDate();
+        if(day <= 9) {
+            day = '0' + day;
+        }
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + '/' + monthNames[monthIndex] + '/' + year;
+    }
+
+    this.formatFilterDate = function(date) {
+        var day = date.getDate();
+        if(day <= 9) {
+            day = '0' + day;
+        }
+
+        var month = date.getMonth() + 1;
+        if(month <= 9) {
+            month = '0' + month;
+        }
+
+        var year = date.getFullYear();
+
+        return year+'-'+month+'-'+day
+    }
+
+    this.getMonday = function(d) {
+      var d = new Date(d);
+      var day = d.getDay();
+      var diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+      return new Date(d.setDate(diff));
+    }
+
+    this.getSunday = function(d) {
+      var d = new Date(d);
+      var day = d.getDay();
+      var diff = (d.getDate() - day) + 7
+      return new Date(d.setDate(diff));
+    }
+
 	/* Private Methods */
 	function number_format (number, decimals, dec_point, thousands_sep) {
 		// Strip all characters but numerical ones.

@@ -1,0 +1,70 @@
+<ion-view view-title="Resumo Financeiro">
+  <ion-content class="has-header">
+  	<div class="bar bar-calm item-input-inset" style="display:flex;justify-content:center;align-items:center;">
+  		<button class="button icon-left ion-arrow-left-a" ng-click="ctrl.prevDate()"></button>
+  		&nbsp;&nbsp;&nbsp;&nbsp;
+  		<b>{{ctrl.util.formatDate(ctrl.initialDate)}} - {{ctrl.util.formatDate(ctrl.finalDate)}}</b>
+  		&nbsp;&nbsp;&nbsp;&nbsp;
+  		<button class="button icon-left ion-arrow-right-a" ng-click="ctrl.nextDate()"></button>
+  	</div>
+  	<div style="margin-top: 15px;display:flex;justify-content:center;align-items:center;" ng-hide="ctrl.hideLoadingSpinner">
+			<ion-spinner></ion-spinner>
+  	</div>
+  	<div class="list" ng-hide="!ctrl.hideLoadingSpinner">
+
+			<div class="item item-stable">
+				<b>BRUTO</b>
+				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.resume.grossValue)}}</span>
+			</div>
+			<div class="item">
+				<b>PRÊMIOS</b>
+				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.resume.prize)}}</span>
+			</div>
+			<div class="item item-stable">
+				<b>COMISSÕES</b>
+				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.resume.commission)}}</span>
+			</div>
+			<div class="item">
+				<b>LÍQUIDO</b>
+				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.resume.netValue)}}</span>
+			</div>
+
+			<div class="item item-divider item-calm" style="text-align: center">
+				<b>COMISSÕES</b>
+			</div>
+			<div class="item item-divider item-light">
+				<b>Vendedor</b>
+				<span class="financial-value">Valor</span>
+			</div>
+			<div class="item" ng-repeat="commission in ctrl.commissions" ng-class="{'item-stable': $index % 2 === 0}">
+				{{commission.name}}
+				<span style="float: right">R$ {{ctrl.util.formattedValue(commission.value)}}</span>
+			</div>
+
+			<div class="item item-divider item-calm" style="text-align: center">
+				<b>PRÊMIOS</b>
+			</div>
+			<div class="item item-divider item-light">
+				<b>Ganhador</b>
+				<span class="financial-value">Valor</span>
+			</div>
+			<div class="item" ng-repeat="prize in ctrl.prizes" ng-class="{'item-stable': $index % 2 === 0}">
+				{{prize.name}}
+				<span style="float: right">R$ {{ctrl.util.formattedValue(prize.value)}}</span>
+			</div>
+
+			<div class="item item-divider item-calm" style="text-align: center">
+				<b>LÍQUIDO</b>
+			</div>
+			<div class="item item-divider item-light">
+				<b>Vendedor</b>
+				<span class="financial-value">Valor</span>
+			</div>
+			<div class="item" ng-repeat="netValue in ctrl.netValues" ng-class="{'item-stable': $index % 2 === 0}">
+				{{netValue.name}}
+				<span style="float: right" class="negative-value">R$ {{ctrl.util.formattedValue(netValue.value)}}</span>
+			</div>
+
+  	</div>
+  </ion-content>
+</ion-view>

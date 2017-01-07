@@ -3,7 +3,7 @@
   	<div class="bar bar-calm item-input-inset" style="display:flex;justify-content:center;align-items:center;">
   		<button class="button icon-left ion-arrow-left-a" ng-click="ctrl.prevDate()"></button>
   		&nbsp;&nbsp;&nbsp;&nbsp;
-  		<b>{{ctrl.formatDate(ctrl.initialDate)}} - {{ctrl.formatDate(ctrl.finalDate)}}</b>
+  		<b>{{ctrl.util.formatDate(ctrl.initialDate)}} - {{ctrl.util.formatDate(ctrl.finalDate)}}</b>
   		&nbsp;&nbsp;&nbsp;&nbsp;
   		<button class="button icon-left ion-arrow-right-a" ng-click="ctrl.nextDate()"></button>
   	</div>
@@ -46,6 +46,7 @@
   </ion-content>
 	<div 	class="bar bar-footer bar-dark"
 				ng-hide="!ctrl.hideLoadingSpinner"
+				ng-click="ctrl.financialManager()"
 				style="display:flex;justify-content:center;align-items:center;height: 100px">
 
 		<div style="float: left;margin: auto auto auto 5px;">

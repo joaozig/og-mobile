@@ -145,6 +145,16 @@ angular.module('ourigol', [
           controller: 'FinancialController as ctrl'
         }
       }
+    })
+
+    .state('app.financialManager', {
+      url: '/financial/manager/:initialDate',
+      views: {
+        'menuContent': {
+          templateUrl: componentsFolder + '/financial/financialManager.html',
+          controller: 'FinancialManagerController as ctrl'
+        }
+      }
     });
 
   // if none of the above states are matched, use this as the fallback

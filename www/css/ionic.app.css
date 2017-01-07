@@ -9929,6 +9929,14 @@ div.spinner {
   -moz-border-radius: 3px;
   border-radius: 3px; }
 
+.financial-value {
+  float: right;
+  font-weight: bold; }
+
+.negative-value {
+  color: #ef473a;
+  font-weight: bold; }
+
 .item-game .item-content {
   padding: 16px !important; }
 
