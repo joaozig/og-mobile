@@ -9890,9 +9890,13 @@ a.button {
 
 .game-info {
   font-size: 12px;
-  position: fixed;
-  left: 50%;
-  transform: translate(-50%, 0); }
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  text-align: center;
+  line-height: 50px; }
 
 .game-row {
   display: flex;
