@@ -56,8 +56,10 @@ angular.module('bet')
 		confirmPopup.then(function(confirmed) {
 			if(confirmed) {
 				BetService.finishBet().then(
-					function(bet) {
-						$state.go('app.finishedBet', {betId: bet.id});
+					function(data) {
+						if(data.success == true) {
+							$state.go('app.finishedBet', {betHash: data.bet});
+						}
 					},
 					function(errorMessage) {
 						$ionicPopup.alert({

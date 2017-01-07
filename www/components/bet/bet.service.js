@@ -89,16 +89,21 @@ angular.module('bet')
 		return ticket;
 	}
 
-	function getFinishedBet(betId) {
-		var finishedBets = getFinishedBets();
-		var finishedBet = null;
-		finishedBets.forEach(function(bet) {
-			if(bet.id == betId) {
-				finishedBet = new Bet(bet);
-			}
-		});
+	function getFinishedBet(betHash) {
 
-		return finishedBet;
+		var deferred = $q.defer();
+
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.getbets.php?hash='+betHash;
+
+		$http.get(url)
+	    .success(function(data, status, headers,config){
+	      deferred.resolve(data);
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Não foi possível recuperar a aposta.');
+	    })
+
+	  return deferred.promise;
 	}
 
 	function removeBet() {

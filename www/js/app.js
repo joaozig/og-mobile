@@ -87,7 +87,7 @@ angular.module('ourigol', [
     })
 
     .state('app.finishedBet', {
-      url: '/bet/finished/:betId',
+      url: '/bet/finished/:betHash',
       views: {
         'menuContent': {
           templateUrl: componentsFolder + '/bet/finished.html',
