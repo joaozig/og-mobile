@@ -47,8 +47,6 @@ angular.module('games')
 	}
 
 	function addTicketToBet(ticket, game, championship, gameIndex, championshipIndex) {
-		console.log(championshipIndex)
-		console.log(gameIndex)
 		var currentBet = BetService.getBet();
 
 		if (!currentBet) {

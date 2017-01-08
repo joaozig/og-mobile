@@ -18,9 +18,9 @@
     <div class="row">
       <div class="col">
         <b>Cliente:</b> {{ctrl.bet.playerName}}<br>
-        <b>Vendedor:</b> {{ctrl.bet.seller.name}}<br>
+        <b>Vendedor:</b> {{ctrl.bet.seller}}<br>
         <b>Data/Hora:</b> {{ctrl.bet.date}}<br>
-        <b>Código:</b> {{ctrl.bet.id}}<br>
+        <b>Código:</b> {{ctrl.bet.hash}}<br>
       </div>
     </div>
     <div class="row">
@@ -50,7 +50,7 @@
       <div class="col">
         Valor da Aposta: R$ {{ctrl.util.formattedValue(ctrl.bet.betAmount)}}<br>
         Palpites: {{ctrl.bet.tickets.length}}<br>
-        Prêmio Possível: <strong>R$ {{ctrl.util.formattedValue(ctrl.bet.jackpot())}}</strong>
+        Prêmio Possível: <strong>R$ {{ctrl.util.formattedValue(ctrl.bet.jackpot)}}</strong>
       </div>
     </div>
     <div class="row">

@@ -16,8 +16,16 @@ angular.module('bet')
 	/*********/
 	function init() {
 		$ionicHistory.removeBackView();
-		vm.bet = BetService.getFinishedBet($stateParams.betId);
-		setTimeout(function(){ window.print() }, 1500);
+		BetService.getFinishedBet($stateParams.betHash).then(
+			function(data) {
+				vm.bet = data;
+				console.log(vm.bet);
+			},
+			function(errorMessage) {
+				console.log(errorMessage);
+			}
+		);
+		// setTimeout(function(){ window.print() }, 1500);
 	}
 
 	function newBet() {

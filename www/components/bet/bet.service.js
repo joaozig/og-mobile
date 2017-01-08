@@ -89,16 +89,21 @@ angular.module('bet')
 		return ticket;
 	}
 
-	function getFinishedBet(betId) {
-		var finishedBets = getFinishedBets();
-		var finishedBet = null;
-		finishedBets.forEach(function(bet) {
-			if(bet.id == betId) {
-				finishedBet = new Bet(bet);
-			}
-		});
+	function getFinishedBet(betHash) {
 
-		return finishedBet;
+		var deferred = $q.defer();
+
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.getbets.php?hash='+betHash;
+
+		$http.get(url)
+	    .success(function(data, status, headers,config){
+	      deferred.resolve(data);
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Não foi possível recuperar a aposta.');
+	    })
+
+	  return deferred.promise;
 	}
 
 	function removeBet() {
@@ -108,28 +113,50 @@ angular.module('bet')
 
 	function finishBet() {
 		var bet = service.getBet();
+		var deferred = $q.defer();
 
 		if(bet) {
 			if(service.removeBet()) {
-				var finishedBets = getFinishedBets();
-				bet.id = finishedBets.length + 1;
+				// var finishedBets = getFinishedBets();
+				// bet.id = finishedBets.length + 1;
 				bet.seller = LoginService.getUser();
 				bet.date = new Date().toLocaleString('pt');
 				var params = {
 					id: bet.id,
 					playerName: bet.playerName,
-					seller: bet.seller,
+					seller: bet.seller.id,
 					betAmount: bet.betAmount,
+					jackpot: bet.jackpot(),
 					tickets: bet.tickets,
 					date: bet.date
 				}
-				finishedBets.push(params);
-				window.localStorage.setItem('finishedBets', JSON.stringify(finishedBets));
-				return bet;
+
+				params.tickets = params.tickets.map(function(t){
+					return t.id+'#'+t.tax;
+				});
+
+				var url = 'http://avantitecnologia.net/jogo/includes/inc.bets.php';
+
+				$http({url: url, method: "POST", data: 'playerName='+params.playerName+'&seller='+params.seller+'&betAmount='+params.betAmount+'&jackpot='+params.jackpot+'&tickets[]='+params.tickets, headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+			    .success(function(data, status, headers,config){
+			    	if(data.bet) {
+			    		deferred.resolve('Sucesso');
+			    	} else {
+							deferred.reject('Não finalizou');
+			    	}
+			    })
+			    .error(function(data, status, headers,config){
+			      deferred.reject('Falha ao finalizar aposta');
+			    })
+			} else {
+				deferred.reject('Não conseguiu remover a aposta');
 			}
+
+		} else {
+			deferred.reject('Nenhuma aposta ativa');
 		}
 
-		return null;
+		return deferred.promise;
 	}
 
 	function addTicket(ticket) {
