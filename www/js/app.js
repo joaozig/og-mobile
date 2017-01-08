@@ -7,6 +7,7 @@
 angular.module('ourigol', [
   'app',
   'ionic',
+  // 'ngCordova',
   'login',
   'main',
   'countries',

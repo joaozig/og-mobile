@@ -26,7 +26,10 @@ angular.module('bet')
 				console.log(errorMessage);
 			}
 		);
-		// setTimeout(function(){ window.print() }, 1500);
+		setTimeout(function(){
+			var page = window.document.getElementById('print');
+			window.cordova.plugins.printer.print(page, 'Document.html');
+		}, 1500);
 	}
 
 	function newBet() {
