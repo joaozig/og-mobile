@@ -97,6 +97,16 @@ angular.module('ourigol', [
       }
     })
 
+    .state('app.betResume', {
+      url: '/bet/resume/:betHash',
+      views: {
+        'menuContent': {
+          templateUrl: componentsFolder + '/bet/betResume.html',
+          controller: 'BetResumeController as ctrl'
+        }
+      }
+    })
+
     .state('app.countries', {
       url: '/countries/:sportId',
       views: {

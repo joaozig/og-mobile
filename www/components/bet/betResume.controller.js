@@ -1,21 +1,26 @@
 angular.module('bet')
 
-.controller('FinishedBetController', function($ionicHistory, $stateParams, BetService) {
+.controller('BetResumeController', function($stateParams, $state, BetService) {
 	var vm = this;
 	vm.util = new Util();
 
 	/* Properties */
-	vm.bet = null;
+	vm.bet;
 
 	/* Public Methods */
-	vm.newBet = newBet;
+	vm.printBet = printBet;
 
 	/* Initialization */
 	init();
 
 	/*********/
 	function init() {
-		$ionicHistory.removeBackView();
+		loadBet();
+	}
+
+	/* Private Methods */
+
+	function loadBet() {
 		BetService.getFinishedBet($stateParams.betHash).then(
 			function(data) {
 				vm.bet = data;
@@ -24,10 +29,9 @@ angular.module('bet')
 				console.log(errorMessage);
 			}
 		);
-		// setTimeout(function(){ window.print() }, 1500);
 	}
 
-	function newBet() {
-		$ionicHistory.goBack();
+	function printBet() {
+		$state.go('app.finishedBet', {betHash: $stateParams.betHash});
 	}
 });
