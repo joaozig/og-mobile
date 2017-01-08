@@ -15,6 +15,7 @@ angular.module('bet')
 	service.getTicketByGameFromBet = getTicketByGameFromBet;
 	service.getFinishedBet = getFinishedBet;
 	service.removeBet = removeBet;
+	service.removeInvalidTickets = removeInvalidTickets;
 	service.finishBet = finishBet;
 	service.addTicket = addTicket;
 	service.removeTicket = removeTicket;
@@ -109,6 +110,18 @@ angular.module('bet')
 	function removeBet() {
 		window.localStorage.removeItem(BET);
 		return (service.getBet() == null);
+	}
+
+	function removeInvalidTickets(tickets) {
+		var bet = service.getBet();
+		var newTickets = [];
+		bet.tickets.forEach(function(i){
+		  if(tickets.indexOf(i.id) == -1){
+		    newTickets.push(i);
+		  } 
+		});
+		bet.tickets = newTickets;
+		saveBet(bet);
 	}
 
 	function finishBet() {

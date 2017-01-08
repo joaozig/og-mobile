@@ -62,7 +62,13 @@ angular.module('bet')
 							BetService.removeBet();
 							$state.go('app.finishedBet', {betHash: data.bet});
 						} else {
-							console.log('não finalizou');
+							$ionicPopup.alert({
+								title: 'Algo falhou :(',
+								template: data.message
+							});
+
+							BetService.removeInvalidTickets(data.tickets);
+							_setBet();
 						}
 					},
 					function(errorMessage) {
