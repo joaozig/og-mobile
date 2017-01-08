@@ -1,6 +1,9 @@
 <ion-view cache-view="false" view-title="Resumo da Aposta">
   <ion-content>
-  	<div class="card">
+    <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
+      <ion-spinner></ion-spinner>  
+    </div>
+  	<div class="card" ng-hide="!ctrl.hideLoadingSpinner">
   		<div class="item item-divider item-positive">
   			Dados da Aposta
   		</div>
@@ -25,7 +28,10 @@
   			</div>
   		</div>
   	</div>
-    <ion-list class="list" can-swipe="true">
+    <div class="row" ng-hide="!ctrl.hideLoadingSpinner">
+      <button class="button button-block button-dark" ng-click="ctrl.printBet()">Imprimir</button>
+    </div>
+    <ion-list class="list" can-swipe="true" ng-hide="!ctrl.hideLoadingSpinner">
       <div class="item item-divider">
         Palpites: {{ctrl.bet.tickets.length}}
       </div>
@@ -49,9 +55,5 @@
         </div>
       </ion-item>
     </ion-list>
-
-    <div class="row">
-      <button class="button button-block button-dark" ng-click="ctrl.printBet()">Imprimir</button>
-    </div>
   </ion-content>
 </ion-view>

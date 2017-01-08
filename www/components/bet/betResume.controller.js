@@ -6,6 +6,7 @@ angular.module('bet')
 
 	/* Properties */
 	vm.bet;
+	vm.hideLoadingSpinner = false;
 
 	/* Public Methods */
 	vm.printBet = printBet;
@@ -24,6 +25,7 @@ angular.module('bet')
 		BetService.getFinishedBet($stateParams.betHash).then(
 			function(data) {
 				vm.bet = data;
+				vm.hideLoadingSpinner = true;
 			},
 			function(errorMessage) {
 				console.log(errorMessage);
