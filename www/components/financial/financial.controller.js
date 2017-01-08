@@ -20,6 +20,7 @@ angular.module('financial')
   vm.prevDate = prevDate;
   vm.nextDate = nextDate;
   vm.financialManager = financialManager;
+  vm.betResume = betResume;
 
 	/* Initialization */
 	init();
@@ -65,6 +66,10 @@ angular.module('financial')
 		if(user.profile != 20) {
 			$state.go('app.financialManager', {initialDate: vm.initialDate});
 		}
+	}
+
+	function betResume(bet) {
+		$state.go('app.betResume', {betHash: bet.hash});
 	}
 
 	function toggleGroup(index) {

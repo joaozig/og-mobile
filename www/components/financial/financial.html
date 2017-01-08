@@ -27,8 +27,9 @@
       			{{type.bets.length}}
     			</span>
         </ion-item>
-        <ion-item class="item-game"
+        <ion-item class="item-game item-icon-right"
                   ng-repeat="bet in type.bets | filter: pesquisar"
+                  ng-click="ctrl.betResume(bet)"
                   ng-show="ctrl.shownGroup[typeIndex]">
 
 					<div style="float: left">
@@ -40,6 +41,8 @@
 						<span style="font-size: 12px">R$ {{bet.betAmount}} | <b>R$ {{bet.jackpot}}</b></span><br>
 						<span style="font-size: 12px">Jogos: {{bet.quantityBets}} | Acertos: {{bet.hits}}</span>
 					</div>
+
+					<i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
       </div>
   	</div>
