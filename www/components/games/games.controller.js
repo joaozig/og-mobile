@@ -11,6 +11,7 @@ angular.module('games')
   });
 
 	/* Properties */
+	vm.bet = null;
 	vm.sport = {};
 	vm.championships = [];
 	vm.hideLoadingSpinner = false;
@@ -24,6 +25,7 @@ angular.module('games')
   vm.isGroupShown = isGroupShown;
   vm.loadChampionships = loadChampionships;
   vm.updatePageData = updatePageData;
+  vm.updateBet = updateBet;
 
 	/* Initialization */
 	init();
@@ -31,6 +33,7 @@ angular.module('games')
 	/**********/
 
 	function init() {
+		vm.updateBet();
 		MainService.getSport($stateParams.sportId).then(
 			function(sport) {
 				vm.sport = sport;
@@ -46,6 +49,10 @@ angular.module('games')
 		vm.loadChampionships();
 	}
 
+	function updateBet() {
+		vm.bet = BetService.getBet();
+	}
+
 	function addTicketToBet(ticket, game, championship, gameIndex, championshipIndex) {
 		var currentBet = BetService.getBet();
 
@@ -57,9 +64,9 @@ angular.module('games')
 			ticket.ticketType.game = JSON.parse(JSON.stringify(game));
 			BetService.addTicket(ticket).then(
 				function() {
-					// vm.championships[championshipIndex].games[gameIndex].alreadyAdded = true;
-					// vm.championships[championshipIndex].games[gameIndex].currentTicket = ticket;
-					$state.go('app.bet');
+					vm.championships[championshipIndex].games[gameIndex].alreadyAdded = true;
+					vm.championships[championshipIndex].games[gameIndex].currentTicket = ticket;
+					vm.updateBet();
 				},
 				function(errorMessage) {
 					$ionicPopup.alert({
@@ -93,6 +100,7 @@ angular.module('games')
 	}
 
 	function updatePageData() {
+		vm.updateBet();
 		var championships = vm.championships;
 		championships.forEach(function(championship, index) {
 			championship.games = championship.games.map(function(game){

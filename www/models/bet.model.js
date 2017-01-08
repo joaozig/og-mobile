@@ -2,6 +2,7 @@ function Bet(options) {
 	var model = this;
 
 	/* Properties */
+	model.util = new Util();
 	model.id;
 	model.playerName;
 	model.seller;
@@ -11,6 +12,8 @@ function Bet(options) {
 	model.maxJackpot = 15000;
 
 	/* Public Methods */
+	model.getBetAmount = getBetAmount;
+	model.getJackpot = getJackpot;
 	model.jackpot = jackpot;
 
 	/* Initialization */
@@ -24,6 +27,14 @@ function Bet(options) {
 		model.betAmount = (options && options.betAmount) ? options.betAmount : 0;
 		model.tickets = (options && options.tickets) ? options.tickets : [];
 		model.date = (options && options.date) ? options.date : null;
+	}
+
+	function getBetAmount() {
+		return model.util.formattedValue(model.betAmount);
+	}
+
+	function getJackpot() {
+		return model.util.formattedValue(model.jackpot());
 	}
 
 	function jackpot() {

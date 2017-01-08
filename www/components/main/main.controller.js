@@ -1,11 +1,18 @@
 angular.module('main')
 
-.controller('MainController', function($ionicPopup, $ionicHistory, $state, MainService) {
+.controller('MainController', function($scope, $ionicPopup, $ionicHistory, $state, MainService, BetService) {
 	var vm = this;
 
+  /* States */
+  $scope.$on("$ionicView.beforeEnter", function(event, data){
+     vm.updateBet();
+  });
+
 	/* Properties */
+	vm.bet = null;
 	vm.sports = [];
 	vm.hideLoadingSpinner = false;
+	vm.updateBet = updateBet;
 
 	/* Public Methods */
 
@@ -15,6 +22,8 @@ angular.module('main')
 	/**********/
 
 	function init() {
+		vm.updateBet();
+
 		MainService.getSports().then(
 			function(sports) {
 				vm.sports = sports;
@@ -33,5 +42,9 @@ angular.module('main')
 				});
 			}
 		);
+	}
+
+	function updateBet() {
+		vm.bet = BetService.getBet();
 	}
 });

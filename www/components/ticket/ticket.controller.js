@@ -4,7 +4,13 @@ angular.module('ticket')
 	var vm = this;
 	vm.util = new Util();
 
+  /* States */
+  $scope.$on("$ionicView.beforeEnter", function(event, data){
+     vm.updateBet();
+  });
+
 	/* Properties */
+	vm.bet = null;
 	vm.game = {};
 	vm.ticketTypes = [];
 	vm.hideLoadingSpinner = false;
@@ -14,13 +20,19 @@ angular.module('ticket')
 	vm.toggleGroup = toogleGroup;
   vm.isGroupShown = isGroupShown;
   vm.loadGame = loadGame;
+  vm.updateBet = updateBet;
 
 	/* Initialization */
 	init();
 
 	/*********/
 	function init() {
+		vm.updateBet();
 		vm.loadGame();
+	}
+
+	function updateBet() {
+		vm.bet = BetService.getBet();
 	}
 
 	function addTicketToBet(ticket, ticketType) {
