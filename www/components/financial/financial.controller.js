@@ -1,6 +1,6 @@
 angular.module('financial')
 
-.controller('FinancialController', function($state, $ionicPopup, FinancialService) {
+.controller('FinancialController', function($state, $ionicPopup, FinancialService, LoginService) {
 
 	var vm = this;
 	vm.util = new Util();
@@ -61,7 +61,10 @@ angular.module('financial')
 	}
 
 	function financialManager() {
-		$state.go('app.financialManager', {initialDate: vm.initialDate});
+		var user = LoginService.getUser();
+		if(user.profile != 20) {
+			$state.go('app.financialManager', {initialDate: vm.initialDate});
+		}
 	}
 
 	function toggleGroup(index) {
