@@ -48,7 +48,11 @@ function Util() {
     this.getSunday = function(d) {
       var d = new Date(d);
       var day = d.getDay();
-      var diff = (d.getDate() - day) + 7
+      var diff = d.getDate();
+      if(day != 0) {
+        diff = (d.getDate() - day) + 7
+      }
+
       return new Date(d.setDate(diff));
     }
 
