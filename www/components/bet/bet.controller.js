@@ -57,8 +57,12 @@ angular.module('bet')
 			if(confirmed) {
 				BetService.finishBet().then(
 					function(data) {
+						console.log(data)
 						if(data.success == true) {
+							BetService.removeBet();
 							$state.go('app.finishedBet', {betHash: data.bet});
+						} else {
+							console.log('não finalizou');
 						}
 					},
 					function(errorMessage) {
