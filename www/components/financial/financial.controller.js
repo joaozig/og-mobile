@@ -19,6 +19,7 @@ angular.module('financial')
   vm.typeClass = typeClass;
   vm.prevDate = prevDate;
   vm.nextDate = nextDate;
+  vm.currentDate = currentDate;
   vm.financialManager = financialManager;
   vm.betResume = betResume;
 
@@ -28,8 +29,7 @@ angular.module('financial')
 	/**********/
 
 	function init() {
-		var date = new Date();
-		setDates(date);
+		vm.currentDate();
 	}
 
 	function setDates(date) {
@@ -92,5 +92,10 @@ angular.module('financial')
 
   function nextDate() {
 		setDates(vm.finalDate.setDate(vm.finalDate.getDate() + 2));
+  }
+
+  function currentDate() {
+  	var date = new Date();
+		setDates(date);
   }
 });
