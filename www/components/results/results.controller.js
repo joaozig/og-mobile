@@ -15,6 +15,7 @@ angular.module('results')
 	/* Public Methods */
   vm.loadResults = loadResults;
   vm.toggleGroup = toggleGroup;
+  vm.currentDate = currentDate;
   vm.prevDate = prevDate;
   vm.nextDate = nextDate;
 
@@ -24,8 +25,7 @@ angular.module('results')
 	/**********/
 
 	function init() {
-		var date = new Date();
-		setDates(date);
+		vm.currentDate();
 	}
 
 	function setDates(date) {
@@ -65,5 +65,10 @@ angular.module('results')
 
   function nextDate() {
 		setDates(vm.finalDate.setDate(vm.finalDate.getDate() + 2));
+  }
+
+  function currentDate() {
+  	var date = new Date();
+		setDates(date);
   }
 });

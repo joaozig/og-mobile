@@ -16,7 +16,7 @@
 			<ion-spinner></ion-spinner>
   	</div>
   	<div class="list" ng-hide="!ctrl.hideLoadingSpinner">
-			<div ng-repeat="type in ctrl.types" ng-init="typeIndex = $index">
+			<div ng-repeat="type in ctrl.types | filter: pesquisar" ng-init="typeIndex = $index">
         <ion-item ng-click="ctrl.toggleGroup(typeIndex)"
                   class="ng-class: ctrl.typeClass(typeIndex)">
             <i class="icon" ng-class="ctrl.shownGroup[typeIndex] ? 'ion-arrow-down-c' : 'ion-arrow-right-c'"></i>
