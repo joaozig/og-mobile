@@ -18,7 +18,6 @@ angular.module('results')
 		var deferred = $q.defer();
 
 		var url = 'http://avantitecnologia.net/jogo/includes/inc.result.php?dataIni='+initialDate+'&dataFim='+finalDate;
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.result.php?dataIni=2017-01-01&dataFim=2017-12-30';
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){
