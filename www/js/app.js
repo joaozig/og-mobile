@@ -17,7 +17,8 @@ angular.module('ourigol', [
   'ticket',
   'player',
   'bet',
-  'financial'
+  'financial',
+  'results'
 ])
 
 .run(function($ionicPlatform) {
@@ -164,6 +165,16 @@ angular.module('ourigol', [
         'menuContent': {
           templateUrl: componentsFolder + '/financial/financialManager.html',
           controller: 'FinancialManagerController as ctrl'
+        }
+      }
+    })
+
+    .state('app.results', {
+      url: '/results',
+      views: {
+        'menuContent': {
+          templateUrl: componentsFolder + '/results/results.html',
+          controller: 'ResultsController as ctrl'
         }
       }
     });

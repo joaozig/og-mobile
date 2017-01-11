@@ -1,0 +1,48 @@
+<ion-view>
+  <ion-nav-title>Resultados</ion-nav-title>
+  <ion-content>
+  	<div class="bar bar-calm item-input-inset" style="display:flex;justify-content:center;align-items:center;">
+  		<button style="margin-right: 15px" class="button icon-left ion-arrow-left-a" ng-click="ctrl.prevDate()"></button>
+  		<b style="white-space: nowrap">{{ctrl.util.formatDate(ctrl.initialDate)}} - {{ctrl.util.formatDate(ctrl.finalDate)}}</b>
+  		<button style="margin-left: 15px" class="button icon-left ion-arrow-right-a" ng-click="ctrl.nextDate()"></button>
+  		<button class="button icon-left ion-home" ng-click="ctrl.currentDate()"></button>
+  	</div>
+		<div class="bar bar-stable item-input-inset" ng-hide="!ctrl.hideLoadingSpinner">
+		  <label class="item-input-wrapper">
+		    <i class="icon ion-search placeholder-icon"></i>
+		    <input type="text" placeholder="Pesquisar" ng-model="pesquisar">
+		  </label>
+    </div>
+  	<div style="margin-top: 15px;display:flex;justify-content:center;align-items:center;" ng-hide="ctrl.hideLoadingSpinner">
+			<ion-spinner></ion-spinner>
+  	</div>
+    <ion-list ng-hide="!ctrl.hideLoadingSpinner">
+      <div ng-repeat="result in ctrl.results | filter: pesquisar" ng-init="dateIndex = $index">
+
+        <div class="item item-dark" ng-click="ctrl.toggleGroup(dateIndex)">
+            <i class="icon" ng-class="ctrl.shownGroup[dateIndex] ? 'ion-minus' : 'ion-plus'"></i>
+          &nbsp;
+            <span style="vertical-align: middle;">{{result.date}}</span>
+        </div>
+
+        <div ng-repeat="championship in result.championship | filter: pesquisar" ng-show="ctrl.shownGroup[dateIndex]">
+        	
+        	<div class="item item-divider">
+            <img style="vertical-align: middle;" ng-src="{{championship.country[0].img}}" class="country-img">&nbsp;
+            <span style="vertical-align: middle;">{{championship.country[0].name}} - {{championship.name}}</span>
+        	</div>
+
+	        <div class="item"
+	                  ng-repeat="game in championship.games | filter: pesquisar"
+	                  ng-init="championshipIndex = $index">
+
+	          <span class="left-team-name">{{game.teamA}}</span>
+	          <span class="game-info"><b>{{game.scoreA}} x {{game.scoreB}}</b></span>
+	          <span class="right-team-name">{{game.teamB}}</span>
+
+	        </div>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>
