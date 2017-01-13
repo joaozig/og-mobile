@@ -188,10 +188,11 @@ angular.module('ourigol', [
 });
 
 angular.module('app', [])
-.controller('AppController', function($state, $ionicPopup) {
+.controller('AppController', function($state, $ionicPopup, LoginService) {
   var vm = this;
 
   vm.doLogout = doLogout;
+  vm.seller = LoginService.getUser();
 
   function doLogout() {
     var confirmPopup = $ionicPopup.confirm({
