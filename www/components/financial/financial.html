@@ -1,5 +1,5 @@
 <ion-view view-title="Financeiro">
-  <ion-content class="has-header">
+  <ion-content class="has-header has-footer">
   	<div class="bar bar-calm item-input-inset" style="display:flex;justify-content:center;align-items:center;">
   		<button style="margin-right: 15px" class="button icon-left ion-arrow-left-a" ng-click="ctrl.prevDate()"></button>
   		<b style="white-space: nowrap">{{ctrl.util.formatDate(ctrl.initialDate)}} - {{ctrl.util.formatDate(ctrl.finalDate)}}</b>
@@ -34,7 +34,7 @@
 					<div style="float: left">
 						<span><b>{{bet.name}}</b></span><br>
 						<span style="font-size: 12px">{{bet.date}}, {{bet.hour}}</span><br>
-						<span style="font-size: 11px">{{bet.hash}}</span>
+						<span style="font-size: 9px">{{bet.hash}}</span>
 					</div>
 					<div style="float: right; text-align: right;">
 						<span style="font-size: 12px">R$ {{bet.betAmount}} | <b>R$ {{bet.jackpot}}</b></span><br>
@@ -49,7 +49,7 @@
 	<div 	class="bar bar-footer bar-dark"
 				ng-hide="!ctrl.hideLoadingSpinner"
 				ng-click="ctrl.financialManager()"
-				style="display:flex;justify-content:center;align-items:center;height: 100px">
+				style="display:flex;justify-content:center;align-items:center;">
 
 		<div style="float: left;margin: auto auto auto 5px;">
 			Apostas: <br> <b>{{ctrl.resume.bets}}</b><br>
