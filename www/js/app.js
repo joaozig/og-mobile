@@ -32,7 +32,8 @@ angular.module('ourigol', [
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      // StatusBar.styleDefault();
+      StatusBar.backgroundColorByHexString('#1E2B38');
     }
   });
 })
