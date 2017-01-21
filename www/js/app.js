@@ -188,7 +188,7 @@ angular.module('ourigol', [
 });
 
 angular.module('app', [])
-.controller('AppController', function($scope, $state, $ionicPopup, LoginService) {
+.controller('AppController', function($scope, $state, $ionicPopup, LoginService, BetService) {
   var vm = this;
 
   vm.doLogout = doLogout;
@@ -207,6 +207,7 @@ angular.module('app', [])
     confirmPopup.then(function(confirmed) {
       if(confirmed) {
         window.localStorage.removeItem('user');
+        BetService.removeBet();
         $state.go('app.login');
       }
     });
