@@ -27,7 +27,7 @@ angular.module('financial')
 	function init() {
 		var date = $stateParams.initialDate;
 
-		if(!date){
+		if(!date || date == 'initial'){
 			date = new Date();
 		}
 

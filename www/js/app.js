@@ -194,6 +194,7 @@ angular.module('app', [])
 
   vm.doLogout = doLogout;
   vm.seller = LoginService.getUser();
+  vm.date = new Date();
 
   $scope.$on("$ionicView.beforeEnter", function(event, data){
     vm.seller = LoginService.getUser();
