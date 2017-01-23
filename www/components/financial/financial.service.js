@@ -35,7 +35,7 @@ angular.module('financial')
 		var deferred = $q.defer();
 		var user = LoginService.getUser();
 
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.financial.manager.php?dataIni='+initialDate+'&dataFim='+finalDate+'seller='+user.id;
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.financial.manager.php?dataIni='+initialDate+'&dataFim='+finalDate+'&seller='+user.id;
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){
