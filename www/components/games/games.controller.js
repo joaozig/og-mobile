@@ -5,11 +5,6 @@ angular.module('games')
 	var vm = this;
 	vm.util = new Util();
 
-  /* States */
-  $scope.$on("$ionicView.beforeEnter", function(event, data){
-     vm.updatePageData();
-  });
-
 	/* Properties */
 	vm.bet = null;
 	vm.sport = {};
@@ -17,6 +12,11 @@ angular.module('games')
 	vm.hideLoadingSpinner = false;
 	vm.selectedChampionshipIndex = null;
 	vm.selectedGameIndex = null;
+
+  /* States */
+  $scope.$on("$ionicView.beforeEnter", function(event, data){
+     vm.updatePageData();
+  });
 
 	/* Public Methods */
 	vm.addTicketToBet = addTicketToBet;
@@ -84,7 +84,9 @@ angular.module('games')
 	function loadChampionships() {
 		ChampionshipService.getChampionships($stateParams.sportId).then(
 			function(championships) {
-				vm.championships = championships;
+				if(championships){
+					vm.championships = championships;
+				}
 				vm.updatePageData();
 				vm.hideLoadingSpinner = true;
 				vm.toggleGroup(vm.championships[0]);
@@ -102,20 +104,22 @@ angular.module('games')
 	function updatePageData() {
 		vm.updateBet();
 		var championships = vm.championships;
-		championships.forEach(function(championship, index) {
-			championship.games = championship.games.map(function(game){
-				var ticket = BetService.getTicketByGameFromBet(game);
-				if (ticket) {
-					game.currentTicket = ticket;
-					game.alreadyAdded = true;
-				} else {
-					game.alreadyAdded = false;
-				}
+		if(championships){
+			championships.forEach(function(championship, index) {
+				championship.games = championship.games.map(function(game){
+					var ticket = BetService.getTicketByGameFromBet(game);
+					if (ticket) {
+						game.currentTicket = ticket;
+						game.alreadyAdded = true;
+					} else {
+						game.alreadyAdded = false;
+					}
 
-				return game;
+					return game;
+				});
+				vm.championships[index] = championship;
 			});
-			vm.championships[index] = championship;
-		});
+		}
 	}
 
 	function toogleGroup(group) {

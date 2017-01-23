@@ -5,6 +5,11 @@
       <ion-spinner></ion-spinner>  
     </div>
     <ion-refresher on-refresh="ctrl.loadChampionships()"></ion-refresher>
+    <div class="row" ng-hide="!ctrl.hideLoadingSpinner && ctrl.championships.length == 0">
+      <div class="col">
+        Nenhum jogo encontrado.
+      </div>
+    </div>
     <ion-list>
       <div ng-repeat="championship in ctrl.championships" ng-init="championshipIndex = $index">
         <ion-item class="item-stable"
