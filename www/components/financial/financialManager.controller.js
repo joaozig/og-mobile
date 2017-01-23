@@ -1,6 +1,6 @@
 angular.module('financial')
 
-.controller('FinancialManagerController', function($stateParams, $ionicPopup, FinancialService) {
+.controller('FinancialManagerController', function($state, $stateParams, $ionicPopup, FinancialService) {
 
 	var vm = this;
 	vm.util = new Util();
@@ -15,9 +15,11 @@ angular.module('financial')
 	vm.finalDate;
 
 	/* Public Methods */
-  vm.loadData = loadData;
-  vm.prevDate = prevDate;
-  vm.nextDate = nextDate;
+  vm.loadData 		= loadData;
+  vm.prevDate 		= prevDate;
+  vm.nextDate 		= nextDate;
+  vm.currentDate 	= currentDate;
+  vm.sellerBets 	= sellerBets;
 
 	/* Initialization */
 	init();
@@ -70,5 +72,14 @@ angular.module('financial')
 
   function nextDate() {
 		setDates(vm.finalDate.setDate(vm.finalDate.getDate() + 2));
+  }
+
+  function currentDate() {
+		var date = new Date();
+		setDates(date);
+  }
+
+  function sellerBets(sellerId) {
+  	$state.go('app.financial', {seller: sellerId, initialDate: vm.initialDate});
   }
 });

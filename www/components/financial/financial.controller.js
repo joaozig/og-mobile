@@ -1,6 +1,6 @@
 angular.module('financial')
 
-.controller('FinancialController', function($state, $ionicPopup, FinancialService, LoginService) {
+.controller('FinancialController', function($state, $stateParams, $ionicPopup, FinancialService, LoginService) {
 
 	var vm = this;
 	vm.util = new Util();
@@ -8,6 +8,7 @@ angular.module('financial')
 	/* Properties */
 	vm.types;
 	vm.resume;
+	vm.sellerId;
 	vm.shownGroup = [true, true, true];
 	vm.hideLoadingSpinner = false;
 	vm.initialDate;
@@ -20,7 +21,6 @@ angular.module('financial')
   vm.prevDate = prevDate;
   vm.nextDate = nextDate;
   vm.currentDate = currentDate;
-  vm.financialManager = financialManager;
   vm.betResume = betResume;
 
 	/* Initialization */
@@ -29,7 +29,8 @@ angular.module('financial')
 	/**********/
 
 	function init() {
-		vm.currentDate();
+		vm.sellerId = $stateParams.seller;
+		vm.currentDate($stateParams.initialDate);
 	}
 
 	function setDates(date) {
@@ -44,7 +45,7 @@ angular.module('financial')
 		var initialDate = vm.util.formatFilterDate(vm.initialDate);
 		var finalDate = vm.util.formatFilterDate(vm.finalDate);
 
-		FinancialService.getBets(initialDate, finalDate).then(
+		FinancialService.getBets(initialDate, finalDate, vm.sellerId).then(
 			function(data) {
 				var types = [data[0], data[1], data[2]];
 				var resume = data[3];
@@ -59,13 +60,6 @@ angular.module('financial')
 				});
 			}
 		);
-	}
-
-	function financialManager() {
-		var user = LoginService.getUser();
-		if(user.profile != 20) {
-			$state.go('app.financialManager', {initialDate: vm.initialDate});
-		}
 	}
 
 	function betResume(bet) {
@@ -94,8 +88,14 @@ angular.module('financial')
 		setDates(vm.finalDate.setDate(vm.finalDate.getDate() + 2));
   }
 
-  function currentDate() {
-  	var date = new Date();
+  function currentDate(initialDate) {
+
+		var date = new Date();
+		
+  	if(initialDate) {
+  		date = initialDate;
+  	}
+
 		setDates(date);
   }
 });

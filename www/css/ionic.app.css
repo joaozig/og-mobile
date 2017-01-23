@@ -9933,6 +9933,11 @@ div.spinner {
   float: right;
   font-weight: bold; }
 
+.financial-value-seller {
+  float: right;
+  margin-right: 38px;
+  font-weight: bold; }
+
 .negative-value {
   color: #ef473a;
   font-weight: bold; }

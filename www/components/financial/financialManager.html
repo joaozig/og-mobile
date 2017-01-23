@@ -6,6 +6,7 @@
   		<b style="white-space: nowrap">{{ctrl.util.formatDate(ctrl.initialDate)}} - {{ctrl.util.formatDate(ctrl.finalDate)}}</b>
   		&nbsp;&nbsp;&nbsp;&nbsp;
   		<button class="button icon-left ion-arrow-right-a" ng-click="ctrl.nextDate()"></button>
+  		<button class="button icon-left ion-home" ng-click="ctrl.currentDate()"></button>
   	</div>
   	<div style="margin-top: 15px;display:flex;justify-content:center;align-items:center;" ng-hide="ctrl.hideLoadingSpinner">
 			<ion-spinner></ion-spinner>
@@ -26,7 +27,7 @@
 			</div>
 			<div class="item">
 				<b>LÍQUIDO</b>
-				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.resume.netValue)}}</span>
+				<span class="financial-value" ng-class="{'negative-value' : ctrl.resume.netValue < 0}">R$ {{ctrl.util.formattedValue(ctrl.resume.netValue)}}</span>
 			</div>
 
 			<div class="item item-divider item-calm" style="text-align: center">
@@ -34,11 +35,12 @@
 			</div>
 			<div class="item item-divider item-light">
 				<b>Vendedor</b>
-				<span class="financial-value">Valor</span>
+				<span class="financial-value-seller">Valor</span>
 			</div>
-			<div class="item" ng-repeat="commission in ctrl.commissions" ng-class="{'item-stable': $index % 2 === 0}">
+			<div class="item item-icon-right" ng-click="ctrl.sellerBets(commission.id)" ng-repeat="commission in ctrl.commissions" ng-class="{'item-stable': $index % 2 === 0}">
 				{{commission.name}}
 				<span style="float: right">R$ {{ctrl.util.formattedValue(commission.value)}}</span>
+				<i class="icon ion-chevron-right icon-accessory"></i>
 			</div>
 
 			<div class="item item-divider item-calm" style="text-align: center">
@@ -46,11 +48,12 @@
 			</div>
 			<div class="item item-divider item-light">
 				<b>Ganhador</b>
-				<span class="financial-value">Valor</span>
+				<span class="financial-value-seller">Valor</span>
 			</div>
-			<div class="item" ng-repeat="prize in ctrl.prizes" ng-class="{'item-stable': $index % 2 === 0}">
+			<div class="item item-icon-right" ng-click="ctrl.sellerBets(prize.id)" ng-repeat="prize in ctrl.prizes" ng-class="{'item-stable': $index % 2 === 0}">
 				{{prize.name}}
 				<span style="float: right">R$ {{ctrl.util.formattedValue(prize.value)}}</span>
+				<i class="icon ion-chevron-right icon-accessory"></i>
 			</div>
 
 			<div class="item item-divider item-calm" style="text-align: center">
@@ -58,11 +61,12 @@
 			</div>
 			<div class="item item-divider item-light">
 				<b>Vendedor</b>
-				<span class="financial-value">Valor</span>
+				<span class="financial-value-seller">Valor</span>
 			</div>
-			<div class="item" ng-repeat="netValue in ctrl.netValues" ng-class="{'item-stable': $index % 2 === 0}">
+			<div class="item item-icon-right" ng-click="ctrl.sellerBets(netValue.id)" ng-repeat="netValue in ctrl.netValues" ng-class="{'item-stable': $index % 2 === 0}">
 				{{netValue.name}}
-				<span style="float: right" class="negative-value">R$ {{ctrl.util.formattedValue(netValue.value)}}</span>
+				<span style="float: right" ng-class="{'negative-value' : netValue.value < 0}">R$ {{ctrl.util.formattedValue(netValue.value)}}</span>
+				<i class="icon ion-chevron-right icon-accessory"></i>
 			</div>
 
   	</div>

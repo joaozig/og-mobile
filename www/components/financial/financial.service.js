@@ -15,11 +15,10 @@ angular.module('financial')
 
 	}
 
-	function getBets(initialDate, finalDate) {
+	function getBets(initialDate, finalDate, sellerId) {
 		var deferred = $q.defer();
-		var user = LoginService.getUser();
 
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.financial.php?dataIni='+initialDate+'&dataFim='+finalDate+'&seller='+user.id;
+		var url = 'http://avantitecnologia.net/jogo/includes/inc.financial.php?dataIni='+initialDate+'&dataFim='+finalDate+'&seller='+sellerId;
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){
