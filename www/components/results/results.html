@@ -2,9 +2,9 @@
   <ion-nav-title>Resultados</ion-nav-title>
   <ion-content>
   	<div class="bar bar-calm item-input-inset" style="display:flex;justify-content:center;align-items:center;">
-  		<button style="margin-right: 15px" class="button icon-left ion-arrow-left-a" ng-click="ctrl.prevDate()"></button>
-  		<b style="white-space: nowrap">{{ctrl.util.formatDate(ctrl.initialDate)}} - {{ctrl.util.formatDate(ctrl.finalDate)}}</b>
-  		<button style="margin-left: 15px" class="button icon-left ion-arrow-right-a" ng-click="ctrl.nextDate()"></button>
+  		<button class="button icon-left ion-arrow-left-a" ng-click="ctrl.prevDate()"></button>
+  		<b style="white-space: nowrap;font-size: 13px; padding-left:5px;padding-right: 5px">{{ctrl.util.formatDate(ctrl.initialDate)}} - {{ctrl.util.formatDate(ctrl.finalDate)}}</b>
+  		<button class="button icon-left ion-arrow-right-a" ng-click="ctrl.nextDate()"></button>
   		<button class="button icon-left ion-home" ng-click="ctrl.currentDate()"></button>
   	</div>
 		<div class="bar bar-stable item-input-inset" ng-hide="!ctrl.hideLoadingSpinner">
