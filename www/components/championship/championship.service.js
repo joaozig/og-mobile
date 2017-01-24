@@ -104,7 +104,7 @@ angular.module('championship')
 	      deferred.resolve(data.championship);
 	    })
 	    .error(function(data, status, headers,config){
-	      deferred.reject('Não foi possível recuperar os países.');
+	      deferred.reject('Não foi possível recuperar os campeonatos.');
 	    })
 
 	  return deferred.promise;
