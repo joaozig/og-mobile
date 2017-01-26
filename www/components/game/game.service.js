@@ -1,6 +1,6 @@
 angular.module('game')
 
-.service('GameService', function($q, $http) {
+.service('GameService', function($q, $http, MainService) {
 
 	var service = this;
 
@@ -49,7 +49,7 @@ angular.module('game')
 	function getGame(gameId, sportId, countryId) {
 		var deferred = $q.defer();
 
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.games.php?gameId=' + gameId + '&sportId=' + sportId +'&countryId=' + countryId;
+		var url = MainService.apiUrl + '/includes/inc.games.php?gameId=' + gameId + '&sportId=' + sportId +'&countryId=' + countryId;
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){

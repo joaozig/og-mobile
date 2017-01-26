@@ -1,6 +1,6 @@
 angular.module('ticket')
 
-.service('TicketService', function($q, $http) {
+.service('TicketService', function($q, $http, MainService) {
 
 	var service = this;
 
@@ -65,7 +65,7 @@ angular.module('ticket')
 	function getTicketTypes(gameId) {
 		var deferred = $q.defer();
 
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.games.php?gameId=' + gameId;
+		var url = MainService.apiUrl + '/includes/inc.games.php?gameId=' + gameId;
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){

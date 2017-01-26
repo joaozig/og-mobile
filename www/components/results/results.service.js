@@ -1,5 +1,5 @@
 angular.module('results')
-.service('ResultsService', function($q, $http) {
+.service('ResultsService', function($q, $http, MainService) {
 
 	var service = this;
 
@@ -17,7 +17,7 @@ angular.module('results')
 	function getResults(initialDate, finalDate) {
 		var deferred = $q.defer();
 
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.result.php?dataIni='+initialDate+'&dataFim='+finalDate;
+		var url = MainService.apiUrl + '/includes/inc.result.php?dataIni='+initialDate+'&dataFim='+finalDate;
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){

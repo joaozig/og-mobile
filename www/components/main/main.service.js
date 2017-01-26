@@ -5,6 +5,8 @@ angular.module('main')
 	var service = this;
 
 	/* Properties */
+	service.apiUrl = "http://gvscompany.com.br/teste";
+
 	service.sports = [
 		new Sport({id: 50, name: 'Futebol'}),
 		new Sport({id: 1, name: 'Futebol Americano'}),
@@ -36,7 +38,7 @@ angular.module('main')
 
 	function getSports() {
 		var deferred = $q.defer();
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.modality.php';
+		var url = service.apiUrl + '/includes/inc.modality.php';
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){

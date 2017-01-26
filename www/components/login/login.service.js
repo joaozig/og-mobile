@@ -1,6 +1,6 @@
 angular.module('login')
 
-.service('LoginService', function($q, $http) {
+.service('LoginService', function($q, $http, MainService) {
 
 	var service = this;
 	service.validUsers = [
@@ -11,7 +11,7 @@ angular.module('login')
 
 	service.login = function(username, password) {
 		var deferred = $q.defer();
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.login.php';
+		var url = MainService.apiUrl + '/includes/inc.login.php';
 
 		$http({url: url, method: "POST", data: 'username='+username+'&password='+password, headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 	    .success(function(data, status, headers,config){

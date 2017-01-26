@@ -1,6 +1,6 @@
 angular.module('bet')
 .constant('BET', 'bet')
-.service('BetService', function(BET, $q, $http, LoginService) {
+.service('BetService', function(BET, $q, $http, LoginService, MainService) {
 
 	var service = this;
 
@@ -94,7 +94,7 @@ angular.module('bet')
 
 		var deferred = $q.defer();
 
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.getbets.php?hash='+betHash;
+		var url = MainService.apiUrl + '/includes/inc.getbets.php?hash='+betHash;
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){
@@ -145,7 +145,7 @@ angular.module('bet')
 				return t.id+'#'+t.tax;
 			});
 
-			var url = 'http://avantitecnologia.net/jogo/includes/inc.bets.php';
+			var url = MainService.apiUrl + '/includes/inc.bets.php';
 
 			$http({url: url, method: "POST", data: 'playerName='+params.playerName+'&seller='+params.seller+'&betAmount='+params.betAmount+'&jackpot='+params.jackpot+'&tickets[]='+params.tickets, headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 		    .success(function(data, status, headers,config){

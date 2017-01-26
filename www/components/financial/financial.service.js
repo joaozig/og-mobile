@@ -1,5 +1,5 @@
 angular.module('financial')
-.service('FinancialService', function($q, $http, LoginService) {
+.service('FinancialService', function($q, $http, LoginService, MainService) {
 
 	var service = this;
 
@@ -18,7 +18,7 @@ angular.module('financial')
 	function getBets(initialDate, finalDate, sellerId) {
 		var deferred = $q.defer();
 
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.financial.php?dataIni='+initialDate+'&dataFim='+finalDate+'&seller='+sellerId;
+		var url = MainService.apiUrl + '/includes/inc.financial.php?dataIni='+initialDate+'&dataFim='+finalDate+'&seller='+sellerId;
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){
@@ -35,7 +35,7 @@ angular.module('financial')
 		var deferred = $q.defer();
 		var user = LoginService.getUser();
 
-		var url = 'http://avantitecnologia.net/jogo/includes/inc.financial.manager.php?dataIni='+initialDate+'&dataFim='+finalDate+'&seller='+user.id;
+		var url = MainService.apiUrl + '/includes/inc.financial.manager.php?dataIni='+initialDate+'&dataFim='+finalDate+'&seller='+user.id;
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){
