@@ -31,10 +31,6 @@
 			<div class="item item-divider item-calm" style="text-align: center">
 				<b>COMISSÕES</b>
 			</div>
-			<div class="item item-divider item-light">
-				<b>Vendedor</b>
-				<span class="financial-value-seller">Valor</span>
-			</div>
 			<div class="item item-icon-right" ng-click="ctrl.sellerBets(commission.id)" ng-repeat="commission in ctrl.commissions" ng-class="{'item-stable': $index % 2 === 0}">
 				{{commission.name}}
 				<span style="float: right">R$ {{ctrl.util.formattedValue(commission.value)}}</span>
@@ -44,10 +40,6 @@
 			<div class="item item-divider item-calm" style="text-align: center">
 				<b>PRÊMIOS</b>
 			</div>
-			<div class="item item-divider item-light">
-				<b>Ganhador</b>
-				<span class="financial-value-seller">Valor</span>
-			</div>
 			<div class="item item-icon-right" ng-click="ctrl.sellerBets(prize.id)" ng-repeat="prize in ctrl.prizes" ng-class="{'item-stable': $index % 2 === 0}">
 				{{prize.name}}
 				<span style="float: right">R$ {{ctrl.util.formattedValue(prize.value)}}</span>
@@ -56,10 +48,6 @@
 
 			<div class="item item-divider item-calm" style="text-align: center">
 				<b>LÍQUIDO</b>
-			</div>
-			<div class="item item-divider item-light">
-				<b>Vendedor</b>
-				<span class="financial-value-seller">Valor</span>
 			</div>
 			<div class="item item-icon-right" ng-click="ctrl.sellerBets(netValue.id)" ng-repeat="netValue in ctrl.netValues" ng-class="{'item-stable': $index % 2 === 0}">
 				{{netValue.name}}
