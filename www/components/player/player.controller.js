@@ -26,7 +26,13 @@ angular.module('player')
 		BetService.addBet(vm.playerName, vm.betAmount).then(
 			function(bet) {
 				vm.bet = bet;
-				$ionicHistory.goBack();
+				var backView = $ionicHistory.backView();
+				if(backView) {
+					$ionicHistory.goBack();
+				} else {
+				  $ionicHistory.nextViewOptions({disableBack: true});
+				  $state.go('app.main');
+				}
 			},
 			function(errorMessage) {
 				$ionicPopup.alert({
