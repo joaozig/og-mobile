@@ -7,6 +7,7 @@ angular.module('financial')
 
 	/* Properties */
 	vm.general;
+	vm.showGeneral;
 	vm.groups;
 	vm.resume;
 	vm.commissions;
@@ -57,6 +58,14 @@ angular.module('financial')
 			function(data) {
 				vm.general = data.shift();
 				vm.groups = data;
+
+				if(vm.general.admin) {
+					vm.showGeneral = true;
+				} else {
+					vm.showGeneral = false;
+					vm.toggleGroup(vm.groups[0]);
+				}
+
 				vm.hideLoadingSpinner = true;
 			},
 			function(errorMessage) {

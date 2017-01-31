@@ -11,21 +11,23 @@
   	</div>
   	<div class="list" ng-hide="!ctrl.hideLoadingSpinner">
 
-			<div class="item item-stable">
-				<b>BRUTO</b>
-				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.grossValue)}}</span>
-			</div>
-			<div class="item">
-				<b>PRÊMIOS</b>
-				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.prize)}}</span>
-			</div>
-			<div class="item item-stable">
-				<b>COMISSÕES</b>
-				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.commission)}}</span>
-			</div>
-			<div class="item">
-				<b>LÍQUIDO</b>
-				<span class="financial-value" ng-class="{'negative-value' : ctrl.general.info.resume.netValue < 0}">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.netValue)}}</span>
+			<div ng-show="ctrl.showGeneral">
+				<div class="item item-stable">
+					<b>BRUTO</b>
+					<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.grossValue)}}</span>
+				</div>
+				<div class="item">
+					<b>PRÊMIOS</b>
+					<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.prize)}}</span>
+				</div>
+				<div class="item item-stable">
+					<b>COMISSÕES</b>
+					<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.commission)}}</span>
+				</div>
+				<div class="item">
+					<b>LÍQUIDO</b>
+					<span class="financial-value" ng-class="{'negative-value' : ctrl.general.info.resume.netValue < 0}">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.netValue)}}</span>
+				</div>
 			</div>
 		
 			<div ng-repeat="group in ctrl.groups">
