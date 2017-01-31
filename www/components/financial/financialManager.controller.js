@@ -6,6 +6,8 @@ angular.module('financial')
 	vm.util = new Util();
 
 	/* Properties */
+	vm.general;
+	vm.groups;
 	vm.resume;
 	vm.commissions;
 	vm.prizes;
@@ -20,6 +22,8 @@ angular.module('financial')
   vm.nextDate 		= nextDate;
   vm.currentDate 	= currentDate;
   vm.sellerBets 	= sellerBets;
+  vm.toggleGroup = toggleGroup;
+  vm.isGroupShown = isGroupShown;
 
 	/* Initialization */
 	init();
@@ -51,10 +55,8 @@ angular.module('financial')
 
 		FinancialService.getResume(initialDate, finalDate).then(
 			function(data) {
-				vm.resume = data.resume;
-				vm.commissions = data.comission;
-				vm.prizes = data.jackpot;
-				vm.netValues = data.netvalue;
+				vm.general = data.shift();
+				vm.groups = data;
 				vm.hideLoadingSpinner = true;
 			},
 			function(errorMessage) {
@@ -79,7 +81,19 @@ angular.module('financial')
 		setDates(date);
   }
 
-  function sellerBets(sellerId) {
-  	$state.go('app.financial', {seller: sellerId, initialDate: vm.initialDate});
+  function sellerBets(group) {
+  	$state.go('app.financial', {group: group.id, seller: 0, initialDate: vm.initialDate});
   }
+
+	function toggleGroup(group) {
+    if (vm.isGroupShown(group)) {
+      vm.shownGroup = null;
+    } else {
+      vm.shownGroup = group;
+    }
+  };
+
+  function isGroupShown(group) {
+    return vm.shownGroup === group;
+  };
 });

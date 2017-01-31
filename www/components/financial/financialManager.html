@@ -13,46 +13,85 @@
 
 			<div class="item item-stable">
 				<b>BRUTO</b>
-				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.resume.grossValue)}}</span>
+				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.grossValue)}}</span>
 			</div>
 			<div class="item">
 				<b>PRÊMIOS</b>
-				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.resume.prize)}}</span>
+				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.prize)}}</span>
 			</div>
 			<div class="item item-stable">
 				<b>COMISSÕES</b>
-				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.resume.commission)}}</span>
+				<span class="financial-value">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.commission)}}</span>
 			</div>
 			<div class="item">
 				<b>LÍQUIDO</b>
-				<span class="financial-value" ng-class="{'negative-value' : ctrl.resume.netValue < 0}">R$ {{ctrl.util.formattedValue(ctrl.resume.netValue)}}</span>
+				<span class="financial-value" ng-class="{'negative-value' : ctrl.general.info.resume.netValue < 0}">R$ {{ctrl.util.formattedValue(ctrl.general.info.resume.netValue)}}</span>
 			</div>
+		
+			<div ng-repeat="group in ctrl.groups">
+				
+				<div class="item item-dark"
+							ng-click="ctrl.toggleGroup(group)"
+							ng-class="{active: ctrl.isGroupShown(group)}">
+					<i class="icon" ng-class="ctrl.isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
+					{{group.name}}
+				</div>
 
-			<div class="item item-divider item-calm" style="text-align: center">
-				<b>COMISSÕES</b>
-			</div>
-			<div class="item item-icon-right" ng-click="ctrl.sellerBets(commission.id)" ng-repeat="commission in ctrl.commissions" ng-class="{'item-stable': $index % 2 === 0}">
-				{{commission.name}}
-				<span style="float: right">R$ {{ctrl.util.formattedValue(commission.value)}}</span>
-				<i class="icon ion-chevron-right icon-accessory"></i>
-			</div>
+				<div ng-show="ctrl.isGroupShown(group)">
+					<div class="item item-stable item-divider">
+						<b>BRUTO</b>
+						<span class="financial-value">R$ {{ctrl.util.formattedValue(group.info.resume.grossValue)}}</span>
+					</div>
+					<div class="item item-stable item-divider">
+						<b>PRÊMIOS</b>
+						<span class="financial-value">R$ {{ctrl.util.formattedValue(group.info.resume.prize)}}</span>
+					</div>
+					<div class="item item-stable item-divider">
+						<b>COMISSÕES</b>
+						<span class="financial-value">R$ {{ctrl.util.formattedValue(group.info.resume.commission)}}</span>
+					</div>
+					<div class="item item-stable item-divider">
+						<b>LÍQUIDO</b>
+						<span class="financial-value" ng-class="{'negative-value' : group.info.resume.netValue < 0}">R$ {{ctrl.util.formattedValue(group.info.resume.netValue)}}</span>
+					</div>
 
-			<div class="item item-divider item-calm" style="text-align: center">
-				<b>PRÊMIOS</b>
-			</div>
-			<div class="item item-icon-right" ng-click="ctrl.sellerBets(prize.id)" ng-repeat="prize in ctrl.prizes" ng-class="{'item-stable': $index % 2 === 0}">
-				{{prize.name}}
-				<span style="float: right">R$ {{ctrl.util.formattedValue(prize.value)}}</span>
-				<i class="icon ion-chevron-right icon-accessory"></i>
-			</div>
+					<div class="item item-stable item-divider">
+						<button class="button button-block button-small button-positive"
+										style="margin: 0;"
+										ng-click="ctrl.sellerBets(group)">
 
-			<div class="item item-divider item-calm" style="text-align: center">
-				<b>LÍQUIDO</b>
-			</div>
-			<div class="item item-icon-right" ng-click="ctrl.sellerBets(netValue.id)" ng-repeat="netValue in ctrl.netValues" ng-class="{'item-stable': $index % 2 === 0}">
-				{{netValue.name}}
-				<span style="float: right" ng-class="{'negative-value' : netValue.value < 0}">R$ {{ctrl.util.formattedValue(netValue.value)}}</span>
-				<i class="icon ion-chevron-right icon-accessory"></i>
+										Ver apostas
+						</button>
+					</div>
+					
+					<div class="item item-divider item-calm" style="text-align: center">
+						<b>COMISSÕES</b>
+					</div>
+					<div class="item item-icon-right" ng-click="ctrl.sellerBets(group)" ng-repeat="commission in group.info.comission" ng-class="{'item-stable': $index % 2 === 0}">
+						{{commission.name}}
+						<span style="float: right">R$ {{ctrl.util.formattedValue(commission.value)}}</span>
+						<i class="icon ion-chevron-right icon-accessory"></i>
+					</div>
+
+					<div class="item item-divider item-calm" style="text-align: center">
+						<b>PRÊMIOS</b>
+					</div>
+					<div class="item item-icon-right" ng-click="ctrl.sellerBets(group)" ng-repeat="prize in group.info.jackpot" ng-class="{'item-stable': $index % 2 === 0}">
+						{{prize.name}}
+						<span style="float: right">R$ {{ctrl.util.formattedValue(prize.value)}}</span>
+						<i class="icon ion-chevron-right icon-accessory"></i>
+					</div>
+
+					<div class="item item-divider item-calm" style="text-align: center">
+						<b>LÍQUIDO</b>
+					</div>
+					<div class="item item-icon-right" ng-click="ctrl.sellerBets(group)" ng-repeat="netValue in group.info.netvalue" ng-class="{'item-stable': $index % 2 === 0}">
+						{{netValue.name}}
+						<span style="float: right" ng-class="{'negative-value' : netValue.value < 0}">R$ {{ctrl.util.formattedValue(netValue.value)}}</span>
+						<i class="icon ion-chevron-right icon-accessory"></i>
+					</div>					
+				</div>
+
 			</div>
 
   	</div>

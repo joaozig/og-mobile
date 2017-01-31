@@ -9,6 +9,7 @@ angular.module('financial')
 	vm.types;
 	vm.resume;
 	vm.sellerId;
+	vm.groupId;
 	vm.shownGroup = [true, true, true];
 	vm.hideLoadingSpinner = false;
 	vm.initialDate;
@@ -30,6 +31,7 @@ angular.module('financial')
 
 	function init() {
 		vm.sellerId = $stateParams.seller;
+		vm.groupId = $stateParams.group;
 		vm.currentDate($stateParams.initialDate);
 	}
 
@@ -45,7 +47,7 @@ angular.module('financial')
 		var initialDate = vm.util.formatFilterDate(vm.initialDate);
 		var finalDate = vm.util.formatFilterDate(vm.finalDate);
 
-		FinancialService.getBets(initialDate, finalDate, vm.sellerId).then(
+		FinancialService.getBets(initialDate, finalDate, vm.sellerId, vm.groupId).then(
 			function(data) {
 				var types = [data[0], data[1], data[2]];
 				var resume = data[3];

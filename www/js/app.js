@@ -151,7 +151,7 @@ angular.module('ourigol', [
     })
 
     .state('app.financial', {
-      url: '/financial/:seller&:initialDate',
+      url: '/financial/:group&:seller&:initialDate',
       views: {
         'menuContent': {
           templateUrl: componentsFolder + '/financial/financial.html',

@@ -15,10 +15,10 @@ angular.module('financial')
 
 	}
 
-	function getBets(initialDate, finalDate, sellerId) {
+	function getBets(initialDate, finalDate, sellerId, groupId) {
 		var deferred = $q.defer();
 
-		var url = MainService.apiUrl + '/includes/inc.financial.php?dataIni='+initialDate+'&dataFim='+finalDate+'&seller='+sellerId;
+		var url = MainService.apiUrl + '/includes/inc.financial.php?dataIni='+initialDate+'&dataFim='+finalDate+'&seller='+sellerId+'&group='+groupId;
 
 		$http.get(url)
 	    .success(function(data, status, headers,config){
