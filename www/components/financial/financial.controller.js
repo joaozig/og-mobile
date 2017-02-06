@@ -1,4 +1,7 @@
 angular.module('financial')
+.config(function($ionicConfigProvider) {
+	$ionicConfigProvider.scrolling.jsScrolling(true);
+})
 .controller('FinancialController', function($state, $stateParams, $ionicPopup, FinancialService, LoginService) {
 
 	var vm = this;
