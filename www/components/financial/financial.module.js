@@ -1,1 +1,1 @@
-angular.module('financial', []);
+angular.module('financial', ['ionic']);

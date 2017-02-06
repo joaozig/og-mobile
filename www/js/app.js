@@ -7,6 +7,7 @@
 angular.module('ourigol', [
   'app',
   'ionic',
+  'ion-affix',
   // 'ngCordova',
   'login',
   'main',

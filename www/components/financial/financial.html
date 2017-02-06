@@ -1,5 +1,8 @@
 <ion-view view-title="Financeiro" cache-view="false">
-  <ion-content style="bottom: 100px;" class="has-header has-footer">
+	<ion-content style="bottom: 100px;" 
+  						class="has-header has-footer"
+  						scroll-event-interval="5">
+
   	<div class="bar bar-calm item-input-inset" style="display:flex;justify-content:center;align-items:center;">
   		<button class="button icon-left ion-arrow-left-a" ng-click="ctrl.prevDate()"></button>
   		<b style="white-space: nowrap;font-size: 13px; padding-left:5px;padding-right: 5px">{{ctrl.util.formatDate(ctrl.initialDate)}} - {{ctrl.util.formatDate(ctrl.finalDate)}}</b>
@@ -15,7 +18,48 @@
   	<div style="margin-top: 15px;display:flex;justify-content:center;align-items:center;" ng-hide="ctrl.hideLoadingSpinner">
 			<ion-spinner></ion-spinner>
   	</div>
-  	<div class="list" ng-hide="!ctrl.hideLoadingSpinner">
+  	<div ng-hide="!ctrl.hideLoadingSpinner">
+			<div class="list" ng-repeat="seller in ctrl.sellers" style="margin-bottom: 0px;">
+				<div class="item item-divider" style="height: 50px; display: flex; align-items: center;" ion-affix data-affix-within-parent-with-class="list">{{seller.name}}</div>
+	      <ion-item class="item-game item-icon-right"
+	                ng-repeat="bet in seller.bets | filter: pesquisar"
+	                ng-click="ctrl.betResume(bet)">
+
+					<div style="float: left">
+						<span><b>{{bet.name}}</b></span><br>
+						<span style="font-size: 12px">{{bet.date}}, {{bet.hour}}</span><br>
+						<span style="font-size: 9px">{{bet.hash}}</span>
+					</div>
+					<div style="float: right; text-align: right;">
+						<span style="font-size: 12px">R$ {{bet.betAmount}} | <b>R$ {{bet.jackpot}}</b></span><br>
+						<span style="font-size: 12px">Jogos: {{bet.quantityBets}} | Acertos: {{bet.hits}}</span><br>
+						<span style="font-size: 12px"><b style="color: {{ctrl.getColorBetStatus(bet.status)}}">{{bet.situation}}</b></span>
+					</div>
+
+					<i class="icon ion-chevron-right icon-accessory"></i>
+	      </ion-item>
+			</div>
+  	</div>
+	</ion-content>
+	<div 	class="bar bar-footer bar-dark"
+				ng-hide="!ctrl.hideLoadingSpinner"
+				style="display:flex;justify-content:center;align-items:center; height: 100px;">
+
+		<div style="float: left;margin: auto auto auto 5px;">
+			Apostas: <br> <b>{{ctrl.resume.bets}}</b><br>
+			Acertos/Erros: <br> <b>{{ctrl.resume.hits}}/{{ctrl.resume.misses}}</b>
+		</div>
+		<div>
+			Comissão: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.commission)}}</b><br>
+			Prêmios: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.prizes)}}</b>
+		</div>
+		<div style="float: right;margin: auto 5px auto auto;">
+			Bruto: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.grossValue)}}</b><br>
+			Líquido: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.netValue)}}</b>
+		</div>
+  </div>
+</ion-view>
+<!-- 
 			<div ng-repeat="type in ctrl.types | filter: pesquisar" ng-init="typeIndex = $index">
         <ion-item ng-click="ctrl.toggleGroup(typeIndex)"
                   class="ng-class: ctrl.typeClass(typeIndex)">
@@ -43,24 +87,4 @@
 
 					<i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
-      </div>
-  	</div>
-  </ion-content>
-	<div 	class="bar bar-footer bar-dark"
-				ng-hide="!ctrl.hideLoadingSpinner"
-				style="display:flex;justify-content:center;align-items:center; height: 100px;">
-
-		<div style="float: left;margin: auto auto auto 5px;">
-			Apostas: <br> <b>{{ctrl.resume.bets}}</b><br>
-			Acertos/Erros: <br> <b>{{ctrl.resume.hits}}/{{ctrl.resume.misses}}</b>
-		</div>
-		<div>
-			Comissão: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.commission)}}</b><br>
-			Prêmios: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.prizes)}}</b>
-		</div>
-		<div style="float: right;margin: auto 5px auto auto;">
-			Bruto: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.grossValue)}}</b><br>
-			Líquido: <br> <b>R$ {{ctrl.util.formattedValue(ctrl.resume.netValue)}}</b>
-		</div>
-  </div>
-</ion-view>
+      </div> -->

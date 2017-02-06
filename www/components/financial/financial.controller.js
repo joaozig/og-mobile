@@ -1,12 +1,11 @@
 angular.module('financial')
-
 .controller('FinancialController', function($state, $stateParams, $ionicPopup, FinancialService, LoginService) {
 
 	var vm = this;
 	vm.util = new Util();
 
 	/* Properties */
-	vm.types;
+	vm.sellers;
 	vm.resume;
 	vm.sellerId;
 	vm.groupId;
@@ -16,13 +15,14 @@ angular.module('financial')
 	vm.finalDate;
 
 	/* Public Methods */
-  vm.loadTypes = loadTypes;
+  vm.loadData = loadData;
   vm.toggleGroup = toggleGroup;
   vm.typeClass = typeClass;
   vm.prevDate = prevDate;
   vm.nextDate = nextDate;
   vm.currentDate = currentDate;
   vm.betResume = betResume;
+  vm.getColorBetStatus = getColorBetStatus;
 
 	/* Initialization */
 	init();
@@ -38,10 +38,10 @@ angular.module('financial')
 	function setDates(date) {
 		vm.initialDate = vm.util.getMonday(date);
 		vm.finalDate = vm.util.getSunday(date);
-		vm.loadTypes();
+		vm.loadData();
 	}
 
-	function loadTypes() {
+	function loadData() {
 		vm.hideLoadingSpinner = false;
 
 		var initialDate = vm.util.formatFilterDate(vm.initialDate);
@@ -49,10 +49,8 @@ angular.module('financial')
 
 		FinancialService.getBets(initialDate, finalDate, vm.sellerId, vm.groupId).then(
 			function(data) {
-				var types = [data[0], data[1], data[2]];
-				var resume = data[3];
-				vm.types = types;
-				vm.resume = resume.resume[0];
+				vm.sellers = data.dados;
+				vm.resume = data.resume;
 				vm.hideLoadingSpinner = true;
 			},
 			function(errorMessage) {
@@ -66,6 +64,14 @@ angular.module('financial')
 
 	function betResume(bet) {
 		$state.go('app.betResume', {betHash: bet.hash});
+	}
+
+	function getColorBetStatus(status) {
+		if(status.toLowerCase() == 'errou'){
+			return 'red';
+		} else {
+			return 'green';
+		}
 	}
 
 	function toggleGroup(index) {

@@ -3,6 +3,7 @@ angular.module('login')
 .controller('LoginController', function($state, $ionicHistory, $ionicPopup, $ionicLoading, LoginService) {
 	var vm = this;
 
+	$ionicHistory.clearHistory();
   $ionicHistory.nextViewOptions({
      disableBack: true
   });
