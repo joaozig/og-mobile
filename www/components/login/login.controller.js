@@ -1,9 +1,13 @@
 angular.module('login')
 
-.controller('LoginController', function($state, $ionicHistory, $ionicPopup, $ionicLoading, LoginService) {
+.controller('LoginController', function($scope, $state, $ionicHistory, $ionicPopup, $ionicLoading, LoginService) {
 	var vm = this;
+	
+	$scope.$on('$ionicView.enter', function(event, viewData) {
+	    $ionicHistory.clearCache();
+			$ionicHistory.clearHistory();
+	});
 
-	$ionicHistory.clearHistory();
   $ionicHistory.nextViewOptions({
      disableBack: true
   });
