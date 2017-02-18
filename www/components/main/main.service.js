@@ -5,7 +5,7 @@ angular.module('main')
 	var service = this;
 
 	/* Properties */
-	service.apiUrl = "http://ourigolbets.com/teste";
+	service.apiUrl = "http://ourigolbets.com";
 
 	service.sports = [
 		new Sport({id: 50, name: 'Futebol'}),
