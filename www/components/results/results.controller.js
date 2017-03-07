@@ -42,7 +42,10 @@ angular.module('results')
 
 		ResultsService.getResults(initialDate, finalDate).then(
 			function(data) {
-				vm.shownGroup = new Array(data.length).fill(true);
+				vm.shownGroup = new Array(data.length);
+				for(var i = 0; i < data.length; i++){
+					vm.shownGroup[i] = true;
+				}
 				vm.results = data;
 				vm.hideLoadingSpinner = true;
 			},
