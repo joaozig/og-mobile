@@ -73,6 +73,8 @@ angular.module('financial')
 	function getColorBetStatus(status) {
 		if(status.toLowerCase() == 'perdeu'){
 			return 'red';
+		} else if(status.toLowerCase() == 'pendente') {
+			return 'orange';
 		} else {
 			return 'green';
 		}
