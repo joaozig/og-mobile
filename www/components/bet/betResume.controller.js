@@ -10,6 +10,7 @@ angular.module('bet')
 
 	/* Public Methods */
 	vm.printBet = printBet;
+	vm.getColorStatus = getColorStatus;
 
 	/* Initialization */
 	init();
@@ -31,6 +32,16 @@ angular.module('bet')
 				console.log(errorMessage);
 			}
 		);
+	}
+
+	function getColorStatus(status) {
+		if(status.toLowerCase() == 'errou'){
+			return 'red';
+		} else if(status.toLowerCase() == 'pendente') {
+			return 'orange';
+		} else {
+			return 'green';
+		}
 	}
 
 	function printBet() {
