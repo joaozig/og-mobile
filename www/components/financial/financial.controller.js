@@ -26,6 +26,7 @@ angular.module('financial')
   vm.currentDate = currentDate;
   vm.betResume = betResume;
   vm.getColorBetStatus = getColorBetStatus;
+  vm.getColorNetValue = getColorNetValue;
 
 	/* Initialization */
 	init();
@@ -70,10 +71,18 @@ angular.module('financial')
 	}
 
 	function getColorBetStatus(status) {
-		if(status.toLowerCase() == 'errou'){
+		if(status.toLowerCase() == 'perdeu'){
 			return 'red';
 		} else {
 			return 'green';
+		}
+	}
+
+	function getColorNetValue(value) {
+		if(parseFloat(value) < 0){
+			return '#FF4C4C';
+		} else {
+			return '#6AB56A';
 		}
 	}
 
