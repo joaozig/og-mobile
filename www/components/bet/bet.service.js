@@ -9,6 +9,7 @@ angular.module('bet')
 	service.maxBetAmount = 150;
 
 	/* Public Methods */
+	service.checkLimit = checkLimit;
 	service.addBet = addBet;
 	service.editBet = editBet;
 	service.getBet = getBet;
@@ -26,6 +27,24 @@ angular.module('bet')
 	/**** Methods definition ****/
 	function init() {
 
+	}
+
+	function checkLimit(amount) {
+
+		var deferred = $q.defer();
+		var user = LoginService.getUser();
+
+		var url = MainService.apiUrl + '/includes/inc.get.limit.php?sellerId='+user.id+'&amount='+amount;
+
+		$http.get(url)
+	    .success(function(data, status, headers,config){
+	      deferred.resolve(data);
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Não foi possível verificar o limite.');
+	    })
+
+	  return deferred.promise;
 	}
 
 	function addBet(playerName, betAmount) {

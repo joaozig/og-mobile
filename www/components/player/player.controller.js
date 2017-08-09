@@ -12,6 +12,7 @@ angular.module('player')
 
 	/* Public Methods */
 	vm.addBet = addBet;
+	vm.saveBet = saveBet;
 	vm.removeBet = removeBet;
 
 	/* Initialization */
@@ -23,6 +24,27 @@ angular.module('player')
 	}
 
 	function addBet() {
+		BetService.checkLimit(vm.betAmount).then(
+			function(data) {
+				if(data.user.success) {
+					vm.saveBet();
+				} else {
+					$ionicPopup.alert({
+						title: 'Algo falhou :(',
+						template: data.user.message
+					});
+				}
+			},
+			function(errorMessage) {
+				$ionicPopup.alert({
+					title: 'Algo falhou :(',
+					template: errorMessage
+				});
+			}
+		);
+	}
+
+	function saveBet() {
 		BetService.addBet(vm.playerName, vm.betAmount).then(
 			function(bet) {
 				vm.bet = bet;

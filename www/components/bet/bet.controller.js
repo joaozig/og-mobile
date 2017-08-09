@@ -67,7 +67,10 @@ angular.module('bet')
 								template: data.message
 							});
 
-							BetService.removeInvalidTickets(data.tickets);
+							if(data.tickets) {
+								BetService.removeInvalidTickets(data.tickets);
+							}
+
 							_setBet();
 						}
 					},

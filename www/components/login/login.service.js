@@ -17,6 +17,7 @@ angular.module('login')
 	    .success(function(data, status, headers,config){
 	    	if(data.user) {
 	    		var user = data.user[0];
+	    		console.log(user)
 					window.localStorage.setItem('user', JSON.stringify(user));
 					deferred.resolve(user);
 	    	} else {
