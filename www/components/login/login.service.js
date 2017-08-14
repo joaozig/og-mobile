@@ -31,6 +31,22 @@ angular.module('login')
 	  return deferred.promise;
 	}
 
+	service.getLimit = function() {
+		var deferred = $q.defer();
+		var user = this.getUser();
+		var url = MainService.apiUrl + '/includes/inc.check.limit.php?sellerId='+user.id;
+
+		$http.get(url)
+	    .success(function(data, status, headers,config){
+	      deferred.resolve(data.user[0]);
+	    })
+	    .error(function(data, status, headers,config){
+	      deferred.reject('Não foi possível recuperar o limite.');
+	    })
+
+	  return deferred.promise;
+	}
+
 	service.getUser = function() {
 		var user = window.localStorage.getItem('user');
 		user = JSON.parse(user);

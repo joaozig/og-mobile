@@ -194,11 +194,13 @@ angular.module('app', [])
   var vm = this;
 
   vm.doLogout = doLogout;
+  vm.refreshLimit = refreshLimit;
   vm.seller = LoginService.getUser();
   vm.date = new Date();
 
   $scope.$on("$ionicView.beforeEnter", function(event, data){
     vm.seller = LoginService.getUser();
+    vm.refreshLimit();
   });
 
   function doLogout() {
@@ -213,6 +215,19 @@ angular.module('app', [])
         BetService.removeBet();
         $state.go('app.login');
       }
+    });
+  }
+
+  function refreshLimit() {
+    if(vm.limit) {
+      vm.limit.limit = 'atualizando...'
+      vm.limit.limit_used = 'atualizando...'
+    }
+
+    LoginService.getLimit().then(function(response) {
+      vm.limit = response;
+      vm.limit.limit = 'R$ ' + vm.limit.limit;
+      vm.limit.limit_used = 'R$ ' + vm.limit.limit_used;
     });
   }
 });
