@@ -57,11 +57,70 @@ angular.module('bet')
 	}
 
 	function selectDevice(address) {
-		bluetoothSerial.connect(address);
-		vm.showContent = true;
-		setTimeout(function() {
-			var page = window.document.getElementById('print');
-			window.cordova.plugins.printer.print(page, 'Document.html');
-		}, 1500);
+		bluetoothSerial.connect(address, function(success){ alert('conectou com sucesso')}, function(error){alert('erro ao conectar'); alert(error);}).subscribe(function(){
+			alert('sucesso no subscribe!')
+			vm.showContent = true;
+	    bluetoothSerial.write(
+			'29/08/2017           2 Via 20:51\n'+
+			'  \n'+
+			'          * WORLDBETS *         \n'+
+			'  \n'+
+			'================================\n'+
+			'Cliente: NOME DO CLIENTE QUE E UM NOME GRANDE\n'+
+			'Vendedor: NOME DO VENDEDOR\n'+
+			'Data/Hora: 29/08/2017 20:52\n'+
+			'Codigo: 98S7S8DF7SD9F89S87F\n'+
+			'================================\n'+
+			'            PALPITES            \n'+
+			'--------------------------------\n'+
+			'Palmeiras 5 x 0 Sao Paulo\n'+
+			'20/08/2017 - 19:05 \n'+
+			'Palpite: VENCEDOR DO JOGO\n'+
+			'* Palmeiras x 1.29\n'+
+			'                         [ERROU]\n'+
+			'--------------------------------\n'+
+			'Palmeiras 5 x 0 Sao Paulo\n'+
+			'20/08/2017 - 19:05 \n'+
+			'Palpite: DUPLA CHANCE\n'+
+			'* Palmeiras ou empate x 2.25\n'+
+			'                       [ACERTOU]\n'+
+			'--------------------------------\n'+
+			'Palmeiras 5 x 0 Sao Paulo\n'+
+			'20/08/2017 - 19:05 \n'+
+			'Palpite: DUPLA CHANCE\n'+
+			'* Palmeiras ou empate x 2.25\n'+
+			'                      [PENDENTE]\n'+
+			'================================\n'+
+			'Valor da aposta: R$ 5,00\n'+
+			'Palpites: 2\n'+
+			'Premio Possivel: R$ 50,00\n'+
+			'--------------------------------\n'+
+			'* Sera considerado somente o \n'+
+			'resultado dos 90 minutos de jogo\n'+
+			'e acrescimos.\n'+
+			'* Prorrogacao e penaltis sao \n'+
+			'ignorados.\n'+
+			'* Premio valido somente com a \n'+
+			'apresentacao deste bilhete.\n'+
+			'\n'+
+			'\n'+
+			'________________________________\n'+
+			'    NOME DO VENDEDOR\n'+
+			' \n \n \n',
+			function(success) {
+				alert('escreveu com sucesso');
+			}, function(error) {
+				alert('erro ao escrever')
+				alert(error)
+			});
+		}, function(error) {
+			alert('erro no subscribe.');
+			alert(error);
+		});
+
+		// setTimeout(function() {
+		// 	var page = window.document.getElementById('print');
+		// 	window.cordova.plugins.printer.print(page, 'Document.html');
+		// }, 1500);
 	}
 });
