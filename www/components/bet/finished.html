@@ -3,7 +3,23 @@
     <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
       <ion-spinner></ion-spinner>  
     </div>
-    <div id="print" ng-hide="!ctrl.hideLoadingSpinner">
+    <div ng-show="!ctrl.showContent && ctrl.hideLoadingSpinner">
+      <ul class="list">
+        <div class="item item-divider">Aparelhos conectados</div>
+        <li class="item" ng-repeat="device in ctrl.pairedDevices" ng-click="ctrl.selectDevice(device.address)">
+          {{ device.name }}
+        </li>
+
+        <div class="item item-divider">Aparelhos não conectados</div>
+        <li class="item" ng-repeat="device in ctrl.unpairedDevices" ng-click="ctrl.selectDevice(device.address)">
+          {{ device.name }}
+        </li>
+        <li class="item" ng-click="ctrl.selectDevice({address: '123'})">
+          Nenhum
+        </li>
+      </ul>
+    </div>
+    <div id="print" ng-show="ctrl.showContent">
       <div class="row">
         <div class="col" align="center">
           <img src="img/logo.png">
