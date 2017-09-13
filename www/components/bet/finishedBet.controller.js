@@ -92,7 +92,7 @@ angular.module('bet')
 			arr+''+
 			'================================\n'+
 			'Valor da aposta: R$ '+aposta+'\n'+
-			'Palpites: '+arr.length+'\n'+
+			'Palpites: '+cont+'\n'+
 			'Premio Possivel: R$ '+premio+'\n'+
 			'--------------------------------\n'+
 			'* Sera considerado somente o \n'+
