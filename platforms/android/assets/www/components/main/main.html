@@ -1,0 +1,26 @@
+<ion-view cache-view="false">
+	<ion-nav-bar class="bar-dark">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+    	<img src="img/logo.png" class="nav-bar-img-logo">
+    </ion-nav-title>
+	</ion-nav-bar>
+  <ion-content class="has-footer">
+    <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
+      <ion-spinner></ion-spinner>  
+    </div>
+  	<ion-list>
+  		<ion-item ng-repeat="sport in ctrl.sports"
+                href="#/app/games/{{sport.id}}"
+                class="item-icon-right">
+
+        {{sport.name}}
+        <i class="icon ion-chevron-right icon-accessory"></i>
+  		</ion-item>
+  	</ion-list>
+  </ion-content>
+  <bet-footer></bet-footer>
+</ion-view>

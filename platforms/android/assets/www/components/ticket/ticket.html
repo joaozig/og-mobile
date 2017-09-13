@@ -1,0 +1,46 @@
+<ion-view>
+  <ion-nav-bar class="bar-dark" align-title="center">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-title>
+      <div class="game-detail-nav-title">
+          <img ng-src="{{ctrl.game.teamA.img}}" class="game-detail-nav-title-left-team-img">
+          <span class="game-detail-nav-title-text">
+            {{ctrl.game.teamA.name}} x {{ctrl.game.teamB.name}}
+          </span>
+          <img ng-src="{{ctrl.game.teamB.img}}" class="game-detail-nav-title-right-team-img">
+      </div>
+    </ion-nav-title>
+  </ion-nav-bar>
+  <ion-content class="has-footer">
+    <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
+      <ion-spinner></ion-spinner>  
+    </div>
+    <ion-refresher on-refresh="ctrl.loadGame()"></ion-refresher>
+    <div class="list">
+
+      <div ng-repeat="ticketType in ctrl.game.ticketType">
+        <div class="item item-divider"
+            ng-click="ctrl.toggleGroup(ticketType)"
+            ng-class="{active: ctrl.isGroupShown(ticketType)}">
+
+          <i class="icon" ng-class="ctrl.isGroupShown(ticketType) ? 'ion-minus' : 'ion-plus'"></i>
+          &nbsp;
+          {{ticketType.name}}
+        </div>
+
+        <div class="item item-button-right" ng-repeat="ticket in ticketType.tickets"
+            ng-repeat="game in championship.games"
+            ng-show="ctrl.isGroupShown(ticketType)">
+
+          {{ticket.name}}
+          <button class="button button-small button-positive" ng-click="ctrl.addTicketToBet(ticket, ticketType)">
+            {{ctrl.util.formattedTaxValue(ticket.tax)}}%
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </ion-content>
+  <bet-footer bet="ctrl.bet"></bet-footer>
+</ion-view>

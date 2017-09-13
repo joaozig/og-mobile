@@ -1,0 +1,62 @@
+<ion-view cache-view="false" view-title="Resumo da Aposta">
+  <ion-content>
+    <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
+      <ion-spinner></ion-spinner>  
+    </div>
+  	<div class="card" ng-hide="!ctrl.hideLoadingSpinner">
+  		<div class="item item-divider item-positive">
+  			Dados da Aposta
+  		</div>
+  		<div class="item text-wrap">
+        <div>
+          <strong>Cliente:</strong> {{ctrl.bet.playerName}}
+        </div>
+        <div>
+          <strong>Vendedor:</strong> {{ctrl.bet.seller}}
+        </div>
+  			<div>
+					<strong>Data/Hora:</strong> {{ctrl.bet.date}}
+  			</div>
+        <div>
+          <strong>Código:</strong> {{ctrl.bet.hash}}
+        </div>
+  			<div>
+					<strong>Valor da Aposta:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.betAmount)}}
+  			</div>
+  			<div>
+					<strong>Prêmio Possível:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.jackpot)}}
+  			</div>
+  		</div>
+  	</div>
+    <div class="row" ng-hide="!ctrl.hideLoadingSpinner">
+      <button class="button button-block button-dark" ng-click="ctrl.printBet()">Imprimir</button>
+    </div>
+    <ion-list class="list" can-swipe="true" ng-hide="!ctrl.hideLoadingSpinner">
+      <div class="item item-divider">
+        Palpites: {{ctrl.bet.tickets.length}}
+      </div>
+      <ion-item class="item" ng-repeat="ticket in ctrl.bet.tickets">
+        <div class="game-row">
+          <img ng-src="{{ticket.ticketType.game.teamA.img}}" class="left-team-img">
+          <div>
+            <div style="text-align: center">
+              <b style="text-transform:capitalize; color: {{ctrl.getColorStatus(ticket.ticketType.status)}}">{{ticket.ticketType.status}}</b><br />
+              {{ticket.ticketType.game.teamA.name}} x {{ticket.ticketType.game.teamB.name}}
+            </div>
+            <div class="ticket-game-detail">
+              {{ticket.ticketType.game.championship.name}} - {{ticket.ticketType.game.date}}
+            </div>
+          </div>
+          <img ng-src="{{ticket.ticketType.game.teamB.img}}" class="right-team-img">
+        </div>
+        <div class="game-row">
+          <span class="ticket-game-detail">
+            <strong>{{ticket.ticketType.name}}</strong>
+            <br>
+            {{ticket.name}} ({{ctrl.util.formattedTaxValue(ticket.tax)}}%)
+          </span>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

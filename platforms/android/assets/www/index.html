@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <!-- <script src="js/ng-cordova.min.js"></script> -->
+    <script src="cordova.js"></script>
+
+    <script src="lib/ion-affix/ion-affix.js"></script>
+    <!-- Models -->
+    <script src="models/sport.model.js"></script>
+    <script src="models/country.model.js"></script>
+    <script src="models/championship.model.js"></script>
+    <script src="models/game.model.js"></script>
+    <script src="models/ticketType.model.js"></script>
+    <script src="models/ticket.model.js"></script>
+    <script src="models/bet.model.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/util.js"></script>
+
+    <!-- login component -->
+    <script src="components/login/login.module.js"></script>
+    <script src="components/login/login.service.js"></script>
+    <script src="components/login/login.controller.js"></script>
+
+    <!-- main component -->
+    <script src="components/main/main.module.js"></script>
+    <script src="components/main/main.service.js"></script>
+    <script src="components/main/main.controller.js"></script>
+
+    <!-- player component -->
+    <script src="components/player/player.module.js"></script>
+    <script src="components/player/player.controller.js"></script>
+
+    <!-- bet component -->
+    <script src="components/bet/bet.module.js"></script>
+    <script src="components/bet/bet.service.js"></script>
+    <script src="components/bet/bet.controller.js"></script>
+    <script src="components/bet/finishedBet.controller.js"></script>
+    <script src="components/bet/betResume.controller.js"></script>
+    <script src="components/bet/betFooter.controller.js"></script>
+
+    <!-- countries component -->
+    <script src="components/countries/countries.module.js"></script>
+    <script src="components/countries/countries.service.js"></script>
+    <script src="components/countries/countries.controller.js"></script>
+
+    <!-- championship component -->
+    <script src="components/championship/championship.module.js"></script>
+    <script src="components/championship/championship.service.js"></script>
+    <script src="components/championship/championship.controller.js"></script>
+
+    <!-- games component -->
+    <script src="components/games/games.module.js"></script>
+    <script src="components/games/games.controller.js"></script>
+
+    <!-- game component -->
+    <script src="components/game/game.module.js"></script>
+    <script src="components/game/game.service.js"></script>
+
+    <!-- ticket component -->
+    <script src="components/ticket/ticket.module.js"></script>
+    <script src="components/ticket/ticket.service.js"></script>
+    <script src="components/ticket/ticket.controller.js"></script>
+
+    <!-- financial component -->
+    <script src="components/financial/financial.module.js"></script>
+    <script src="components/financial/financial.service.js"></script>
+    <script src="components/financial/financial.controller.js"></script>
+    <script src="components/financial/financialManager.controller.js"></script>
+
+    <!-- results component -->
+    <script src="components/results/results.module.js"></script>
+    <script src="components/results/results.service.js"></script>
+    <script src="components/results/results.controller.js"></script>
+  </head>
+
+  <body ng-app="ourigol" class="platform-android platform-cordova platform-webview">
+    <ion-nav-view></ion-nav-view>
+  </body>
+</html>

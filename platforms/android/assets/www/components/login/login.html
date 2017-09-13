@@ -1,0 +1,29 @@
+<ion-view view-title="Login" hide-nav-bar="true">
+  <ion-content class="bg-login">
+    <div class="bg-logo">
+      <img src="img/logo.png" class="logo">
+    </div>    
+    <div>
+        <br><br>
+        <div class="row">
+          <div class="col">
+            <label class="item item-input">
+              <input type="text" placeholder="Usuário" ng-model="ctrl.user.username">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label class="item item-input">
+              <input type="password" placeholder="Senha" ng-model="ctrl.user.password">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button class="button button-block button-positive" ng-click="ctrl.doLogin()">Entrar</button>
+          </div>
+        </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,97 @@
+<ion-view view-title="Aposta Finalizada">
+  <ion-content>
+    <div class="spinner" ng-hide="ctrl.hideLoadingSpinner">
+      <ion-spinner></ion-spinner>  
+    </div>
+    <div ng-show="!ctrl.showContent && ctrl.hideLoadingSpinner">
+      <ul class="list">
+        <div class="item item-divider">Aparelhos conectados</div>
+        <li class="item" ng-repeat="device in ctrl.pairedDevices" ng-click="ctrl.selectDevice(device.address)">
+          {{ device.name }}
+        </li>
+
+        <div class="item item-divider">Aparelhos não conectados</div>
+        <li class="item" ng-repeat="device in ctrl.unpairedDevices" ng-click="ctrl.selectDevice(device.address)">
+          {{ device.name }}
+        </li>
+        <li class="item" ng-click="ctrl.selectDevice({address: '123'})">
+          Nenhum
+        </li>
+      </ul>
+    </div>
+    <div id="print" ng-show="ctrl.showContent">
+      <div class="row">
+        <div class="col" align="center">
+          <img src="img/logo.png">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" align="center">
+          <h2>Comprovante de Aposta</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          =============================================
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <b>Cliente:</b> {{ctrl.bet.playerName}}<br>
+          <b>Vendedor:</b> {{ctrl.bet.seller}}<br>
+          <b>Data/Hora:</b> {{ctrl.bet.date}}<br>
+          <b>Código:</b> {{ctrl.bet.hash}}<br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          =============================================
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" align="center">
+          <h3>Seus Palpites</h3>
+        </div>
+      </div>
+      <div class="row" ng-repeat="ticket in ctrl.bet.tickets">
+        <div class="col">
+          .................................................................................................<br><br>
+          {{ticket.ticketType.game.teamA.name}} x {{ticket.ticketType.game.teamB.name}}<br>
+          {{ticket.ticketType.game.date}}<br>
+          Palpite: <b>{{ticket.ticketType.name.toLowerCase()}} - {{ticket.name}} - {{ctrl.util.formattedTaxValue(ticket.tax)}}%</b><br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          =============================================
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          Valor da Aposta: R$ {{ctrl.util.formattedValue(ctrl.bet.betAmount)}}<br>
+          Palpites: {{ctrl.bet.tickets.length}}<br>
+          Prêmio Possível: <strong>R$ {{ctrl.util.formattedValue(ctrl.bet.jackpot)}}</strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          =============================================
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="font-size: 9px">
+          * É CONSIDERADO SOMENTE O RESULTADO DOS 90 MINUTOS DE JOGO E ACRÉSCIMOS.<br>
+          * PRORROGAÇÃO E PÊNALTIS SÃO IGNORADOS.<br>
+          * PRÊMIO VÁLIDO SOMENTE COM A APRESENTAÇÃO DESTE COMPROVANTE.<br>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <br>
+          <b>Assinatura do Vendedor:</b>
+          <br><br><br><br>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,34 @@
+<ion-view cache-view="false">
+  <ion-nav-title>{{ctrl.country.name}}</ion-nav-title>
+  <ion-content>
+    <ion-list>
+
+      <div ng-repeat="championship in ctrl.championships">
+        <div class="item item-divider">
+          {{championship.name}}
+        </div>
+
+        <ion-item ng-repeat="game in championship.games" 
+          class="item-icon-right" 
+          href="#/app/tickets/{{game.id}}">
+
+          <div class="game-row">
+            <img ng-src="{{game.teamA.img}}" class="left-team-img">
+            <div>
+              {{game.teamA.name}} x {{game.teamB.name}}
+              <div class="ticket-game-detail">{{game.date}} - {{game.time}}</div>
+            </div>
+            <img ng-src="{{game.teamB.img}}" class="right-team-img">
+            <div>
+              <span class="custom-badge">123</span>
+            </div>
+          </div>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+
+        </ion-item>
+      </div>
+
+    </ion-list>
+  </ion-content>
+  <bet-footer></bet-footer>
+</ion-view>

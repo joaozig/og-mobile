@@ -1,0 +1,15 @@
+<ion-view cache-view="false">
+  <ion-nav-title>{{ctrl.sport.name}}</ion-nav-title>
+  <ion-content>
+  	<ion-list>
+  		<ion-item ng-repeat="country in ctrl.countries"
+                href="#/app/championships/{{country.id}}"
+                class="item-icon-right">
+
+        {{country.name}}
+        <i class="icon ion-chevron-right icon-accessory"></i>
+  		</ion-item>
+  	</ion-list>
+  </ion-content>
+  <bet-footer></bet-footer>
+</ion-view>

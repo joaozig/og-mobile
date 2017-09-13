@@ -1,6 +1,6 @@
 angular.module('bet')
 
-.controller('FinishedBetController', function($ionicHistory, $stateParams, BetService) {
+.controller('FinishedBetController', function($scope, $state, $ionicHistory, $stateParams, BetService) {
 	var vm = this;
 	vm.util = new Util();
 
@@ -44,6 +44,7 @@ angular.module('bet')
 		bluetoothSerial.discoverUnpaired(function(devices) {
 			vm.unpairedDevices = devices;
 		}, function(error) {
+			
 			console.log('erro unpaired devices');
 			console.log(error);
 		});
@@ -51,49 +52,48 @@ angular.module('bet')
 		bluetoothSerial.list(function(devices) {
 			vm.pairedDevices = devices;
 		}, function(error) {
+			
 			console.log('erro paired devices');
 			console.log(error);
 		});
 	}
 
 	function selectDevice(address) {
-		bluetoothSerial.connect(address, function(success){ alert('conectou com sucesso')}, function(error){alert('erro ao conectar'); alert(error);}).subscribe(function(){
-			alert('sucesso no subscribe!')
-			vm.showContent = true;
-	    bluetoothSerial.write(
-			'29/08/2017           2 Via 20:51\n'+
+		var arr="";
+		var cont=0;
+		var aposta="";
+		var premio="";
+		angular.forEach(vm.bet.tickets, function(item, index) {
+				arr = arr+item.ticketType.game.teamA.name+' x '+item.ticketType.game.teamB.name+'\n'+item.ticketType.game.date+'\nPalpite: '+item.name+'\n'+item.ticketType.name+'\n--------------------------------\n';
+				cont++;
+		});
+		
+		//aposta = number_format(vm.bet.betAmount, 2, ',', '.');
+		aposta = vm.util.formattedValue(vm.bet.betAmount);
+		premio = vm.util.formattedValue(vm.bet.jackpot);
+		
+		//premio = vm.bet.jackpot;
+		bluetoothSerial.connect(address, 
+			function(success){ 
+				//alert('conectou com sucesso');
+				bluetoothSerial.write(
+			vm.util.getDateNow()+'           2 Via '+vm.util.getTimeNow()+'\n'+
 			'  \n'+
 			'          * WORLDBETS *         \n'+
 			'  \n'+
 			'================================\n'+
-			'Cliente: NOME DO CLIENTE QUE E UM NOME GRANDE\n'+
-			'Vendedor: NOME DO VENDEDOR\n'+
-			'Data/Hora: 29/08/2017 20:52\n'+
-			'Codigo: 98S7S8DF7SD9F89S87F\n'+
+			'Cliente: '+vm.bet.playerName+'\n'+
+			'Vendedor: '+vm.bet.seller+'\n'+
+			'Data/Hora: '+vm.bet.date+'\n'+
+			'Codigo: '+vm.bet.hash+'\n'+
 			'================================\n'+
 			'            PALPITES            \n'+
 			'--------------------------------\n'+
-			'Palmeiras 5 x 0 Sao Paulo\n'+
-			'20/08/2017 - 19:05 \n'+
-			'Palpite: VENCEDOR DO JOGO\n'+
-			'* Palmeiras x 1.29\n'+
-			'                         [ERROU]\n'+
-			'--------------------------------\n'+
-			'Palmeiras 5 x 0 Sao Paulo\n'+
-			'20/08/2017 - 19:05 \n'+
-			'Palpite: DUPLA CHANCE\n'+
-			'* Palmeiras ou empate x 2.25\n'+
-			'                       [ACERTOU]\n'+
-			'--------------------------------\n'+
-			'Palmeiras 5 x 0 Sao Paulo\n'+
-			'20/08/2017 - 19:05 \n'+
-			'Palpite: DUPLA CHANCE\n'+
-			'* Palmeiras ou empate x 2.25\n'+
-			'                      [PENDENTE]\n'+
+			arr+''+
 			'================================\n'+
-			'Valor da aposta: R$ 5,00\n'+
-			'Palpites: 2\n'+
-			'Premio Possivel: R$ 50,00\n'+
+			'Valor da aposta: R$ '+aposta+'\n'+
+			'Palpites: '+arr.length+'\n'+
+			'Premio Possivel: R$ '+premio+'\n'+
 			'--------------------------------\n'+
 			'* Sera considerado somente o \n'+
 			'resultado dos 90 minutos de jogo\n'+
@@ -102,25 +102,26 @@ angular.module('bet')
 			'ignorados.\n'+
 			'* Premio valido somente com a \n'+
 			'apresentacao deste bilhete.\n'+
-			'\n'+
-			'\n'+
-			'________________________________\n'+
-			'    NOME DO VENDEDOR\n'+
 			' \n \n \n',
-			function(success) {
-				alert('escreveu com sucesso');
-			}, function(error) {
-				alert('erro ao escrever')
-				alert(error)
+					function(success) {
+						//alert('escreveu');
+						bluetoothSerial.disconnect()
+						$state.go('app.main');
+					}, function(error) {
+						alert('erro ao escrever')
+						alert(error)
+					}
+				);
+			}, 
+			function(error){
+					alert('erro ao conectar'); 
+					alert(error);
 			});
-		}, function(error) {
-			alert('erro no subscribe.');
-			alert(error);
-		});
+		}
 
 		// setTimeout(function() {
 		// 	var page = window.document.getElementById('print');
 		// 	window.cordova.plugins.printer.print(page, 'Document.html');
 		// }, 1500);
-	}
+	
 });

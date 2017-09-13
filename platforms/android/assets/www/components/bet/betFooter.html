@@ -1,0 +1,12 @@
+<div ng-if="!$ctrl.bet" class="bar bar-footer bar-dark">
+	<a ui-sref="app.player" class="button button-positive pull-right">Nova Aposta</a>
+</div>
+<div ng-if="$ctrl.bet" class="bar bar-footer bar-dark">
+	<div class="align-bet-footer">
+		<div>
+			Aposta: <b>R$ {{$ctrl.bet.getBetAmount()}}</b><br>
+			Prêmio: <b>R$ {{$ctrl.bet.getJackpot()}}</b> (Palpites: {{$ctrl.bet.tickets.length}})
+		</div>
+	</div>
+	<a ui-sref="app.bet" class="button button-small button-positive pull-right">Ver Aposta</a>
+</div>

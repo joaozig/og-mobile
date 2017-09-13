@@ -1,0 +1,47 @@
+<ion-view cache-view="false" view-title="Adicionar Aposta">
+  <ion-content>
+    <div id="formPlayer" ng-if="!ctrl.bet">
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Apostador</span>
+          <input type="text" placeholder="Nome do apostador" ng-model="ctrl.playerName">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Valor</span>
+          <input type="number" placeholder="Valor a ser apostado" ng-model="ctrl.betAmount">
+        </label>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="button button-block button-positive" ng-click="ctrl.addBet()">Adicionar Aposta</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="cardBet" ng-if="ctrl.bet">
+    	<div class="card">
+    		<div class="item item-divider item-positive">
+    			Aposta Ativa
+    		</div>
+    		<div class="item text-wrap">
+    			<div>
+  					<strong>Apostador:</strong> {{ctrl.bet.playerName}}
+    			</div>
+    			<div>
+  					<strong>Aposta:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.betAmount)}}
+    			</div>
+    			<div>
+  					<strong>Palpites:</strong> {{ctrl.bet.tickets.length}}
+    			</div>
+    			<div>
+  					<strong>Prêmio:</strong> R$ {{ctrl.util.formattedValue(ctrl.bet.jackpot())}}
+    			</div>
+    			<div>
+            <a href="#/app/bet" class="button button-block button-dark">Detalhar aposta</a>
+    				<button class="button button-block button-outline button-assertive" ng-click="ctrl.removeBet()">Excluir aposta</button>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+  </ion-content>
+</ion-view>
