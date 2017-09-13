@@ -83,7 +83,10 @@ function Util() {
 
       return new Date(d.setDate(diff));
     }
-
+	this.getRetiraAcentos = function(nome){
+		var map={"â":"a","Â":"A","à":"a","À":"A","á":"a","Á":"A","ã":"a","Ã":"A","ê":"e","Ê":"E","è":"e","È":"E","é":"e","É":"E","î":"i","Î":"I","ì":"i","Ì":"I","í":"i","Í":"I","õ":"o","Õ":"O","ô":"o","Ô":"O","ò":"o","Ò":"O","ó":"o","Ó":"O","ü":"u","Ü":"U","û":"u","Û":"U","ú":"u","Ú":"U","ù":"u","Ù":"U","ç":"c","Ç":"C"};
+		return nome.replace(/[\W\[\] ]/g,function(a){return map[a]||a}) 
+	}
 	/* Private Methods */
 	function number_format (number, decimals, dec_point, thousands_sep) {
 		// Strip all characters but numerical ones.

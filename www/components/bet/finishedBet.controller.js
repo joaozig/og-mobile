@@ -64,7 +64,7 @@ angular.module('bet')
 		var aposta="";
 		var premio="";
 		angular.forEach(vm.bet.tickets, function(item, index) {
-				arr = arr+item.ticketType.game.teamA.name+' x '+item.ticketType.game.teamB.name+'\n'+item.ticketType.game.date+'\nPalpite: '+item.name+'\n'+item.ticketType.name+' x '+vm.util.formattedTaxValue(item.tax)+'\n--------------------------------\n';
+				arr = arr+vm.util.getRetiraAcentos(item.ticketType.game.teamA.name)+' x '+vm.util.getRetiraAcentos(item.ticketType.game.teamB.name)+'\n'+item.ticketType.game.date+'\nPalpite: '+vm.util.getRetiraAcentos(item.name)+'\n'+vm.util.getRetiraAcentos(item.ticketType.name)+' x '+vm.util.formattedTaxValue(item.tax)+'\n--------------------------------\n';
 				cont++;
 		});
 		
@@ -82,8 +82,8 @@ angular.module('bet')
 			'          * WORLDBETS *         \n'+
 			'  \n'+
 			'================================\n'+
-			'Cliente: '+vm.bet.playerName+'\n'+
-			'Vendedor: '+vm.bet.seller+'\n'+
+			'Cliente: '+vm.util.getRetiraAcentos(vm.bet.playerName)+'\n'+
+			'Vendedor: '+vm.util.getRetiraAcentos(vm.bet.seller)+'\n'+
 			'Data/Hora: '+vm.bet.date+'\n'+
 			'Codigo: '+vm.bet.hash+'\n'+
 			'================================\n'+
