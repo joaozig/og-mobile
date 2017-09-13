@@ -60,9 +60,19 @@ angular.module('bet')
 
 	function selectDevice(address) {
 		var arr="";
+		var cont=0;
+		var aposta="";
+		var premio="";
 		angular.forEach(vm.bet.tickets, function(item, index) {
 				arr = arr+item.ticketType.game.teamA.name+' x '+item.ticketType.game.teamB.name+'\n'+item.ticketType.game.date+'\nPalpite: '+item.name+'\n'+item.ticketType.name+'\n--------------------------------\n';
+				cont++;
 		});
+		
+		//aposta = number_format(vm.bet.betAmount, 2, ',', '.');
+		aposta = vm.util.formattedValue(vm.bet.betAmount);
+		premio = vm.util.formattedValue(vm.bet.jackpot);
+		
+		//premio = vm.bet.jackpot;
 		bluetoothSerial.connect(address, 
 			function(success){ 
 				//alert('conectou com sucesso');
@@ -81,9 +91,9 @@ angular.module('bet')
 			'--------------------------------\n'+
 			arr+''+
 			'================================\n'+
-			'Valor da aposta: R$ '+vm.bet.betAmount+'\n'+
+			'Valor da aposta: R$ '+aposta+'\n'+
 			'Palpites: '+arr.length+'\n'+
-			'Premio Possivel: R$ '+vm.bet.jackpot+'\n'+
+			'Premio Possivel: R$ '+premio+'\n'+
 			'--------------------------------\n'+
 			'* Sera considerado somente o \n'+
 			'resultado dos 90 minutos de jogo\n'+
@@ -94,8 +104,9 @@ angular.module('bet')
 			'apresentacao deste bilhete.\n'+
 			' \n \n \n',
 					function(success) {
-						alert('escreveu com sucesso');
+						alert('escreveu');
 						bluetoothSerial.disconnect()
+						$state.go('app.main');
 					}, function(error) {
 						alert('erro ao escrever')
 						alert(error)

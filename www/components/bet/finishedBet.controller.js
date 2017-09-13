@@ -64,7 +64,7 @@ angular.module('bet')
 		var aposta="";
 		var premio="";
 		angular.forEach(vm.bet.tickets, function(item, index) {
-				arr = arr+item.ticketType.game.teamA.name+' x '+item.ticketType.game.teamB.name+'\n'+item.ticketType.game.date+'\nPalpite: '+item.name+'\n'+item.ticketType.name+'\n--------------------------------\n';
+				arr = arr+item.ticketType.game.teamA.name+' x '+item.ticketType.game.teamB.name+'\n'+item.ticketType.game.date+'\nPalpite: '+item.name+'\n'+item.ticketType.name+' x '+vm.util.formattedTaxValue(item.tax)+'\n--------------------------------\n';
 				cont++;
 		});
 		

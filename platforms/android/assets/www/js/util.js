@@ -9,7 +9,6 @@ function Util() {
 	this.formattedTaxValue = function(value) {
 		return value.toString().replace('.', ',');
 	}
-
     this.formatDate = function(date) {
         var monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
         var day = date.getDate();
@@ -20,6 +19,35 @@ function Util() {
         var year = date.getFullYear();
 
         return day + '/' + monthNames[monthIndex] + '/' + year;
+    }  
+	this.getDateNow = function() {
+        var date = new Date();
+		var day = date.getDate();
+		
+        if(day <= 9) {
+            day = '0' + day;
+        }
+        var month = date.getMonth()+1;
+		if(month <= 9) {
+            month = '0' + month;
+        }
+        var year = date.getFullYear();
+
+        return day + '/' + month + '/' + year;
+    }
+	this.getTimeNow = function() {
+        var date = new Date();
+		var hour = date.getHours();
+		
+        if(hour <= 9) {
+            hour = '0' + hour;
+        }
+        var minute = date.getMinutes();
+		if(minute <= 9) {
+            minute = '0' + minute;
+        }
+
+        return hour + ':' + minute;
     }
 
     this.formatFilterDate = function(date) {
