@@ -35,7 +35,7 @@
           <span class="ticket-game-detail">
             <strong>{{ticket.ticketType.name}}</strong>
             <br>
-            {{ticket.name}} ({{ctrl.util.formattedTaxValue(ticket.tax)}}%)
+            {{ticket.name}} ({{ctrl.util.formattedTaxValue(ticket.tax)}})
           </span>
         </div>
         <ion-option-button class="button-info button-assertive" ng-click="ctrl.removeTicket(ticket.id)">

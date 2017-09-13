@@ -31,7 +31,7 @@
             <div class="game-row">
               <img ng-src="{{game.teamA.img}}" class="left-team-img">
               <button ng-if="game.alreadyAdded" class="no-animate button button-small button-positive">
-                {{game.currentTicket.ticketType.name.toLowerCase()}}:<br> {{game.currentTicket.name}} ({{ctrl.util.formattedTaxValue(game.currentTicket.tax)}}%)
+                {{game.currentTicket.ticketType.name.toLowerCase()}}:<br> {{game.currentTicket.name}} ({{ctrl.util.formattedTaxValue(game.currentTicket.tax)}})
               </button>
               <button ng-if="!game.alreadyAdded" 
                       style="margin-right: 8px"
@@ -39,7 +39,7 @@
                       class="no-animate button button-outline button-small button-positive"
                       ng-click="ctrl.addTicketToBet(ticket, game, championship, gameIndex, championshipIndex)">
 
-                {{ctrl.util.formattedTaxValue(ticket.tax)}}%
+                {{ctrl.util.formattedTaxValue(ticket.tax)}}
               </button>
               <button ng-if="!game.alreadyAdded" class="no-animate button button-outline button-small button-dark"
                       ng-click="ctrl.seeMoreTickets(game, championship)">
