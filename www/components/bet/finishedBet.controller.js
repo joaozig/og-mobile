@@ -77,7 +77,7 @@ angular.module('bet')
 			function(success){ 
 				//alert('conectou com sucesso');
 				bluetoothSerial.write(
-			vm.util.getDateNow()+'           2 Via '+vm.util.getTimeNow()+'\n'+
+			vm.util.getDateNow()+'                 '+vm.util.getTimeNow()+'\n'+
 			'  \n'+
 			'          * WORLDBETS *         \n'+
 			'  \n'+
