@@ -37,6 +37,7 @@
 							ng-class="{active: ctrl.isGroupShown(group)}">
 					<i class="icon" ng-class="ctrl.isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i>
 					{{group.name}}
+					<span class="financial-value" ng-class="{'negative-value' : group.info.resume.netValue < 0}">R$ {{ctrl.util.formattedValue(group.info.resume.netValue)}}</span>
 				</div>
 
 				<div ng-show="ctrl.isGroupShown(group)">
